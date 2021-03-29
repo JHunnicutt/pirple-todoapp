@@ -20,14 +20,27 @@ btnSignup.addEventListener('click', () => {
     const signupHeader = document.createElement('h2');
     signupHeader.innerText = 'Sign Up';
     signupHeader.classList.add('signup-header');
-
+    // CREATE ELEMENTS
     const signupForm = document.createElement('form');
     const signupFormFName = document.createElement('input');
     const signupFormLName = document.createElement('input');
     const signupFormEmail = document.createElement('input');
     const signupFormPassword = document.createElement('input');
     const signupFormTerms = document.createElement('input');
-
+    // ATTRIBUTES
+    signupFormFName.setAttribute('placeholder', 'First Name');
+    signupFormLName.setAttribute('placeholder', 'Last Name');
+    signupFormEmail.setAttribute('placeholder', 'Email Address');
+    signupFormPassword.setAttribute('placeholder', 'Password');
+    signupFormPassword.setAttribute('type', 'password');
+    signupFormTerms.setAttribute('type', 'checkbox');
+    // ADD CLASS LIST
+    signupForm.classList.add('signup-form');
+    signupFormFName.classList.add('signup-form-fname', 'signup-field');
+    signupFormLName.classList.add('signup-form-lname', 'signup-field');
+    signupFormEmail.classList.add('signup-form-email', 'signup-field');
+    signupFormPassword.classList.add('signup-form-password', 'signup-field');
+    // APPEND CHILDS
     signupForm.appendChild(signupFormFName);
     signupForm.appendChild(signupFormLName);
     signupForm.appendChild(signupFormEmail);
