@@ -29,19 +29,32 @@ btnSignup.addEventListener('click', () => {
     const signupFormPassword = document.createElement('input');
     const signupFormTerms = document.createElement('input');
     const signupFormTermsLabel = document.createElement('label');
-    const signupFormSubmit = document.createElement('button');
+    const signupFormSubmit = document.createElement('input');
     // ATTRIBUTES
+    // FIRST NAME
     signupFormFName.setAttribute('type', 'text');
+    signupFormFName.setAttribute('name', 'fname')
     signupFormFName.setAttribute('placeholder', 'First Name');
+    signupFormFName.setAttribute('required', 'true');
+    // LAST NAME
     signupFormLName.setAttribute('type', 'text');
+    signupFormLName.setAttribute('name', 'lname');
     signupFormLName.setAttribute('placeholder', 'Last Name');
+    // EMAIL
     signupFormEmail.setAttribute('type', 'email');
+    signupFormEmail.setAttribute('name', 'email');
     signupFormEmail.setAttribute('placeholder', 'Email Address');
+    // PASSWORD
     signupFormPassword.setAttribute('type', 'password');
+    signupFormPassword.setAttribute('name', 'password')
     signupFormPassword.setAttribute('placeholder', 'Password');
+    // TERMS
     signupFormTerms.setAttribute('type', 'checkbox');
+    signupFormTerms.setAttribute('name', 'agree-to-terms');
     signupFormTermsLabel.setAttribute('for', 'agree-to-terms');
+    // SUBMIT
     signupFormSubmit.setAttribute('type', 'submit');
+    signupFormSubmit.setAttribute('name', 'submit')
     signupFormSubmit.setAttribute('form', 'submit-form');
     // ADD ID AND CLASS LIST
     signupForm.classList.add('signup-form');
