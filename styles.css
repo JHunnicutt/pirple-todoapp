@@ -67,3 +67,20 @@ header {
     border-color: rgb(62, 151, 151);
     color: rgb(62, 151, 151);
 }
+.signup-header {
+    text-align: center;
+    padding: 20px 0 10px;
+}
+#signup-form {
+    width: 153px;
+    margin: 0 auto;
+}
+.signup-field {
+    display: block;
+    margin: 3px 0;
+}
+.signup-form-submit {
+    display: block;
+    width: 75px;
+    margin: 0 auto;
+}
