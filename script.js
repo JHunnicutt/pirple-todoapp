@@ -31,15 +31,18 @@ btnSignup.addEventListener('click', () => {
     const signupFormTermsLabel = document.createElement('label');
     const signupFormSubmit = document.createElement('button');
     // ATTRIBUTES
+    signupFormFName.setAttribute('type', 'text');
     signupFormFName.setAttribute('placeholder', 'First Name');
+    signupFormLName.setAttribute('type', 'text');
     signupFormLName.setAttribute('placeholder', 'Last Name');
+    signupFormEmail.setAttribute('type', 'email');
     signupFormEmail.setAttribute('placeholder', 'Email Address');
-    signupFormPassword.setAttribute('placeholder', 'Password');
     signupFormPassword.setAttribute('type', 'password');
+    signupFormPassword.setAttribute('placeholder', 'Password');
     signupFormTerms.setAttribute('type', 'checkbox');
     signupFormTermsLabel.setAttribute('for', 'agree-to-terms');
-    signupFormSubmit.setAttribute('form', 'submit-form');
     signupFormSubmit.setAttribute('type', 'submit');
+    signupFormSubmit.setAttribute('form', 'submit-form');
     // ADD ID AND CLASS LIST
     signupForm.classList.add('signup-form');
     signupFormFName.classList.add('signup-form-fname', 'signup-field');
