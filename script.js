@@ -29,6 +29,7 @@ btnSignup.addEventListener('click', () => {
     const signupFormPassword = document.createElement('input');
     const signupFormTerms = document.createElement('input');
     const signupFormTermsLabel = document.createElement('label');
+    const signupFormSubmit = document.createElement('button');
     // ATTRIBUTES
     signupFormFName.setAttribute('placeholder', 'First Name');
     signupFormLName.setAttribute('placeholder', 'Last Name');
@@ -37,15 +38,20 @@ btnSignup.addEventListener('click', () => {
     signupFormPassword.setAttribute('type', 'password');
     signupFormTerms.setAttribute('type', 'checkbox');
     signupFormTermsLabel.setAttribute('for', 'agree-to-terms');
+    signupFormSubmit.setAttribute('form', 'submit-form');
+    signupFormSubmit.setAttribute('type', 'submit');
     // ADD ID AND CLASS LIST
     signupForm.classList.add('signup-form');
     signupFormFName.classList.add('signup-form-fname', 'signup-field');
     signupFormLName.classList.add('signup-form-lname', 'signup-field');
     signupFormEmail.classList.add('signup-form-email', 'signup-field');
     signupFormPassword.classList.add('signup-form-password', 'signup-field');
+    signupFormSubmit.classList.add('signup-form-submit')
     signupFormTerms.id = 'agree-to-terms';
+    signupForm.id = 'signup-form';
     // INNER HTML
     signupFormTermsLabel.innerHTML = 'Agree to terms';
+    signupFormSubmit.innerHTML = 'Submit';
     // APPEND CHILDS
     signupForm.appendChild(signupFormFName);
     signupForm.appendChild(signupFormLName);
@@ -53,6 +59,7 @@ btnSignup.addEventListener('click', () => {
     signupForm.appendChild(signupFormPassword);
     signupForm.appendChild(signupFormTerms);
     signupForm.appendChild(signupFormTermsLabel);
+    signupForm.appendChild(signupFormSubmit);
     signupDiv.appendChild(signupHeader);
     signupDiv.appendChild(signupForm);
     mainSection.appendChild(signupDiv);
