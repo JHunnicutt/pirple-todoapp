@@ -89,7 +89,21 @@ btnSignup.addEventListener('click', () => {
         signupDiv.appendChild(errorDiv);
         if (signupFormTerms.checked === false) {
             errorArr.push('You must agree to the terms');
-            console.log(errorArr);
+        }
+        else if (signupFormFName.value === '') {
+            errorArr.push('You must enter a first name');
+        }
+        else if (signupFormLName.value === '') {
+            errorArr.push('You must enter a last name');
+        }
+        else if (signupFormEmail.value === '') {
+            errorArr.push('You must enter an email address');
+        }
+        else if (signupFormPassword.value === '') {
+            errorArr.push('You must enter a password');
+        }
+        else if (signupFormPassword.value.length < 7) {
+            errorArr.push('Please enter a password of at least 7 characters');
         }
         for (let i = 0; i < errorArr.length; i++) {
             errorDiv.textContent += errorArr[i];
