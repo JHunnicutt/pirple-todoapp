@@ -79,7 +79,7 @@ header {
     display: block;
     margin: 3px 0;
 }
-.signup-form-submit {
+#signup-form-submit {
     display: block;
     width: 75px;
     margin: 0 auto;
