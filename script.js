@@ -1,22 +1,24 @@
 const mainSection = document.getElementById('main-section');
-const btnDiv = document.createElement('div');
+const introBtnDiv = document.createElement('div');
 const btnLogin = document.createElement('button');
 const btnSignup = document.createElement('button');
 const signupDiv = document.createElement('div');
 
 window.addEventListener('load', () => {
-    btnDiv.classList.add('btn-login-div');
+    introBtnDiv.classList.add('btn-login-div');
     btnLogin.innerText = 'Login';
     btnLogin.classList.add('btn-intro', 'btn-login');
     btnSignup.innerText = 'Sign Up';
     btnSignup.classList.add('btn-intro', 'btn-signup');
-    mainSection.appendChild(btnDiv);
-    btnDiv.appendChild(btnLogin);
-    btnDiv.appendChild(btnSignup);
+    mainSection.appendChild(introBtnDiv);
+    introBtnDiv.appendChild(btnLogin);
+    introBtnDiv.appendChild(btnSignup);
 });
 
-btnSignup.addEventListener('click', () => { 
-    btnDiv.remove();
+// FUNCTIONS
+
+function loadSignup() {
+    introBtnDiv.remove();
     const signupHeader = document.createElement('h2');
     signupHeader.innerText = 'Sign Up';
     signupHeader.classList.add('signup-header');
@@ -109,4 +111,8 @@ btnSignup.addEventListener('click', () => {
             errorDiv.textContent += errorArr[i];
         }
     });
+}
+
+btnSignup.addEventListener('click', () => { 
+    loadSignup();
 });
