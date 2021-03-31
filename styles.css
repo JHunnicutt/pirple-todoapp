@@ -84,6 +84,7 @@ header {
     width: 75px;
     margin: 0 auto;
 }
-.must-agree-error {
+.error-div {
     text-align: center;
+    color: red;
 }
