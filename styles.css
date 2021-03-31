@@ -84,3 +84,6 @@ header {
     width: 75px;
     margin: 0 auto;
 }
+.must-agree-error {
+    text-align: center;
+}

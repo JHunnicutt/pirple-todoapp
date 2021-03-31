@@ -80,4 +80,14 @@ btnSignup.addEventListener('click', () => {
     signupFormSubmit.setAttribute('type', 'submit');
     signupFormSubmit.innerText = 'Submit';
     signupForm.appendChild(signupFormSubmit);
+
+    signupFormSubmit.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (signupFormTerms.checked === false) {
+            const mustAgree = document.createElement('p');
+            mustAgree.innerText = 'You must agree to the terms';
+            mustAgree.classList.add('must-agree-error');
+            signupDiv.appendChild(mustAgree);
+        }
+    });
 });
