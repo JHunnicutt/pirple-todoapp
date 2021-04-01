@@ -17,7 +17,7 @@ window.addEventListener('load', () => {
 
 // FUNCTIONS
 
-function loadSignup() {
+const loadSignup = () => {
     introBtnDiv.remove();
     const signupHeader = document.createElement('h2');
     signupHeader.innerText = 'Sign Up';
@@ -110,6 +110,12 @@ function loadSignup() {
         for (let i = 0; i < errorArr.length; i++) {
             errorDiv.textContent += errorArr[i];
         }
+
+        localStorage.setItem('First Name', signupFormFName.value);
+        localStorage.setItem('Last Name', signupFormLName.value);
+        localStorage.setItem('Email', signupFormEmail.value);
+        localStorage.setItem('Password', signupFormPassword.value);
+        localStorage.setItem('Agree to terms?', signupFormTerms.checked);
     });
 }
 
