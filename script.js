@@ -83,39 +83,31 @@ const loadSignup = () => {
     signupFormSubmit.innerText = 'Submit';
     signupForm.appendChild(signupFormSubmit);
 
-    signupFormSubmit.addEventListener('click', (e) => {
-        e.preventDefault();
-        const errorArr = [];
-        const errorDiv = document.createElement('div');
+    signupForm.addEventListener('submit', (e) => {
+        let errorArr = [];
+        let errorDiv = document.createElement('div');
         errorDiv.classList.add('error-div');
         signupDiv.appendChild(errorDiv);
+        
         if (signupFormTerms.checked === false) {
             errorArr.push('You must agree to the terms');
         }
-        else if (signupFormFName.value === '') {
-            errorArr.push('You must enter a first name');
-        }
-        else if (signupFormLName.value === '') {
-            errorArr.push('You must enter a last name');
-        }
-        else if (signupFormEmail.value === '') {
-            errorArr.push('You must enter an email address');
-        }
-        else if (signupFormPassword.value === '') {
-            errorArr.push('You must enter a password');
-        }
-        else if (signupFormPassword.value.length < 7) {
-            errorArr.push('Please enter a password of at least 7 characters');
-        }
-        for (let i = 0; i < errorArr.length; i++) {
-            errorDiv.textContent += errorArr[i];
+        if (signupFormPassword.value.length < 8) {
+            errorArr.push('Password must be 8 or more characters');
         }
 
-        localStorage.setItem('First Name', signupFormFName.value);
-        localStorage.setItem('Last Name', signupFormLName.value);
-        localStorage.setItem('Email', signupFormEmail.value);
-        localStorage.setItem('Password', signupFormPassword.value);
-        localStorage.setItem('Agree to terms?', signupFormTerms.checked);
+        if (errorArr.length > 0) {
+            e.preventDefault();
+            errorDiv.innerText = errorArr.join(', ');
+        } else {
+            e.preventDefault();
+            localStorage.setItem('First Name', signupFormFName.value);
+            localStorage.setItem('Last Name', signupFormLName.value);
+            localStorage.setItem('Email', signupFormEmail.value);
+            localStorage.setItem('Password', signupFormPassword.value);
+            localStorage.setItem('Agree to terms?', signupFormTerms.checked);
+        }
+        
     });
 }
 
