@@ -16,6 +16,18 @@ window.addEventListener('load', () => {
 });
 
 // FUNCTIONS
+const loadSignupConfirmation = () => {
+    const loadSignupConfirmation = () => {
+        signupDiv.remove();
+        const signupConfirmation = document.createElement('h2');
+        signupConfirmation.innerText = 'Thank you for signing up.'
+        mainSection.appendChild(signupConfirmation);
+    
+        const confirmationParagraph = document.createElement('p');
+        confirmationParagraph.innerText = 'Please confirm your information below:'
+        mainSection.appendChild(confirmationParagraph);
+    }
+}
 
 const loadSignup = () => {
     introBtnDiv.remove();
@@ -106,6 +118,8 @@ const loadSignup = () => {
             localStorage.setItem('Email', signupFormEmail.value);
             localStorage.setItem('Password', signupFormPassword.value);
             localStorage.setItem('Agree to terms?', signupFormTerms.checked);
+
+            loadSignupConfirmation();
         }
         
     });
