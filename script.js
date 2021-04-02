@@ -17,16 +17,52 @@ window.addEventListener('load', () => {
 
 // FUNCTIONS
 const loadSignupConfirmation = () => {
-    const loadSignupConfirmation = () => {
-        signupDiv.remove();
-        const signupConfirmation = document.createElement('h2');
-        signupConfirmation.innerText = 'Thank you for signing up.'
-        mainSection.appendChild(signupConfirmation);
-    
-        const confirmationParagraph = document.createElement('p');
-        confirmationParagraph.innerText = 'Please confirm your information below:'
-        mainSection.appendChild(confirmationParagraph);
-    }
+    signupDiv.remove();
+    const signupConfirmation = document.createElement('h2');
+    signupConfirmation.innerText = 'Thank you for signing up'
+    mainSection.appendChild(signupConfirmation);
+
+    const confirmationParagraph = document.createElement('p');
+    confirmationParagraph.innerText = 'Please confirm your information below:'
+    mainSection.appendChild(confirmationParagraph);
+
+    const confirmationTable = document.createElement('table');
+    mainSection.appendChild(confirmationTable);
+
+    const confirmationFNameRow = document.createElement('tr');
+    const confirmationFNameLabel = document.createElement('td');
+    const confirmationFNameData = document.createElement('td');
+    confirmationFNameLabel.innerText = 'First Name: ';
+    confirmationFNameData.innerText = localStorage.getItem('First Name');
+    confirmationFNameRow.appendChild(confirmationFNameLabel);
+    confirmationFNameRow.appendChild(confirmationFNameData);
+    confirmationTable.appendChild(confirmationFNameRow);
+
+    const confirmationLNameRow = document.createElement('tr');
+    const confirmationLNameLabel = document.createElement('td');
+    const confirmationLNameData = document.createElement('td');
+    confirmationLNameLabel.innerText = 'Last Name: ';
+    confirmationLNameData.innerText = localStorage.getItem('Last Name');
+    confirmationLNameRow.appendChild(confirmationLNameLabel);
+    confirmationLNameRow.appendChild(confirmationLNameData);
+    confirmationTable.appendChild(confirmationLNameRow);
+
+    const confirmationEmailRow = document.createElement('tr');
+    const confirmationEmailLabel = document.createElement('td');
+    const confirmationEmailData = document.createElement('td');
+    confirmationEmailLabel.innerText = 'Email Address: ';
+    confirmationEmailData.innerText = localStorage.getItem('Email');
+    confirmationEmailRow.appendChild(confirmationEmailLabel);
+    confirmationEmailRow.appendChild(confirmationEmailData);
+    confirmationTable.appendChild(confirmationEmailRow);
+
+    const backToSignUpBtn = document.createElement('button');
+    backToSignUpBtn.innerText = 'Back to Sign Up';
+    mainSection.appendChild(backToSignUpBtn);
+
+    const goToDashboardBtn = document.createElement('button');
+    goToDashboardBtn.innerText = 'Go to Dashboard';
+    mainSection.appendChild(goToDashboardBtn);
 }
 
 const loadSignup = () => {
