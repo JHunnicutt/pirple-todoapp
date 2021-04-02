@@ -121,6 +121,7 @@ const loadSignup = () => {
     signupFormTerms.id = 'signup-form-agree';
     signupFormTerms.setAttribute('type', 'checkbox');
     signupFormTermsLabel.innerText = 'Agree to terms';
+    signupFormTermsLabel.setAttribute('for', 'signup-form-agree');
     signupForm.appendChild(signupFormTerms);
     signupForm.appendChild(signupFormTermsLabel);
 
