@@ -18,16 +18,20 @@ window.addEventListener('load', () => {
 // FUNCTIONS
 const loadSignupConfirmation = () => {
     signupDiv.remove();
+    const signupConfirmationDiv = document.createElement('div');
+    signupConfirmationDiv.classList.add('signup-confirmation-div');
+
     const signupConfirmation = document.createElement('h2');
     signupConfirmation.innerText = 'Thank you for signing up'
     mainSection.appendChild(signupConfirmation);
 
     const confirmationParagraph = document.createElement('p');
     confirmationParagraph.innerText = 'Please confirm your information below:'
-    mainSection.appendChild(confirmationParagraph);
+    signupConfirmationDiv.appendChild(confirmationParagraph);
 
     const confirmationTable = document.createElement('table');
-    mainSection.appendChild(confirmationTable);
+    confirmationTable.classList.add('signup-info-confirmation-table');
+    signupConfirmationDiv.appendChild(confirmationTable);
 
     const confirmationFNameRow = document.createElement('tr');
     const confirmationFNameLabel = document.createElement('td');
@@ -58,11 +62,13 @@ const loadSignupConfirmation = () => {
 
     const backToSignUpBtn = document.createElement('button');
     backToSignUpBtn.innerText = 'Back to Sign Up';
-    mainSection.appendChild(backToSignUpBtn);
+    signupConfirmationDiv.appendChild(backToSignUpBtn);
 
     const goToDashboardBtn = document.createElement('button');
     goToDashboardBtn.innerText = 'Go to Dashboard';
-    mainSection.appendChild(goToDashboardBtn);
+    signupConfirmationDiv.appendChild(goToDashboardBtn);
+
+    mainSection.appendChild(signupConfirmationDiv);
 }
 
 const loadSignup = () => {
