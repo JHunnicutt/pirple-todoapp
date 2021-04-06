@@ -23,7 +23,7 @@ const loadSignupConfirmation = () => {
 
     const signupConfirmation = document.createElement('h2');
     signupConfirmation.innerText = 'Thank you for signing up'
-    mainSection.appendChild(signupConfirmation);
+    signupConfirmationDiv.appendChild(signupConfirmation);
 
     const confirmationParagraph = document.createElement('p');
     confirmationParagraph.innerText = 'Please confirm your information below:'
@@ -60,9 +60,12 @@ const loadSignupConfirmation = () => {
     confirmationEmailRow.appendChild(confirmationEmailData);
     confirmationTable.appendChild(confirmationEmailRow);
 
-    const backToSignUpBtn = document.createElement('button');
-    backToSignUpBtn.innerText = 'Back to Sign Up';
-    signupConfirmationDiv.appendChild(backToSignUpBtn);
+    // const backToSignUpBtn = document.createElement('button');
+    // backToSignUpBtn.innerText = 'Back to Sign Up';
+    // signupConfirmationDiv.appendChild(backToSignUpBtn);
+    // backToSignUpBtn.addEventListener('click', function () {
+    //     loadSignup();
+    // });
 
     const goToDashboardBtn = document.createElement('button');
     goToDashboardBtn.innerText = 'Go to Dashboard';
@@ -71,7 +74,7 @@ const loadSignupConfirmation = () => {
     mainSection.appendChild(signupConfirmationDiv);
 }
 
-const loadSignup = () => {
+function loadSignup() {
     introBtnDiv.remove();
     const signupHeader = document.createElement('h2');
     signupHeader.innerText = 'Sign Up';
@@ -131,7 +134,7 @@ const loadSignup = () => {
     signupForm.appendChild(signupFormTerms);
     signupForm.appendChild(signupFormTermsLabel);
 
-    // SUBMIT BUTTON
+    // SIGNUP SUBMIT BUTTON
     const signupFormSubmit = document.createElement('button');
     signupFormSubmit.id = 'signup-form-submit';
     signupFormSubmit.setAttribute('type', 'submit');
@@ -164,7 +167,6 @@ const loadSignup = () => {
 
             loadSignupConfirmation();
         }
-        
     });
 }
 
