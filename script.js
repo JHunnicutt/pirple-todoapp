@@ -170,6 +170,49 @@ function loadSignup() {
     });
 }
 
+const loadSignin = () => {
+    introBtnDiv.remove();
+    const signinDiv = document.createElement('div');
+    signinDiv.classList.add('signin-div');
+
+    const signinHeader = document.createElement('h2');
+    signinHeader.innerText = 'Please Sign In'
+    signinHeader.classList.add('signin-header');
+    signinDiv.appendChild(signinHeader);
+
+    // SIGNIN FORM
+    const signinForm = document.createElement('form');
+    signinForm.id = 'signin-form';
+    signinDiv.appendChild(signinForm);
+
+    // SIGNIN FORM EMAIL
+    const signinFormEmail = document.createElement('input');
+    signinFormEmail.id = 'signin-form-email';
+    signinFormEmail.setAttribute('type', 'email');
+    signinFormEmail.setAttribute('placeholder', 'Email Address');
+    signinForm.appendChild(signinFormEmail)
+
+    // SIGNIN FORM PASSWORD
+    const signinFormPassword = document.createElement('input');
+    signinFormPassword.id = 'signin-form-password';
+    signinFormPassword.setAttribute('type', 'password');
+    signinFormPassword.setAttribute('placeholder', 'Password');
+    signinForm.appendChild(signinFormPassword);
+
+    // SIGNIN FORM BUTTON
+    const signinFormSubmit = document.createElement('button');
+    signinFormSubmit.id = 'signin-form-submit';
+    signinFormSubmit.setAttribute('type', 'submit');
+    signinFormSubmit.innerText = 'Sign In';
+    signinForm.appendChild(signinFormSubmit)
+
+    mainSection.appendChild(signinDiv);
+}
+
 btnSignup.addEventListener('click', () => { 
     loadSignup();
 });
+
+btnLogin.addEventListener('click', () => {
+    loadSignin();
+})
