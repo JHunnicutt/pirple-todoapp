@@ -88,7 +88,7 @@ h2 {
     text-align: center;
     color: red;
 }
-.signup-confirmation-div {
+.signup-confirmation-div, .signin-div {
     display: flex;
     flex-direction: column;
     align-items: center;
