@@ -209,6 +209,8 @@ const loadSignin = () => {
     mainSection.appendChild(signinDiv);
 }
 
+// EVENT LISTENERS
+
 btnSignup.addEventListener('click', () => { 
     loadSignup();
 });
