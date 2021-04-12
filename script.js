@@ -68,7 +68,7 @@ const loadSignupConfirmation = () => {
     // });
 
     const goToDashboardBtn = document.createElement('button');
-    goToDashboardBtn.innerText = 'Go to Dashboard';
+    goToDashboardBtn.innerText = 'Take Me to the Dashboard';
     signupConfirmationDiv.appendChild(goToDashboardBtn);
 
     mainSection.appendChild(signupConfirmationDiv);
