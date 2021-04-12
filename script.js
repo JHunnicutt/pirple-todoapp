@@ -159,11 +159,11 @@ function loadSignup() {
             errorDiv.innerText = errorArr.join(', ');
         } else {
             e.preventDefault();
-            localStorage.setItem('First Name', signupFormFName.value);
-            localStorage.setItem('Last Name', signupFormLName.value);
-            localStorage.setItem('Email', signupFormEmail.value);
-            localStorage.setItem('Password', signupFormPassword.value);
-            localStorage.setItem('Agree to terms?', signupFormTerms.checked);
+            localStorage.setItem('first name', signupFormFName.value);
+            localStorage.setItem('last name', signupFormLName.value);
+            localStorage.setItem('email', signupFormEmail.value);
+            localStorage.setItem('password', signupFormPassword.value);
+            localStorage.setItem('agree to terms?', signupFormTerms.checked);
 
             loadSignupConfirmation();
         }
@@ -210,9 +210,9 @@ const loadSignin = () => {
 
     signinFormSubmit.addEventListener('click', (e) => {
         e.preventDefault();
-        if(signinFormEmail.value !== localStorage.getItem('Email')) {
+        if(signinFormEmail.value !== localStorage.getItem('email')) {
             console.log('Email is inncorrect');
-        } else if(signinFormPassword.value !== localStorage.getItem('Password')) {
+        } else if(signinFormPassword.value !== localStorage.getItem('password')) {
             console.log('Password is inncorrect');
         } else {
             loadDashboard();
