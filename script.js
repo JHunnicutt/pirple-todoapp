@@ -207,6 +207,17 @@ const loadSignin = () => {
     signinForm.appendChild(signinFormSubmit)
 
     mainSection.appendChild(signinDiv);
+
+    signinFormSubmit.addEventListener('click', (e) => {
+        e.preventDefault();
+        if(signinFormEmail.value !== localStorage.getItem('Email')) {
+            console.log('Email is inncorrect');
+        } else if(signinFormPassword.value !== localStorage.getItem('Password')) {
+            console.log('Password is inncorrect');
+        } else {
+            loadDashboard();
+        }
+    });
 }
 
 // EVENT LISTENERS
