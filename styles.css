@@ -91,7 +91,11 @@ h2 {
 .signup-confirmation-div, .signin-div {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    justify-content: center;
+}
+.signin-div input {
+    display: block;
 }
 table, tr, td {
     border: 1px solid black;
