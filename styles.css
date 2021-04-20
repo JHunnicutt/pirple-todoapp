@@ -1,69 +1,136 @@
 body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
+   margin: 0;
+   padding: 0;
+   height: 100%;
 }
 header {
-    background-color: rgb(65, 158, 158);
-    height: 105px;
-    position: relative;
+   background-color: rgb(65, 158, 158);
+   height: 105px;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-end;
 }
-#app-title {
-    color: #fff;
-    margin: 0;
-    font-family: 'Roboto';
-    font-weight: 700;
-    font-size: 4.2em;
-    font-style: italic;
-    position: absolute;
-    right: 140px;
-    top: 48px;
-}
-#tagline-description {
-    color:rgb(65, 158, 158);
-    margin: 0;
-    font-family: 'Roboto';
-    font-weight: 100;
-    font-size: 1.4em;
-    font-style: italic;
-    position: absolute;
-    right: 253px;
-    top: 111px
+h2 {
+   font-family: 'Roboto';
+   color: rgb(65, 158, 158);
+   margin: 5px 10px 20px;
+   padding-bottom: 3px;
+   border-bottom: 2px solid rgb(65, 158, 158);
 }
 #main-section {
-    margin: 0;
-    padding: 0;
-    height: 100%;
+   margin: 0;
+   padding: 0;
+   height: 100%;
 }
-#main-section h2 {
-    margin: 0;
+#app-title {
+   color: #fff;
+   margin: 50px 75px 0 0;
+   font-family: 'Roboto';
+   font-weight: 700;
+   font-size: 4.2em;
+   font-style: italic;
 }
-.btn-login-div {
-    margin-top: 100px;
+#tagline-description {
+   color:rgb(65, 158, 158);
+   margin: -20px 175px 0 0;
+   font-family: 'Roboto';
+   font-weight: 100;
+   font-size: 1.4em;
+   font-style: italic;
 }
-.btn-intro {
-    display: block;
-    margin: 3px auto;
-    width: 160px;
-    height: 65px;
-    cursor: pointer;
+.btn-intro-div {
+   margin-top: 90px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
 }
-.btn-login {
-    background-color: rgb(65, 158, 158);
-    color: #fff;
-    border-style: none;
+.btn-lg {
+   margin: 3px;
+   width: 160px;
+   height: 65px;
+   cursor: pointer;
 }
-.btn-login:hover {
-    background-color: rgb(62, 151, 151);
+.btn-teal {
+   background-color: rgb(65, 158, 158);
+   color: #fff;
+   border-style: none;
 }
-.btn-signup {
-    background-color: #fff;
-    color: rgb(65, 158, 158);
-    border-color: rgb(65, 158, 158);
-    border-style: solid;
+.btn-teal:hover {
+   background-color: rgb(62, 151, 151);
 }
-.btn-signup:hover {
-    background-color: rgb(249, 249, 249);
-    border-color: rgb(62, 151, 151);
-    color: rgb(62, 151, 151);
+.btn-white {
+   background-color: #fff;
+   color: rgb(65, 158, 158);
+   border: 2px solid rgb(65, 158, 158);
+}
+.btn-white:hover {
+   background-color: rgb(249, 249, 249);
+   border-color: rgb(62, 151, 151);
+   color: rgb(62, 151, 151);
+}
+.form-div {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   margin-top: 25px;
+   font-family: "Roboto";
+   font-weight: 100;
+}
+.app-form {
+   display: flex;
+   flex-direction: column;
+   width: 30%;
+}
+.terms-div {
+   display: flex;
+   align-items: center;
+   margin-top: 2px;
+}
+.form-input {
+   margin: 3px 0;
+   height: 35px;
+   border: 1px solid rgb(118, 118, 118);
+   border-radius: 3px;
+}
+.form-input:focus{
+   outline-color: rgb(62, 151, 151);
+}
+.form-checkbox {
+   margin: 0 7px 0 0;
+}
+#signup-form-submit, #signin-form-submit {
+   margin: 15px auto;
+   background-color: rgb(65, 158, 158);
+   border: none;
+   color: #fff;
+}
+#signup-form-submit:hover, #signin-form-submit:hover {
+   background-color: rgb(62, 151, 151);
+}
+.error-div {
+  color: hsl(0, 90%, 65%);
+  font-weight: bold;
+}
+.confirmation-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 25px 0;
+    font-family: "Roboto";
+    font-weight: 100;
+}
+.conf-table-div {
+    display: flex;
+    margin-bottom: 20px;
+}
+.conf-label-div {
+    text-align: right;
+    width: 300px;
+    padding-right: 10px;
+    border-right: 1px solid rgb(118, 118, 118);
+}
+.conf-info-div {
+    text-align: left;
+    width: 300px;
+    padding-left: 10px;
 }
