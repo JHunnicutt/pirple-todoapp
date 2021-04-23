@@ -20,6 +20,7 @@ const signinForm = document.createElement('form');
 const signinFormEmail = document.createElement('input');
 const signinFormPassword = document.createElement('input');
 const signinFormSubmit = document.createElement('button');
+const signinErrorDiv = document.createElement('div');
 
 // signup form
 const signupDiv = document.createElement('div');
@@ -197,6 +198,11 @@ const loadSignupConfirmation = () => {
   mainSection.appendChild(confirmationDiv);
 }
 
+const loadDashboard = () => {
+  // mainSection.innerText = 'dashboard';
+  
+}
+
 
 
 // EVENT LISTENERS
@@ -217,10 +223,31 @@ introBtnLogin.addEventListener('click', () => {
 
 signinForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  if (signinFormEmail.value === localStorage.getItem('email') && signinFormPassword.value === localStorage.getItem('password')) {
-    console.log('loadDashboard()');
+  signinErrorDiv.classList.add('error-div');
+
+  if (signinFormEmail.value === '') {
+    signinErrorDiv.innerText = 'Please enter an email';
+    signinDiv.appendChild(signinErrorDiv);
+    console.log('Please enter an email');
+    return;
   }
-})
+  if (signinFormPassword.value === '') {
+    signinErrorDiv.innerText = 'Please enter a password';
+    signinDiv.appendChild(signinErrorDiv);
+    console.log('Please enter a password');
+    return;
+  }
+  if (signinFormEmail.value !== localStorage.getItem('email') || signinFormPassword.value !== localStorage.getItem('password')) {
+    signinErrorDiv.innerText = 'Incorrect email or password';
+    signinDiv.appendChild(signinErrorDiv);
+    console.log('Incorrect email or password');
+    return;
+  }
+  if (signinFormEmail.value === localStorage.getItem('email') && signinFormPassword.value === localStorage.getItem('password')) {
+    signinDiv.remove();
+    loadDashboard();
+  }
+});
 
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault();
