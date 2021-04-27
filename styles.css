@@ -58,6 +58,14 @@ h2 {
    height: 65px;
    cursor: pointer;
 }
+.btn-md {
+   width: 80px;
+   height: 55px
+ }
+.btn-sm {
+   width: 50px;
+   height: 30px;
+ }
 .btn-teal {
    background-color: rgb(65, 158, 158);
    color: #fff;
@@ -142,3 +150,28 @@ h2 {
     width: 300px;
     padding-left: 10px;
 }
+.dashboard-list-div {
+   margin: 40px;
+ }
+ .add-list-form {
+   display: flex;
+   justify-content: center;
+ }
+ .add-list-btn {
+   padding: 0px;
+   margin-right: 2px;
+   font-size: 4em;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+ .add-list-input {
+   height: 49px;
+   width: 550px;
+   margin-left: 2px;
+   border: 2px solid rgb(65, 158, 158);
+   border-radius: 0px;
+ }
+ .add-list-input::placeholder {
+   color: rgb(160, 160, 160);
+ }

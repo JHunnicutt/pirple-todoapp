@@ -53,6 +53,10 @@ const confSubmitButton = document.createElement('button');
 // dashboard
 const dashboardHeaderBar = document.createElement('header');
 const dashboardTitle = document.createElement('h1');
+const dashboardList = document.createElement('div');
+const addListForm = document.createElement('form');
+const addListBtn = document.createElement('button');
+const addListInput = document.createElement('input');
 
 // FUNCTIONS
 const loadIntroHeader = () => {
@@ -202,17 +206,38 @@ const loadSignupConfirmation = () => {
   mainSection.appendChild(confirmationDiv);
 }
 
+// const dashboardHeaderBar = document.createElement('header');
+// const dashboardTitle = document.createElement('h1');
+// const dashboardList = document.createElement('div');
+// const addListForm = document.createElement('form');
+// const addListBtn = document.createElement('button');
+// const addListInput = document.createElement('input');
+
 const loadDashboard = () => {
   introHeaderBar.remove();
 
+  dashboardTitle.id = 'app-title-dashboard';
   dashboardHeaderBar.classList.add('dashboard-header');
+  dashboardList.classList.add('dashboard-list-div');
+  addListForm.classList.add('add-list-form');
+  addListBtn.classList.add('btn-md', 'btn-teal', 'add-list-btn');
+  addListInput.classList.add('add-list-input');
+
+  addListInput.setAttribute('type', 'text');
+  addListInput.setAttribute('placeholder', 'List Name');
 
   dashboardTitle.innerText = 'TODO APP';
-  dashboardTitle.id = 'app-title-dashboard';
+  addListBtn.innerText = '+';
+  
+  addListForm.appendChild(addListBtn);
+  addListForm.appendChild(addListInput);
 
   dashboardHeaderBar.appendChild(dashboardTitle);
+  dashboardList.appendChild(addListForm);
+
 
   mainSection.appendChild(dashboardHeaderBar);
+  mainSection.appendChild(dashboardList);
   
 }
 
