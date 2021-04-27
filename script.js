@@ -206,16 +206,7 @@ const loadSignupConfirmation = () => {
   mainSection.appendChild(confirmationDiv);
 }
 
-// const dashboardHeaderBar = document.createElement('header');
-// const dashboardTitle = document.createElement('h1');
-// const dashboardList = document.createElement('div');
-// const addListForm = document.createElement('form');
-// const addListBtn = document.createElement('button');
-// const addListInput = document.createElement('input');
-
-const loadDashboard = () => {
-  introHeaderBar.remove();
-
+const loadNewListForm = () => {
   dashboardTitle.id = 'app-title-dashboard';
   dashboardHeaderBar.classList.add('dashboard-header');
   dashboardList.classList.add('dashboard-list-div');
@@ -238,7 +229,11 @@ const loadDashboard = () => {
 
   mainSection.appendChild(dashboardHeaderBar);
   mainSection.appendChild(dashboardList);
-  
+}
+
+const loadDashboard = () => {
+  introHeaderBar.remove();
+  loadNewListForm();
 }
 
 
