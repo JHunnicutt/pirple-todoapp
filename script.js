@@ -4,7 +4,7 @@ const appBody = document.body;
 const mainSection = document.getElementById('main-section');
 
 // header
-const headerBar = document.createElement('header');
+const introHeaderBar = document.createElement('header');
 const appTitle = document.createElement('h1');
 const appTagline = document.createElement('h5');
 
@@ -50,18 +50,22 @@ const confInfoLName = document.createElement('p');
 const confInfoEmail = document.createElement('p');
 const confSubmitButton = document.createElement('button');
 
+// dashboard
+const dashboardHeaderBar = document.createElement('header');
+const dashboardTitle = document.createElement('h1');
+
 // FUNCTIONS
 const loadIntroHeader = () => {
-  headerBar.classList.add('intro-header');
+  introHeaderBar.classList.add('intro-header');
   appTitle.id = 'app-title';
   appTagline.id = 'tagline-description';
 
   appTitle.innerText = 'TODO APP';
   appTagline.innerText = 'Set it...don\'t forget it';
 
-  headerBar.appendChild(appTitle);
-  headerBar.appendChild(appTagline);
-  mainSection.appendChild(headerBar);
+  introHeaderBar.appendChild(appTitle);
+  introHeaderBar.appendChild(appTagline);
+  mainSection.appendChild(introHeaderBar);
 }
 
 const loadIntroButtons = () => {
@@ -199,7 +203,16 @@ const loadSignupConfirmation = () => {
 }
 
 const loadDashboard = () => {
-  // mainSection.innerText = 'dashboard';
+  introHeaderBar.remove();
+
+  dashboardHeaderBar.classList.add('dashboard-header');
+
+  dashboardTitle.innerText = 'TODO APP';
+  dashboardTitle.id = 'app-title-dashboard';
+
+  dashboardHeaderBar.appendChild(dashboardTitle);
+
+  mainSection.appendChild(dashboardHeaderBar);
   
 }
 

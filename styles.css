@@ -30,6 +30,14 @@ h2 {
    font-size: 4.2em;
    font-style: italic;
 }
+#app-title-dashboard {
+   color: #fff;
+   margin: 72px 75px 0 0;
+   font-family: 'Roboto';
+   font-weight: 700;
+   font-size: 2.3em;
+   font-style: italic;
+ }
 #tagline-description {
    color:rgb(65, 158, 158);
    margin: -20px 175px 0 0;
