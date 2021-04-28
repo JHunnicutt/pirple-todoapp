@@ -74,6 +74,10 @@ h2 {
 .btn-teal:hover {
    background-color: rgb(62, 151, 151);
 }
+.btn-teal:focus {
+   outline-width: 0;
+   outline-color: #fff;
+}
 .btn-white {
    background-color: #fff;
    color: rgb(65, 158, 158);
@@ -175,3 +179,16 @@ h2 {
  .add-list-input::placeholder {
    color: rgb(160, 160, 160);
  }
+ .no-list-msg {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-family: "Roboto";
+   font-size: 2em;
+   color: rgb(200, 200, 200);
+ }
+ .material-icons.md-18 { font-size: 18px; }
+ .material-icons.md-24 { font-size: 24px; }
+ .material-icons.md-36 { font-size: 36px; }
+ .material-icons.md-48 { font-size: 48px; }
+ .material-icons.md-72 { font-size: 72px; }

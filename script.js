@@ -51,12 +51,16 @@ const confInfoEmail = document.createElement('p');
 const confSubmitButton = document.createElement('button');
 
 // dashboard
+let listArray = [];
 const dashboardHeaderBar = document.createElement('header');
 const dashboardTitle = document.createElement('h1');
 const dashboardList = document.createElement('div');
 const addListForm = document.createElement('form');
 const addListBtn = document.createElement('button');
 const addListInput = document.createElement('input');
+const noListMsg = document.createElement('div');
+const materialDesignUpArrow = document.createElement('span');
+const noListMsgText = document.createElement('p');
 
 // FUNCTIONS
 const loadIntroHeader = () => {
@@ -229,6 +233,19 @@ const loadNewListForm = () => {
 
   mainSection.appendChild(dashboardHeaderBar);
   mainSection.appendChild(dashboardList);
+
+  if (listArray.length === 0) {
+    noListMsg.classList.add('no-list-msg');
+    materialDesignUpArrow.classList.add('material-icons', 'md-36');
+    materialDesignUpArrow.innerText = 'arrow_upward';
+    noListMsgText.innerText = ' Use the + button to add a list';
+    noListMsg.appendChild(materialDesignUpArrow);
+    noListMsg.appendChild(noListMsgText);
+    dashboardList.appendChild(noListMsg);
+  }
+  if (listArray.length > 0) {
+    noListMsg.remove();
+  }
 }
 
 const loadDashboard = () => {
