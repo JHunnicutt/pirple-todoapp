@@ -61,6 +61,7 @@ const addListInput = document.createElement('input');
 const noListMsg = document.createElement('div');
 const materialDesignUpArrow = document.createElement('span');
 const noListMsgText = document.createElement('p');
+const listContainer = document.createElement('div');
 
 // FUNCTIONS
 const loadIntroHeader = () => {
@@ -210,6 +211,39 @@ const loadSignupConfirmation = () => {
   mainSection.appendChild(confirmationDiv);
 }
 
+const loadNoListMsg = () => {
+    noListMsg.classList.add('no-list-msg');
+    materialDesignUpArrow.classList.add('material-icons', 'md-36');
+    materialDesignUpArrow.innerText = 'arrow_upward';
+    noListMsgText.innerText = ' Use the + button to add a list';
+    noListMsg.appendChild(materialDesignUpArrow);
+    noListMsg.appendChild(noListMsgText);
+    listContainer.appendChild(noListMsg);
+  }
+const removeNoListMsg = () => {
+    noListMsg.remove();
+  }
+
+const addToList = () => {
+  listArray.push(addListInput.value);
+  let listItem = document.createElement('div');
+  let listItemTitle = document.createElement('span');
+  let listItemDelete = document.createElement('button');
+
+  listItem.classList.add('list-item');
+  listItemTitle.classList.add('list-item-title');
+  listItemDelete.classList.add('remove-item', 'btn-sm', 'btn-teal');
+
+  listItemTitle.innerText = addListInput.value;
+  listItemDelete.innerText = 'X';
+
+  listItem.appendChild(listItemTitle);
+  listItem.appendChild(listItemDelete);
+  listContainer.appendChild(listItem);
+
+  removeNoListMsg();
+}
+
 const loadNewListForm = () => {
   dashboardTitle.id = 'app-title-dashboard';
   dashboardHeaderBar.classList.add('dashboard-header');
@@ -217,6 +251,7 @@ const loadNewListForm = () => {
   addListForm.classList.add('add-list-form');
   addListBtn.classList.add('btn-md', 'btn-teal', 'add-list-btn');
   addListInput.classList.add('add-list-input');
+  listContainer.classList.add('list-container');
 
   addListInput.setAttribute('type', 'text');
   addListInput.setAttribute('placeholder', 'List Name');
@@ -229,31 +264,19 @@ const loadNewListForm = () => {
 
   dashboardHeaderBar.appendChild(dashboardTitle);
   dashboardList.appendChild(addListForm);
-
+  dashboardList.appendChild(listContainer);
 
   mainSection.appendChild(dashboardHeaderBar);
   mainSection.appendChild(dashboardList);
-
-  if (listArray.length === 0) {
-    noListMsg.classList.add('no-list-msg');
-    materialDesignUpArrow.classList.add('material-icons', 'md-36');
-    materialDesignUpArrow.innerText = 'arrow_upward';
-    noListMsgText.innerText = ' Use the + button to add a list';
-    noListMsg.appendChild(materialDesignUpArrow);
-    noListMsg.appendChild(noListMsgText);
-    dashboardList.appendChild(noListMsg);
-  }
-  if (listArray.length > 0) {
-    noListMsg.remove();
-  }
 }
 
 const loadDashboard = () => {
   introHeaderBar.remove();
   loadNewListForm();
+  if (listArray.length === 0) {
+    loadNoListMsg();
+  }
 }
-
-
 
 // EVENT LISTENERS
 window.addEventListener('load', () => {
@@ -324,3 +347,9 @@ signupForm.addEventListener('submit', (e) => {
     loadSignupConfirmation();
   }
 });
+
+addListBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  addToList();
+  addListInput.value = '';
+})

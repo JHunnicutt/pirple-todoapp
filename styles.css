@@ -60,11 +60,13 @@ h2 {
 }
 .btn-md {
    width: 80px;
-   height: 55px
+   height: 55px;
+   cursor: pointer;
  }
 .btn-sm {
    width: 50px;
    height: 30px;
+   cursor: pointer;
  }
 .btn-teal {
    background-color: rgb(65, 158, 158);
@@ -192,3 +194,30 @@ h2 {
  .material-icons.md-36 { font-size: 36px; }
  .material-icons.md-48 { font-size: 48px; }
  .material-icons.md-72 { font-size: 72px; }
+
+ .list-container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin-top: 20px;
+ }
+ .list-item {
+   display: flex;
+   align-items: center;
+   border-bottom: 2px solid rgb(65, 158, 158);
+   padding-bottom: .5em;
+   margin: 5px 0;
+   cursor: pointer;
+ }
+ .list-item-title, .remove-item {
+   font-family: 'Roboto';
+ }
+ .list-item-title {
+   font-size: 1.8em;
+   margin-right: 3px;
+   color: rgb(120, 120, 120);
+ }
+ .remove-item {
+   margin-left: 3px;
+ }
