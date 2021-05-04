@@ -299,15 +299,31 @@ introBtnLogin.addEventListener('click', () => {
 
 signinForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  console.log(JSON.parse(localStorage.getItem('jnh@mail.com'))['password']);
-  if (signinFormEmail.value === JSON.parse(localStorage.getItem('jnh@mail.com'))['email'] && signinFormPassword.value === JSON.parse(localStorage.getItem('jnh@mail.com'))['password'] ) {
-    loadDashboard();
-  } else {
-    console.log('signin failed');
-    signinFormEmail.value = '';
-    signinFormPassword.value = '';
+  signinErrorDiv.classList.add('error-div');
+
+  if (signinFormEmail.value === '') {
+    signinErrorDiv.innerText = 'Please enter an email';
+    signinDiv.appendChild(signinErrorDiv);
+    console.log('Please enter an email');
+    return;
   }
-})
+  if (signinFormPassword.value === '') {
+    signinErrorDiv.innerText = 'Please enter a password';
+    signinDiv.appendChild(signinErrorDiv);
+    console.log('Please enter a password');
+    return;
+  }
+  if (signinFormEmail.value !== JSON.parse(localStorage.getItem('jnh@mail.com'))['email'] || signinFormPassword.value !== JSON.parse(localStorage.getItem('jnh@mail.com'))['password'] ) {
+    signinErrorDiv.innerText = 'Incorrect email or password';
+    signinDiv.appendChild(signinErrorDiv);
+    console.log('Incorrect email or password');
+    return;
+  }
+  if (signinFormEmail.value === JSON.parse(localStorage.getItem('jnh@mail.com'))['email'] && signinFormPassword.value === JSON.parse(localStorage.getItem('jnh@mail.com'))['password'] ) {
+    signinDiv.remove();
+    loadDashboard();
+  }
+});
 
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault();
