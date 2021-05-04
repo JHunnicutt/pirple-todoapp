@@ -188,9 +188,11 @@ const loadSignupConfirmation = () => {
   confLabelFName.innerText = 'First Name';
   confLabelLName.innerText = 'Last Name';
   confLabelEmail.innerText = 'Email Address';
-  confInfoFName.innerText = localStorage.getItem('first name');
-  confInfoLName.innerText = localStorage.getItem('last name');
-  confInfoEmail.innerText = localStorage.getItem('email');
+
+  confInfoFName.innerText = JSON.parse(localStorage.getItem(signupFormEmail.value))['first name'];
+  confInfoLName.innerText = JSON.parse(localStorage.getItem(signupFormEmail.value))['last name'];
+  confInfoEmail.innerText = JSON.parse(localStorage.getItem(signupFormEmail.value))['email'];
+
   confSubmitButton.innerText = 'Go to Dashboard'
 
   confLabelDiv.appendChild(confLabelFName);
@@ -282,6 +284,7 @@ const loadDashboard = () => {
 window.addEventListener('load', () => {
   loadIntroHeader();
   loadIntroButtons();
+
 });
 
 introBtnSignup.addEventListener('click', () => {
@@ -296,31 +299,15 @@ introBtnLogin.addEventListener('click', () => {
 
 signinForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  signinErrorDiv.classList.add('error-div');
-
-  if (signinFormEmail.value === '') {
-    signinErrorDiv.innerText = 'Please enter an email';
-    signinDiv.appendChild(signinErrorDiv);
-    console.log('Please enter an email');
-    return;
-  }
-  if (signinFormPassword.value === '') {
-    signinErrorDiv.innerText = 'Please enter a password';
-    signinDiv.appendChild(signinErrorDiv);
-    console.log('Please enter a password');
-    return;
-  }
-  if (signinFormEmail.value !== localStorage.getItem('email') || signinFormPassword.value !== localStorage.getItem('password')) {
-    signinErrorDiv.innerText = 'Incorrect email or password';
-    signinDiv.appendChild(signinErrorDiv);
-    console.log('Incorrect email or password');
-    return;
-  }
-  if (signinFormEmail.value === localStorage.getItem('email') && signinFormPassword.value === localStorage.getItem('password')) {
-    signinDiv.remove();
+  console.log(JSON.parse(localStorage.getItem('jnh@mail.com'))['password']);
+  if (signinFormEmail.value === JSON.parse(localStorage.getItem('jnh@mail.com'))['email'] && signinFormPassword.value === JSON.parse(localStorage.getItem('jnh@mail.com'))['password'] ) {
     loadDashboard();
+  } else {
+    console.log('signin failed');
+    signinFormEmail.value = '';
+    signinFormPassword.value = '';
   }
-});
+})
 
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -338,11 +325,15 @@ signupForm.addEventListener('submit', (e) => {
     signupErrorDiv.innerText = errorArr.join(', ');
     signupDiv.appendChild(signupErrorDiv);
   } else {
-    localStorage.setItem('first name', signupFormFName.value);
-    localStorage.setItem('last name', signupFormLName.value);
-    localStorage.setItem('email', signupFormEmail.value);
-    localStorage.setItem('password', signupFormPassword.value);
-    localStorage.setItem('agree to terms?', signupFormTerms.checked);
+    localStorage.setItem(signupFormEmail.value, JSON.stringify({
+      'agree to terms?': signupFormTerms.checked,
+      'first name': signupFormFName.value,
+      'last name': signupFormLName.value,
+      'email': signupFormEmail.value,
+      'password': signupFormPassword.value,
+      'lists': []
+    })
+    );
     signupDiv.remove();
     loadSignupConfirmation();
   }
