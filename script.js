@@ -51,7 +51,6 @@ const confInfoEmail = document.createElement('p');
 const confSubmitButton = document.createElement('button');
 
 // dashboard
-let listArray = [];
 const dashboardHeaderBar = document.createElement('header');
 const dashboardTitle = document.createElement('h1');
 const dashboardList = document.createElement('div');
@@ -217,23 +216,21 @@ const loadSignupConfirmation = () => {
   mainSection.appendChild(confirmationDiv);
 }
 
-// load the message when no lists are present on the dashboard
-const loadNoListMsg = () => {
-    noListMsg.classList.add('no-list-msg');
-    materialDesignUpArrow.classList.add('material-icons', 'md-36');
-    materialDesignUpArrow.innerText = 'arrow_upward';
-    noListMsgText.innerText = ' Use the + button to add a list';
-    noListMsg.appendChild(materialDesignUpArrow);
-    noListMsg.appendChild(noListMsgText);
-    listContainer.appendChild(noListMsg);
-  }
-const removeNoListMsg = () => {
-    noListMsg.remove();
-  }
+
 
 // add items to list
 const addToList = () => {
-  listArray.push(addListInput.value);
+  let listArr = JSON.parse(localStorage.getItem('jnh@mail.com'))['lists'];
+
+  console.log(listArr);
+}
+
+const addListToDashboard = () => {
+  // create a variable from the local storage lists array
+
+  // loop through array and assign each item a class and append to a div
+
+  // append div to dashboard
   let listItem = document.createElement('div');
   let listItemTitle = document.createElement('span');
   let listItemDelete = document.createElement('button');
@@ -248,6 +245,20 @@ const addToList = () => {
   listItem.appendChild(listItemTitle);
   listItem.appendChild(listItemDelete);
   listContainer.appendChild(listItem);
+}
+
+// load the message when no lists are present on the dashboard
+const loadNoListMsg = () => {
+  noListMsg.classList.add('no-list-msg');
+  materialDesignUpArrow.classList.add('material-icons', 'md-36');
+  materialDesignUpArrow.innerText = 'arrow_upward';
+  noListMsgText.innerText = ' Use the + button to add a list';
+  noListMsg.appendChild(materialDesignUpArrow);
+  noListMsg.appendChild(noListMsgText);
+  listContainer.appendChild(noListMsg);
+}
+const removeNoListMsg = () => {
+  noListMsg.remove();
 }
 
 // load the add new list form
@@ -360,12 +371,25 @@ signupForm.addEventListener('submit', (e) => {
       'last name': signupFormLName.value,
       'email': signupFormEmail.value,
       'password': signupFormPassword.value,
-      'lists': []
+      'lists': [
+        {
+          'groceries': []
+        },
+        {
+          'work stuff': []
+        }
+      ]
     })
     );
     signupDiv.remove();
     loadSignupConfirmation();
   }
+});
+
+confSubmitButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  confirmationDiv.remove();
+  loadDashboard();
 });
 
 addListBtn.addEventListener('click', (e) => {
