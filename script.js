@@ -281,7 +281,7 @@ const loadDashboard = () => {
   introHeaderBar.remove();
   loadDashboardHeader();
   loadNewListForm();
-  if (listArray.length === 0) {
+  if (JSON.parse(localStorage.getItem('jnh@mail.com'))['lists'].length === 0) {
     loadNoListMsg();
   }
 }
