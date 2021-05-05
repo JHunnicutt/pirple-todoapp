@@ -248,8 +248,6 @@ const addToList = () => {
   listItem.appendChild(listItemTitle);
   listItem.appendChild(listItemDelete);
   listContainer.appendChild(listItem);
-
-  removeNoListMsg();
 }
 
 // load the add new list form
