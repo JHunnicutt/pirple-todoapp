@@ -77,6 +77,7 @@ const loadIntroHeader = () => {
   mainSection.appendChild(introHeaderBar);
 }
 
+// intro signin and sign up buttons
 const loadIntroButtons = () => {
   introBtnDiv.classList.add('btn-intro-div');
   introBtnLogin.classList.add('btn-lg', 'btn-teal');
@@ -90,6 +91,7 @@ const loadIntroButtons = () => {
   mainSection.appendChild(introBtnDiv);
 }
 
+// load signin form
 const loadSignin = () => {
   signinForm.id = 'signin-form';
   signinFormSubmit.id = 'signin-form-submit'
@@ -116,6 +118,7 @@ const loadSignin = () => {
   mainSection.appendChild(signinDiv);
 }
 
+// load sign up form
 const loadSignup = () => {
   signupForm.id = 'signup-form';
   signupFormTerms.id = 'agree-to-terms';
@@ -171,6 +174,7 @@ const loadSignup = () => {
   mainSection.appendChild(signupDiv);
 }
 
+// load the signup confirmation view
 const loadSignupConfirmation = () => {
   confirmationDiv.classList.add('confirmation-div');
   confTableDiv.classList.add('conf-table-div');
@@ -213,6 +217,7 @@ const loadSignupConfirmation = () => {
   mainSection.appendChild(confirmationDiv);
 }
 
+// load the message when no lists are present on the dashboard
 const loadNoListMsg = () => {
     noListMsg.classList.add('no-list-msg');
     materialDesignUpArrow.classList.add('material-icons', 'md-36');
@@ -226,6 +231,7 @@ const removeNoListMsg = () => {
     noListMsg.remove();
   }
 
+// add items to list
 const addToList = () => {
   listArray.push(addListInput.value);
   let listItem = document.createElement('div');
@@ -246,6 +252,7 @@ const addToList = () => {
   removeNoListMsg();
 }
 
+// load the add new list form
 const loadNewListForm = () => {
   dashboardList.classList.add('dashboard-list-div');
   addListForm.classList.add('add-list-form');
@@ -267,6 +274,7 @@ const loadNewListForm = () => {
   mainSection.appendChild(dashboardList);
 }
 
+// load the dashboard app header
 const loadDashboardHeader = () => {
   dashboardTitle.id = 'app-title-dashboard';
   dashboardHeaderBar.classList.add('dashboard-header');
@@ -277,6 +285,7 @@ const loadDashboardHeader = () => {
   mainSection.appendChild(dashboardHeaderBar);
 }
 
+// load the dashboard
 const loadDashboard = () => {
   introHeaderBar.remove();
   loadDashboardHeader();
