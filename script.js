@@ -247,8 +247,6 @@ const addToList = () => {
 }
 
 const loadNewListForm = () => {
-  dashboardTitle.id = 'app-title-dashboard';
-  dashboardHeaderBar.classList.add('dashboard-header');
   dashboardList.classList.add('dashboard-list-div');
   addListForm.classList.add('add-list-form');
   addListBtn.classList.add('btn-md', 'btn-teal', 'add-list-btn');
@@ -257,23 +255,31 @@ const loadNewListForm = () => {
 
   addListInput.setAttribute('type', 'text');
   addListInput.setAttribute('placeholder', 'List Name');
-
-  dashboardTitle.innerText = 'TODO APP';
+  
   addListBtn.innerText = '+';
   
   addListForm.appendChild(addListBtn);
   addListForm.appendChild(addListInput);
 
-  dashboardHeaderBar.appendChild(dashboardTitle);
   dashboardList.appendChild(addListForm);
   dashboardList.appendChild(listContainer);
 
-  mainSection.appendChild(dashboardHeaderBar);
   mainSection.appendChild(dashboardList);
+}
+
+const loadDashboardHeader = () => {
+  dashboardTitle.id = 'app-title-dashboard';
+  dashboardHeaderBar.classList.add('dashboard-header');
+
+  dashboardTitle.innerText = 'TODO APP';
+
+  dashboardHeaderBar.appendChild(dashboardTitle);
+  mainSection.appendChild(dashboardHeaderBar);
 }
 
 const loadDashboard = () => {
   introHeaderBar.remove();
+  loadDashboardHeader();
   loadNewListForm();
   if (listArray.length === 0) {
     loadNoListMsg();
