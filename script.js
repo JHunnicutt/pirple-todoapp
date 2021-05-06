@@ -62,6 +62,18 @@ const materialDesignUpArrow = document.createElement('span');
 const noListMsgText = document.createElement('p');
 const listContainer = document.createElement('div');
 
+// new user constructor
+let userName;
+let User = function (firstName, lastName, email, password, agreedToTerms) {
+  this.firstName = firstName,
+  this.lastName = lastName,
+  this.email = email,
+  this.password = password,
+  this.agreedToTerms = agreedToTerms,
+  this.lists = {}
+  // this.lists = []
+}
+
 // FUNCTIONS
 const loadIntroHeader = () => {
   introHeaderBar.classList.add('intro-header');
@@ -192,9 +204,9 @@ const loadSignupConfirmation = () => {
   confLabelLName.innerText = 'Last Name';
   confLabelEmail.innerText = 'Email Address';
 
-  confInfoFName.innerText = JSON.parse(localStorage.getItem(signupFormEmail.value))['first name'];
-  confInfoLName.innerText = JSON.parse(localStorage.getItem(signupFormEmail.value))['last name'];
-  confInfoEmail.innerText = JSON.parse(localStorage.getItem(signupFormEmail.value))['email'];
+  confInfoFName.innerText = JSON.parse(localStorage.getItem(userName))['firstName'];
+  confInfoLName.innerText = JSON.parse(localStorage.getItem(userName))['lastName'];
+  confInfoEmail.innerText = JSON.parse(localStorage.getItem(userName))['email'];
 
   confSubmitButton.innerText = 'Go to Dashboard'
 
@@ -220,15 +232,10 @@ const loadSignupConfirmation = () => {
 
 // add items to list
 const addToList = () => {
+  let listInput = addListInput.value;
   let userStorage = JSON.parse(localStorage.getItem('jnh@mail.com'));
   let userLists = userStorage['lists'];
-  let listInput = addListInput.value;
-  userLists.push({listInput: []});
-  console.log(userLists);
-  console.log(userStorage);
-  
-  // userData['lists'].push(addListInput.value);
-  // localStorage.setItem('jnh@mail.com', JSON.stringify(userData));
+
 }
 
 const addListToDashboard = () => {
@@ -305,16 +312,13 @@ const loadDashboard = () => {
   introHeaderBar.remove();
   loadDashboardHeader();
   loadNewListForm();
-  if (JSON.parse(localStorage.getItem('jnh@mail.com'))['lists'].length === 0) {
-    loadNoListMsg();
-  }
+  
 }
 
 // EVENT LISTENERS
 window.addEventListener('load', () => {
   loadIntroHeader();
   loadIntroButtons();
-
 });
 
 introBtnSignup.addEventListener('click', () => {
@@ -329,31 +333,32 @@ introBtnLogin.addEventListener('click', () => {
 
 signinForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  signinErrorDiv.classList.add('error-div');
+//   userName = signupFormEmail.value;
+//   signinErrorDiv.classList.add('error-div');
 
-  if (signinFormEmail.value === '') {
-    signinErrorDiv.innerText = 'Please enter an email';
-    signinDiv.appendChild(signinErrorDiv);
-    console.log('Please enter an email');
-    return;
-  }
-  if (signinFormPassword.value === '') {
-    signinErrorDiv.innerText = 'Please enter a password';
-    signinDiv.appendChild(signinErrorDiv);
-    console.log('Please enter a password');
-    return;
-  }
-  if (signinFormEmail.value !== JSON.parse(localStorage.getItem('jnh@mail.com'))['email'] || signinFormPassword.value !== JSON.parse(localStorage.getItem('jnh@mail.com'))['password'] ) {
-    signinErrorDiv.innerText = 'Incorrect email or password';
-    signinDiv.appendChild(signinErrorDiv);
-    console.log('Incorrect email or password');
-    return;
-  }
-  if (signinFormEmail.value === JSON.parse(localStorage.getItem('jnh@mail.com'))['email'] && signinFormPassword.value === JSON.parse(localStorage.getItem('jnh@mail.com'))['password'] ) {
-    signinDiv.remove();
-    loadDashboard();
-  }
+//   if (signinFormEmail.value === '') {
+//     signinErrorDiv.innerText = 'Please enter an email';
+//     signinDiv.appendChild(signinErrorDiv);
+//     return;
+//   }
+//   if (signinFormPassword.value === '') {
+//     signinErrorDiv.innerText = 'Please enter a password';
+//     signinDiv.appendChild(signinErrorDiv);
+//     return;
+//   }
+//   if (signinFormEmail.value !== JSON.parse(localStorage.getItem('jnh@mail.com'))['email'] || signinFormPassword.value !== JSON.parse(localStorage.getItem('jnh@mail.com'))['password'] ) {
+//     signinErrorDiv.innerText = 'Incorrect email or password';
+//     signinDiv.appendChild(signinErrorDiv);
+//     return;
+//   }
+//   if (signinFormEmail.value === JSON.parse(localStorage.getItem('jnh@mail.com'))['email'] && signinFormPassword.value === JSON.parse(localStorage.getItem('jnh@mail.com'))['password'] ) {
+//     signinDiv.remove();
+//     loadDashboard();
+//   }
+signinDiv.remove();
+loadDashboard();
 });
+
 
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -371,15 +376,9 @@ signupForm.addEventListener('submit', (e) => {
     signupErrorDiv.innerText = errorArr.join(', ');
     signupDiv.appendChild(signupErrorDiv);
   } else {
-    localStorage.setItem(signupFormEmail.value, JSON.stringify({
-      'agree to terms?': signupFormTerms.checked,
-      'first name': signupFormFName.value,
-      'last name': signupFormLName.value,
-      'email': signupFormEmail.value,
-      'password': signupFormPassword.value,
-      'lists': []
-    })
-    );
+    userName = signupFormEmail.value
+    let newUser = new User(signupFormFName.value, signupFormLName.value, signupFormEmail.value, signupFormPassword.value, signupFormTerms.checked);
+    localStorage.setItem(userName, JSON.stringify(newUser));
     signupDiv.remove();
     loadSignupConfirmation();
   }
