@@ -220,9 +220,15 @@ const loadSignupConfirmation = () => {
 
 // add items to list
 const addToList = () => {
-  let listArr = JSON.parse(localStorage.getItem('jnh@mail.com'))['lists'];
-
-  console.log(listArr);
+  let userStorage = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  let userLists = userStorage['lists'];
+  let listInput = addListInput.value;
+  userLists.push({listInput: []});
+  console.log(userLists);
+  console.log(userStorage);
+  
+  // userData['lists'].push(addListInput.value);
+  // localStorage.setItem('jnh@mail.com', JSON.stringify(userData));
 }
 
 const addListToDashboard = () => {
@@ -371,14 +377,7 @@ signupForm.addEventListener('submit', (e) => {
       'last name': signupFormLName.value,
       'email': signupFormEmail.value,
       'password': signupFormPassword.value,
-      'lists': [
-        {
-          'groceries': []
-        },
-        {
-          'work stuff': []
-        }
-      ]
+      'lists': []
     })
     );
     signupDiv.remove();
