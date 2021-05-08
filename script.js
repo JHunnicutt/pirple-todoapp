@@ -70,9 +70,14 @@ let User = function (firstName, lastName, email, password, agreedToTerms) {
   this.email = email,
   this.password = password,
   this.agreedToTerms = agreedToTerms,
-  this.lists = {}
-  // this.lists = []
+  this.lists = []
 }
+
+// new list constructor
+const List = function (name) {
+  this.name = name;
+  this.items = [];
+};
 
 // FUNCTIONS
 const loadIntroHeader = () => {
@@ -233,9 +238,10 @@ const loadSignupConfirmation = () => {
 // add items to list
 const addToList = () => {
   let listInput = addListInput.value;
-  let userStorage = JSON.parse(localStorage.getItem('jnh@mail.com'));
-  let userLists = userStorage['lists'];
+  let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
 
+  userData.lists.push(new List(listInput));
+  localStorage.setItem('jnh@mail.com', JSON.stringify(userData));
 }
 
 const addListToDashboard = () => {
