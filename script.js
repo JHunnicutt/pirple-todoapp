@@ -319,6 +319,13 @@ const loadDashboard = () => {
   loadDashboardHeader();
   loadNewListForm();
   
+  let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  if (Object.values(userData.lists).length < 1) {
+    loadNoListMsg();
+  }
+  if (Object.values(userData.lists).length > 1){
+    removeNoListMsg();
+  }
 }
 
 // EVENT LISTENERS
