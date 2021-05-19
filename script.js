@@ -247,13 +247,14 @@ const addToList = () => {
 const addListToDashboard = () => {
   // create a variable from the local storage lists array
   const userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  // list container
+  let listUL = document.createElement('ul');
+  listUL.classList.add('list-ul');
   
 
   // loop through array and assign each item a class and append to a div
   for (let i of userData.lists) {
-    // list container
-    let listUL = document.createElement('ul');
-    listUL.classList.add('list-ul');
+
     // list item
     let listItem = document.createElement('li');
     listItem.classList.add('list-item');

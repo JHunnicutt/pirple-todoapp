@@ -202,13 +202,19 @@ h2 {
    align-items: center;
    margin-top: 20px;
  }
- .list-item {
+ /* .list-ul {
    display: flex;
+   flex-direction: column;
+   justify-content: center;
    align-items: center;
-   border-bottom: 2px solid rgb(65, 158, 158);
-   padding-bottom: .5em;
-   margin: 5px 0;
-   cursor: pointer;
+   width: 55%;
+ } */
+ .list-item {
+   list-style-type: none;
+   display: flex;
+   justify-content: space-between;
+   background-color: rgb(65, 158, 158);
+   margin-bottom: 8px;
  }
  .list-item-title, .remove-item {
    font-family: 'Roboto';
