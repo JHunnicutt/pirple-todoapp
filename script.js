@@ -275,11 +275,9 @@ const addListToDashboard = () => {
     listItem.appendChild(listLink);
     listItem.appendChild(listRemove);
     listUL.appendChild(listItem);
-    listContainer.appendChild(listUL);
   }
-
   // append div to dashboard
-  
+  listContainer.appendChild(listUL);
 }
 
 // load the message when no lists are present on the dashboard
