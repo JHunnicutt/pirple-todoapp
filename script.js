@@ -260,7 +260,8 @@ const addListToDashboard = () => {
     listItem.classList.add('list-item');
     // item link
     let listLink = document.createElement('a');
-    listLink.classList.add('list-link')
+    listLink.classList.add('list-link');
+    listLink.href = ' ';
     // item text
     let listText = document.createElement('span');
     listText.classList.add('item-text');
