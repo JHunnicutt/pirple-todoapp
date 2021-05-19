@@ -246,24 +246,39 @@ const addToList = () => {
 
 const addListToDashboard = () => {
   // create a variable from the local storage lists array
+  const userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  
 
   // loop through array and assign each item a class and append to a div
+  for (let i of userData.lists) {
+    // list container
+    let listUL = document.createElement('ul');
+    listUL.classList.add('list-ul');
+    // list item
+    let listItem = document.createElement('li');
+    listItem.classList.add('list-item');
+    // item link
+    let listLink = document.createElement('a');
+    listLink.classList.add('list-link')
+    // item text
+    let listText = document.createElement('span');
+    listText.classList.add('item-text');
+    // item button
+    let listRemove = document.createElement('button');
+    listRemove.classList.add('remove-item');
+
+    listText.innerText = i.name;
+    listRemove.innerText = 'X'
+
+    listLink.appendChild(listText);
+    listItem.appendChild(listLink);
+    listItem.appendChild(listRemove);
+    listUL.appendChild(listItem);
+    listContainer.appendChild(listUL);
+  }
 
   // append div to dashboard
-  let listItem = document.createElement('div');
-  let listItemTitle = document.createElement('span');
-  let listItemDelete = document.createElement('button');
-
-  listItem.classList.add('list-item');
-  listItemTitle.classList.add('list-item-title');
-  listItemDelete.classList.add('remove-item', 'btn-sm', 'btn-teal');
-
-  listItemTitle.innerText = addListInput.value;
-  listItemDelete.innerText = 'X';
-
-  listItem.appendChild(listItemTitle);
-  listItem.appendChild(listItemDelete);
-  listContainer.appendChild(listItem);
+  
 }
 
 // load the message when no lists are present on the dashboard
@@ -325,6 +340,7 @@ const loadDashboard = () => {
   }
   if (Object.values(userData.lists).length > 1){
     removeNoListMsg();
+    addListToDashboard();
   }
 }
 
@@ -406,5 +422,6 @@ confSubmitButton.addEventListener('click', (e) => {
 addListBtn.addEventListener('click', (e) => {
   e.preventDefault();
   addToList();
+  addListToDashboard();
   addListInput.value = '';
 })
