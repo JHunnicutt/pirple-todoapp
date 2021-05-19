@@ -279,6 +279,25 @@ function addListToDashboard () {
   // append div to dashboard
   listContainer.appendChild(listUL);
 }
+// remove list items from local storage
+function removeListFromLocalStorage (list) {
+  let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  let userLists = userData.lists;
+  // console.log(userLists);
+  for(let i in userLists) {
+    
+    if (list.textContent === userLists[i].name) {
+      userLists.splice(i, 1);
+      localStorage.setItem('jnh@mail.com', JSON.stringify(userData));
+    }
+  }
+}
+
+// delete a list from the dashboard UI
+function removeList (e) {
+  e.target.parentElement.remove();
+  removeListFromLocalStorage(e.target.parentElement.children[0].children[0]);
+}
 
 // load the message when no lists are present on the dashboard
 const loadNoListMsg = () => {
@@ -291,7 +310,7 @@ const loadNoListMsg = () => {
   listContainer.appendChild(noListMsg);
 }
 // removes the message directing people to add a list
-const removeNoListMsg = () => {
+function removeNoListMsg () {
   noListMsg.remove();
 }
 
@@ -335,32 +354,13 @@ const loadDashboard = () => {
   loadNewListForm();
   
   let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
-  if (Object.values(userData.lists).length < 1 || userData.lists[0] === null ) {
+  if (Object.values(userData.lists).length < 1) {
     loadNoListMsg();
   }
   if (Object.values(userData.lists).length > 1){
     removeNoListMsg();
     addListToDashboard();
   }
-}
-
-function removeListFromLocalStorage (list) {
-  let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
-  let userLists = userData.lists;
-  // console.log(userLists);
-  for(let i in userLists) {
-    
-    if (list.textContent === userLists[i].name) {
-      delete userLists[i];
-      // console.log(userLists[i]);
-      localStorage.setItem('jnh@mail.com', JSON.stringify(userData));
-    }
-  }
-}
-
-function removeList (e) {
-  e.target.parentElement.remove();
-  removeListFromLocalStorage(e.target.parentElement.children[0].children[0]);
 }
 
 // EVENT LISTENERS
