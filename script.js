@@ -245,7 +245,7 @@ const addToList = () => {
   localStorage.setItem('jnh@mail.com', JSON.stringify(userData));
 }
 
-const addListToDashboard = () => {
+function addListToDashboard () {
   // create a variable from the local storage lists array
   const userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
   // list container
@@ -290,6 +290,7 @@ const loadNoListMsg = () => {
   noListMsg.appendChild(noListMsgText);
   listContainer.appendChild(noListMsg);
 }
+// removes the message directing people to add a list
 const removeNoListMsg = () => {
   noListMsg.remove();
 }
@@ -334,13 +335,32 @@ const loadDashboard = () => {
   loadNewListForm();
   
   let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
-  if (Object.values(userData.lists).length < 1) {
+  if (Object.values(userData.lists).length < 1 || userData.lists[0] === null ) {
     loadNoListMsg();
   }
   if (Object.values(userData.lists).length > 1){
     removeNoListMsg();
     addListToDashboard();
   }
+}
+
+function removeListFromLocalStorage (list) {
+  let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  let userLists = userData.lists;
+  // console.log(userLists);
+  for(let i in userLists) {
+    
+    if (list.textContent === userLists[i].name) {
+      delete userLists[i];
+      // console.log(userLists[i]);
+      localStorage.setItem('jnh@mail.com', JSON.stringify(userData));
+    }
+  }
+}
+
+function removeList (e) {
+  e.target.parentElement.remove();
+  removeListFromLocalStorage(e.target.parentElement.children[0].children[0]);
 }
 
 // EVENT LISTENERS
@@ -425,4 +445,9 @@ addListBtn.addEventListener('click', (e) => {
   addListInput.value = '';
 });
 
-
+listUL.addEventListener('click', (e) => {
+  e.preventDefault();
+  if (e.target.classList.contains('remove-item')) {
+    removeList(e);
+  }
+});
