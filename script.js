@@ -61,6 +61,7 @@ const noListMsg = document.createElement('div');
 const materialDesignUpArrow = document.createElement('span');
 const noListMsgText = document.createElement('p');
 const listContainer = document.createElement('div');
+const listUL = document.createElement('ul');
 
 // new user constructor
 let userName;
@@ -248,10 +249,8 @@ const addListToDashboard = () => {
   // create a variable from the local storage lists array
   const userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
   // list container
-  let listUL = document.createElement('ul');
   listUL.classList.add('list-ul');
   
-
   // loop through array and assign each item a class and append to a div
   for (let i of userData.lists) {
 
@@ -424,4 +423,6 @@ addListBtn.addEventListener('click', (e) => {
   addToList();
   addListToDashboard();
   addListInput.value = '';
-})
+});
+
+
