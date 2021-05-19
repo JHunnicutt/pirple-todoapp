@@ -202,13 +202,14 @@ h2 {
    align-items: center;
    margin-top: 20px;
  }
- /* .list-ul {
+ .list-ul {
    display: flex;
    flex-direction: column;
    justify-content: center;
-   align-items: center;
-   width: 55%;
- } */
+   align-items: stretch;
+   width: 45%;
+   padding: 0;
+ }
  .list-item {
    list-style-type: none;
    display: flex;
@@ -216,14 +217,24 @@ h2 {
    background-color: rgb(65, 158, 158);
    margin-bottom: 8px;
  }
- .list-item-title, .remove-item {
+ .item-text, .remove-item {
    font-family: 'Roboto';
+   color: #fff;
  }
- .list-item-title {
+ .item-text {
+   position: relative;
+   font-weight: bold;
+   font-style: italic;
    font-size: 1.8em;
-   margin-right: 3px;
-   color: rgb(120, 120, 120);
+   top: 8px;
+   left: 12px;
+ }
+ .list-item a:link {
+   text-decoration: none;
  }
  .remove-item {
-   margin-left: 3px;
+   background-color: rgb(65, 158, 158);
+   border-style: none;
+   font-size: 1.5em;
+   cursor: pointer;
  }
