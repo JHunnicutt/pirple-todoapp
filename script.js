@@ -237,7 +237,7 @@ const loadSignupConfirmation = () => {
 
 
 // add items to list
-const addToList = () => {
+function addListToLocalStorage () {
   let listInput = addListInput.value;
   let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
 
@@ -440,7 +440,10 @@ confSubmitButton.addEventListener('click', (e) => {
 
 addListBtn.addEventListener('click', (e) => {
   e.preventDefault();
-  addToList();
+  addListToLocalStorage();
+  while(listUL.firstChild) {
+    listUL.removeChild(listUL.firstChild);
+  }
   addListToDashboard();
   addListInput.value = '';
 });
