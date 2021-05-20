@@ -448,6 +448,10 @@ confSubmitButton.addEventListener('click', (e) => {
 
 addListForm.addEventListener('click', (e) => {
   e.preventDefault();
+  if (addListInput.value === '') {
+    alert('Please type in a list name');
+    return;
+  }
   if (e.target.classList.contains('add-list-btn')) {
     addListToLocalStorage();
     while(listUL.firstChild) {
@@ -456,6 +460,7 @@ addListForm.addEventListener('click', (e) => {
     addListToDashboard();
     addListInput.value = '';
   }
+  console.log(e.target.value)
 });
 
 listUL.addEventListener('click', (e) => {
