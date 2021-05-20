@@ -278,6 +278,10 @@ function addListToDashboard () {
   }
   // append div to dashboard
   listContainer.appendChild(listUL);
+
+  if (Object.values(userData.lists).length > 0) {
+    removeNoListMsg()
+  }
 }
 // remove list items from local storage
 function removeListFromLocalStorage (list) {
@@ -290,6 +294,10 @@ function removeListFromLocalStorage (list) {
       userLists.splice(i, 1);
       localStorage.setItem('jnh@mail.com', JSON.stringify(userData));
     }
+  }
+
+  if (Object.values(userData.lists).length < 1) {
+    loadNoListMsg();
   }
 }
 
@@ -357,7 +365,7 @@ const loadDashboard = () => {
   if (Object.values(userData.lists).length < 1) {
     loadNoListMsg();
   }
-  if (Object.values(userData.lists).length > 1){
+  if (Object.values(userData.lists).length > 0){
     removeNoListMsg();
     addListToDashboard();
   }
