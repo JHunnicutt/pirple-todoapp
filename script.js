@@ -446,14 +446,16 @@ confSubmitButton.addEventListener('click', (e) => {
   loadDashboard();
 });
 
-addListBtn.addEventListener('click', (e) => {
+addListForm.addEventListener('click', (e) => {
   e.preventDefault();
-  addListToLocalStorage();
-  while(listUL.firstChild) {
-    listUL.removeChild(listUL.firstChild);
+  if (e.target.classList.contains('add-list-btn')) {
+    addListToLocalStorage();
+    while(listUL.firstChild) {
+      listUL.removeChild(listUL.firstChild);
+    }
+    addListToDashboard();
+    addListInput.value = '';
   }
-  addListToDashboard();
-  addListInput.value = '';
 });
 
 listUL.addEventListener('click', (e) => {
