@@ -446,13 +446,12 @@ confSubmitButton.addEventListener('click', (e) => {
   loadDashboard();
 });
 
-addListForm.addEventListener('click', (e) => {
+addListForm.addEventListener('submit', (e) => {
   e.preventDefault();
   if (addListInput.value === '') {
     alert('Please type in a list name');
     return;
-  }
-  if (e.target.classList.contains('add-list-btn')) {
+  } else {
     addListToLocalStorage();
     while(listUL.firstChild) {
       listUL.removeChild(listUL.firstChild);
@@ -460,7 +459,6 @@ addListForm.addEventListener('click', (e) => {
     addListToDashboard();
     addListInput.value = '';
   }
-  console.log(e.target.value)
 });
 
 listUL.addEventListener('click', (e) => {
