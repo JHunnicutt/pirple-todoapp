@@ -63,6 +63,14 @@ const noListMsgText = document.createElement('p');
 const listContainer = document.createElement('div');
 const listUL = document.createElement('ul');
 
+// list items page
+const todoDiv = document.createElement('div');
+const todoHeaderDiv = document.createElement('div');
+let todoHeader = document.createElement('h3');
+const addTodoForm = document.createElement('form');
+// const todoList = document.createElement('ul');
+
+
 // new user constructor
 let userName;
 let User = function (firstName, lastName, email, password, agreedToTerms) {
@@ -234,8 +242,6 @@ const loadSignupConfirmation = () => {
   mainSection.appendChild(confirmationDiv);
 }
 
-
-
 // add items to list
 function addListToLocalStorage () {
   let listInput = addListInput.value;
@@ -371,6 +377,24 @@ const loadDashboard = () => {
   }
 }
 
+// creating the list page of to-do items
+function loadListPage(list) {
+  // removal of dashboard elements
+  dashboardList.remove();
+  // add outer ui elements
+  todoDiv.classList.add('todo-div');
+  // add list name
+  todoHeaderDiv.classList.add('todo-header-div');
+  todoHeader.classList.add('todo-header');
+  todoHeader.innerText = list;
+
+
+  // append to ui
+  todoHeaderDiv.appendChild(todoHeader);
+  todoDiv.appendChild(todoHeaderDiv);
+  mainSection.appendChild(todoDiv);
+}
+
 // EVENT LISTENERS
 window.addEventListener('load', () => {
   loadIntroHeader();
@@ -465,5 +489,8 @@ listUL.addEventListener('click', (e) => {
   e.preventDefault();
   if (e.target.classList.contains('remove-item')) {
     removeList(e);
+  }
+  if (e.target.classList.contains('item-text')) {
+    loadListPage(e.target.textContent);
   }
 });
