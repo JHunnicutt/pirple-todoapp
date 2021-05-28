@@ -387,11 +387,23 @@ function loadListPage(list) {
   todoHeaderDiv.classList.add('todo-header-div');
   todoHeader.classList.add('todo-header');
   todoHeader.innerText = list;
-
+  // add todo form
+  const addTodoBtn = document.createElement('button');
+  const addTodoInput = document.createElement('input');
+  addTodoForm.classList.add('add-todo-form');
+  addTodoBtn.classList.add('add-todo-btn');
+  addTodoBtn.innerText = '+';
+  addTodoInput.classList.add('add-todo-input');
+  addTodoBtn.setAttribute('type', 'submit');
+  addTodoInput.setAttribute('type', 'text');
+  addTodoInput.setAttribute('placeholder', 'List Item');
 
   // append to ui
+  addTodoForm.appendChild(addTodoBtn);
+  addTodoForm.appendChild(addTodoInput);
   todoHeaderDiv.appendChild(todoHeader);
   todoDiv.appendChild(todoHeaderDiv);
+  todoDiv.appendChild(addTodoForm);
   mainSection.appendChild(todoDiv);
 }
 
