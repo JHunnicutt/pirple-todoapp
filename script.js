@@ -64,6 +64,8 @@ const listContainer = document.createElement('div');
 const listUL = document.createElement('ul');
 
 // list items page
+const todoNav = document.createElement('nav');
+const todoBackButton = document.createElement('a');
 const todoDiv = document.createElement('div');
 const todoHeaderDiv = document.createElement('div');
 let todoHeader = document.createElement('h3');
@@ -254,9 +256,15 @@ function addListToLocalStorage () {
 function addListToDashboard () {
   // create a variable from the local storage lists array
   const userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  
   // list container
   listUL.classList.add('list-ul');
-  
+
+  // remove existing list when returning to dashboard
+  while(listUL.firstChild) {
+    listUL.removeChild(listUL.firstChild);
+  }
+
   // loop through array and assign each item a class and append to a div
   for (let i of userData.lists) {
 
@@ -383,6 +391,10 @@ function loadListPage(list) {
   dashboardList.remove();
   // add outer ui elements
   todoDiv.classList.add('todo-div');
+  todoNav.classList.add('todo-nav');
+  todoBackButton.classList.add('todo-back-btn');
+  todoBackButton.innerText = 'back to dashboard';
+  todoBackButton.href = '';
   // add list name
   todoHeaderDiv.classList.add('todo-header-div');
   todoHeader.classList.add('todo-header');
@@ -399,11 +411,13 @@ function loadListPage(list) {
   addTodoInput.setAttribute('placeholder', 'List Item');
 
   // append to ui
+  todoNav.appendChild(todoBackButton);
   addTodoForm.appendChild(addTodoBtn);
   addTodoForm.appendChild(addTodoInput);
   todoHeaderDiv.appendChild(todoHeader);
   todoDiv.appendChild(todoHeaderDiv);
   todoDiv.appendChild(addTodoForm);
+  mainSection.appendChild(todoNav);
   mainSection.appendChild(todoDiv);
 }
 
@@ -505,4 +519,11 @@ listUL.addEventListener('click', (e) => {
   if (e.target.classList.contains('item-text')) {
     loadListPage(e.target.textContent);
   }
+});
+
+todoBackButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  todoNav.remove();
+  todoDiv.remove();
+  loadDashboard();
 });
