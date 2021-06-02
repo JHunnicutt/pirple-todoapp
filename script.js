@@ -68,8 +68,10 @@ const todoNav = document.createElement('nav');
 const todoBackButton = document.createElement('a');
 const todoDiv = document.createElement('div');
 const todoHeaderDiv = document.createElement('div');
-let todoHeader = document.createElement('h3');
+const todoHeader = document.createElement('h3');
 const addTodoForm = document.createElement('form');
+const addTodoBtn = document.createElement('button');
+const addTodoInput = document.createElement('input');
 // const todoList = document.createElement('ul');
 
 
@@ -256,7 +258,7 @@ function addListToLocalStorage () {
 function addListToDashboard () {
   // create a variable from the local storage lists array
   const userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
-  
+
   // list container
   listUL.classList.add('list-ul');
 
@@ -400,8 +402,7 @@ function loadListPage(list) {
   todoHeader.classList.add('todo-header');
   todoHeader.innerText = list;
   // add todo form
-  const addTodoBtn = document.createElement('button');
-  const addTodoInput = document.createElement('input');
+  
   addTodoForm.classList.add('add-todo-form');
   addTodoBtn.classList.add('add-todo-btn');
   addTodoBtn.innerText = '+';
