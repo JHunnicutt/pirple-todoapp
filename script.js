@@ -72,7 +72,8 @@ const todoHeader = document.createElement('h3');
 const addTodoForm = document.createElement('form');
 const addTodoBtn = document.createElement('button');
 const addTodoInput = document.createElement('input');
-// const todoList = document.createElement('ul');
+const todoList = document.createElement('ul');
+let todoListItem = document.createElement('li');
 
 
 // new user constructor
@@ -299,6 +300,7 @@ function addListToDashboard () {
     removeNoListMsg()
   }
 }
+
 // remove list items from local storage
 function removeListFromLocalStorage (list) {
   let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
@@ -336,6 +338,20 @@ const loadNoListMsg = () => {
 // removes the message directing people to add a list
 function removeNoListMsg () {
   noListMsg.remove();
+}
+
+function addItemToLocalStorage () {
+  let listName = todoHeader.innerText;
+  let listInput = addTodoInput.value;
+  let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  let userLists = userData.lists;
+
+  for (let list of userLists) {
+    if (list.name === listName) {
+      list.items.push(listInput);
+      localStorage.setItem('jnh@mail.com', JSON.stringify(userData));
+    }
+  }
 }
 
 // load the add new list form
@@ -527,4 +543,10 @@ todoBackButton.addEventListener('click', (e) => {
   todoNav.remove();
   todoDiv.remove();
   loadDashboard();
+});
+
+addTodoForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  addItemToLocalStorage();
+  addTodoInput.value = '';
 });
