@@ -73,7 +73,7 @@ const addTodoForm = document.createElement('form');
 const addTodoBtn = document.createElement('button');
 const addTodoInput = document.createElement('input');
 const todoList = document.createElement('ul');
-let todoListItem = document.createElement('li');
+// let todoListItem = document.createElement('li');
 
 
 // new user constructor
@@ -354,6 +354,41 @@ function addItemToLocalStorage () {
   }
 }
 
+function addItemsToListPage () {
+  // create a variable from the local storage lists array
+  let listName = todoHeader.innerText;
+  let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  let userLists = userData.lists;
+
+  // remove existing todos when returning to list
+  while(todoList.firstChild) {
+    todoList.removeChild(todoList.firstChild);
+  }
+  
+  // loop through array and assign each item a class and append to a div
+  for (let list of userLists) {
+    if (list.name === listName) {
+      let listItems = list.items;
+      listItems.forEach(item => {
+        let todoItem = document.createElement('li');
+        let checkboxItem = document.createElement('div');
+        let checkbox = document.createElement('input');
+        let itemText = document.createElement('span');
+        let deleteButton = document.createElement('button');
+        itemText.innerText = item;
+        deleteButton.innerText = 'X';
+        checkbox.setAttribute('type', 'checkbox');
+        checkboxItem.appendChild(checkbox);
+        checkboxItem.appendChild(itemText);
+        checkboxItem.appendChild(deleteButton);
+        todoItem.appendChild(checkboxItem);
+        todoList.appendChild(todoItem);
+      });
+    }
+  }
+  todoDiv.appendChild(todoList);
+}
+
 // load the add new list form
 const loadNewListForm = () => {
   dashboardList.classList.add('dashboard-list-div');
@@ -548,5 +583,6 @@ todoBackButton.addEventListener('click', (e) => {
 addTodoForm.addEventListener('submit', (e) => {
   e.preventDefault();
   addItemToLocalStorage();
+  addItemsToListPage();
   addTodoInput.value = '';
 });
