@@ -402,15 +402,17 @@ function removeTodoFromLocalStorage(todo) {
 
   for (let i of userLists) {
     if (i.name === listName) {
-      i.items.splice(todo, 1);
+      let listArr = i.items;
+      let todoIndex = listArr.indexOf(todo);
+      listArr.splice(todoIndex, 1);
       localStorage.setItem('jnh@mail.com', JSON.stringify(userData));
     }
   }
 }
 
 function removeTodo(todo) {
-  todo.target.parentElement.parentElement.remove();
-  removeTodoFromLocalStorage(todo.target.parentElement.children[1].textContent)
+  todo.target.parentElement.remove();
+  removeTodoFromLocalStorage(todo.target.parentElement.children[0].children[1].textContent);
 }
 
 // load the add new list form
