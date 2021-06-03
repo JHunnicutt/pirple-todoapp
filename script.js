@@ -340,7 +340,7 @@ function removeNoListMsg () {
   noListMsg.remove();
 }
 
-function addItemToLocalStorage () {
+function addTodosToLocalStorage () {
   let listName = todoHeader.innerText;
   let listInput = addTodoInput.value;
   let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
@@ -354,7 +354,7 @@ function addItemToLocalStorage () {
   }
 }
 
-function addItemsToListPage () {
+function addTodosToListPage () {
   // create a variable from the local storage lists array
   let listName = todoHeader.innerText;
   let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
@@ -379,7 +379,7 @@ function addItemsToListPage () {
         checkboxItem.classList.add('checkbox-item');
         checkbox.classList.add('checkbox');
         itemText.classList.add('todo-text');
-        deleteButton.classList.add('btn-remove');
+        deleteButton.classList.add('btn-remove', 'remove-todo');
         itemText.innerText = item;
         deleteButton.innerText = 'X';
         checkbox.setAttribute('type', 'checkbox');
@@ -393,6 +393,24 @@ function addItemsToListPage () {
   }
 
   todoDiv.appendChild(todoList);
+}
+
+function removeTodoFromLocalStorage(todo) {
+  let listName = todoHeader.innerText;
+  let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  let userLists = userData.lists;
+
+  for (let i of userLists) {
+    if (i.name === listName) {
+      i.items.splice(todo, 1);
+      localStorage.setItem('jnh@mail.com', JSON.stringify(userData));
+    }
+  }
+}
+
+function removeTodo(todo) {
+  todo.target.parentElement.parentElement.remove();
+  removeTodoFromLocalStorage(todo.target.parentElement.children[1].textContent)
 }
 
 // load the add new list form
@@ -485,7 +503,7 @@ function loadListPage(list) {
   mainSection.appendChild(todoList);
 
   // add all existing list items to ui
-  addItemsToListPage();
+  addTodosToListPage();
 }
 
 // EVENT LISTENERS
@@ -597,13 +615,13 @@ todoBackButton.addEventListener('click', (e) => {
 
 addTodoForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  addItemToLocalStorage();
-  addItemsToListPage();
+  addTodosToLocalStorage();
+  addTodosToListPage();
   addTodoInput.value = '';
 });
 
 todoDiv.addEventListener('click', (e) => {
-  if (e.target.classList.contains('btn-remove')) {
-    removeItemFromLocalStorage();
+  if (e.target.classList.contains('remove-todo')) {
+    removeTodo(e);
   }
 });
