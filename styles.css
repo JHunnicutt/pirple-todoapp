@@ -90,6 +90,19 @@ h2 {
    border-color: rgb(62, 151, 151);
    color: rgb(62, 151, 151);
 }
+.btn-remove {
+   background-color: rgb(255, 155, 155);
+   color: #fff;
+   font-weight: bold;
+   border-style: none;
+   border-radius: 5px;
+   cursor: pointer;
+   height: 20px;
+   width: 20px;
+ }
+ .btn-remove:hover {
+   background-color: rgb(255, 130, 130);
+ }
 .form-div {
    display: flex;
    flex-direction: column;
@@ -237,4 +250,56 @@ h2 {
    border-style: none;
    font-size: 1.5em;
    cursor: pointer;
+ }
+ .todo-list-div {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   width: 33%;
+   margin: 20px auto;
+ }
+ .todo-header-div {
+   border-bottom: 4px solid rgb(65, 158, 158);
+   color: rgb(65, 158, 158);
+   font-family: 'roboto';
+   width: 100%;
+   margin-bottom: 35px;
+ }
+ .todo-header-div h3 {
+   font-size: 2.2em;
+   font-style: italic;
+   margin-bottom: -10px;
+ }
+ .add-todo-form {
+   display: flex;
+ }
+ .add-todo-form button {
+   margin-right: 2px;
+ }
+ .add-todo-input {
+   height: 24px;
+   width: 371px;
+   margin-left: 2px;
+ }
+ .todo-list {
+   padding: 0;
+   width: 435px;
+ }
+ .todo-item {
+   list-style-type: none;
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-end;
+   font-family: 'roboto';
+   font-size: 1.3em;
+   font-weight: 300;
+   border-bottom: 1px solid rgb(65, 158, 158);
+   margin-bottom: 5px;
+   padding: 3px;
+ }
+ .checkbox-item {
+   margin-bottom: -3px;
+ }
+ .checkbox:checked {
+   background-color: red;
  }

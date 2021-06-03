@@ -385,8 +385,8 @@ function addTodosToListPage () {
         checkbox.setAttribute('type', 'checkbox');
         checkboxItem.appendChild(checkbox);
         checkboxItem.appendChild(itemText);
-        checkboxItem.appendChild(deleteButton);
         todoItem.appendChild(checkboxItem);
+        todoItem.appendChild(deleteButton);
         todoList.appendChild(todoItem);
       });
     }
@@ -481,7 +481,7 @@ function loadListPage(list) {
   
   // add todo form
   addTodoForm.classList.add('add-todo-form');
-  addTodoBtn.classList.add('add-todo-btn');
+  addTodoBtn.classList.add('add-todo-btn', 'btn-sm', 'btn-white');
   addTodoBtn.innerText = '+';
   addTodoInput.classList.add('add-todo-input');
   addTodoBtn.setAttribute('type', 'submit');
