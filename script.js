@@ -375,6 +375,11 @@ function addItemsToListPage () {
         let checkbox = document.createElement('input');
         let itemText = document.createElement('span');
         let deleteButton = document.createElement('button');
+        todoItem.classList.add('todo-item');
+        checkboxItem.classList.add('checkbox-item');
+        checkbox.classList.add('checkbox');
+        itemText.classList.add('todo-text');
+        deleteButton.classList.add('btn-remove');
         itemText.innerText = item;
         deleteButton.innerText = 'X';
         checkbox.setAttribute('type', 'checkbox');
@@ -386,6 +391,7 @@ function addItemsToListPage () {
       });
     }
   }
+
   todoDiv.appendChild(todoList);
 }
 
@@ -442,18 +448,20 @@ const loadDashboard = () => {
 function loadListPage(list) {
   // removal of dashboard elements
   dashboardList.remove();
+ 
   // add outer ui elements
-  todoDiv.classList.add('todo-div');
+  todoDiv.classList.add('todo-list-div');
   todoNav.classList.add('todo-nav');
   todoBackButton.classList.add('todo-back-btn');
   todoBackButton.innerText = 'back to dashboard';
   todoBackButton.href = '';
+  
   // add list name
   todoHeaderDiv.classList.add('todo-header-div');
   todoHeader.classList.add('todo-header');
   todoHeader.innerText = list;
-  // add todo form
   
+  // add todo form
   addTodoForm.classList.add('add-todo-form');
   addTodoBtn.classList.add('add-todo-btn');
   addTodoBtn.innerText = '+';
@@ -461,6 +469,9 @@ function loadListPage(list) {
   addTodoBtn.setAttribute('type', 'submit');
   addTodoInput.setAttribute('type', 'text');
   addTodoInput.setAttribute('placeholder', 'List Item');
+
+  // add ul container
+  todoList.classList.add('todo-list');
 
   // append to ui
   todoNav.appendChild(todoBackButton);
@@ -471,6 +482,10 @@ function loadListPage(list) {
   todoDiv.appendChild(addTodoForm);
   mainSection.appendChild(todoNav);
   mainSection.appendChild(todoDiv);
+  mainSection.appendChild(todoList);
+
+  // add all existing list items to ui
+  addItemsToListPage();
 }
 
 // EVENT LISTENERS
@@ -585,4 +600,10 @@ addTodoForm.addEventListener('submit', (e) => {
   addItemToLocalStorage();
   addItemsToListPage();
   addTodoInput.value = '';
+});
+
+todoDiv.addEventListener('click', (e) => {
+  if (e.target.classList.contains('btn-remove')) {
+    removeItemFromLocalStorage();
+  }
 });
