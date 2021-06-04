@@ -576,6 +576,7 @@ signupForm.addEventListener('submit', (e) => {
     let newUser = new User(signupFormFName.value, signupFormLName.value, signupFormEmail.value, signupFormPassword.value, signupFormTerms.checked);
     localStorage.setItem(userName, JSON.stringify(newUser));
     signupDiv.remove();
+    sessionUser = signupFormEmail.value;
     loadSignupConfirmation();
   }
 });
