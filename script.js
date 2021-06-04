@@ -49,6 +49,7 @@ const confInfoFName = document.createElement('p');
 const confInfoLName = document.createElement('p');
 const confInfoEmail = document.createElement('p');
 const confSubmitButton = document.createElement('button');
+let sessionUser;
 
 // dashboard
 const dashboardHeaderBar = document.createElement('header');
@@ -250,15 +251,15 @@ const loadSignupConfirmation = () => {
 // add items to list
 function addListToLocalStorage () {
   let listInput = addListInput.value;
-  let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  let userData = JSON.parse(localStorage.getItem(sessionUser));
 
   userData.lists.push(new List(listInput));
-  localStorage.setItem('jnh@mail.com', JSON.stringify(userData));
+  localStorage.setItem(sessionUser, JSON.stringify(userData));
 }
 
 function addListToDashboard () {
   // create a variable from the local storage lists array
-  const userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  const userData = JSON.parse(localStorage.getItem(sessionUser));
 
   // list container
   listUL.classList.add('list-ul');
@@ -303,14 +304,14 @@ function addListToDashboard () {
 
 // remove list items from local storage
 function removeListFromLocalStorage (list) {
-  let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  let userData = JSON.parse(localStorage.getItem(sessionUser));
   let userLists = userData.lists;
   // console.log(userLists);
   for(let i in userLists) {
     
     if (list.textContent === userLists[i].name) {
       userLists.splice(i, 1);
-      localStorage.setItem('jnh@mail.com', JSON.stringify(userData));
+      localStorage.setItem(sessionUser, JSON.stringify(userData));
     }
   }
 
@@ -343,13 +344,13 @@ function removeNoListMsg () {
 function addTodosToLocalStorage () {
   let listName = todoHeader.innerText;
   let listInput = addTodoInput.value;
-  let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  let userData = JSON.parse(localStorage.getItem(sessionUser));
   let userLists = userData.lists;
 
   for (let list of userLists) {
     if (list.name === listName) {
       list.items.push(listInput);
-      localStorage.setItem('jnh@mail.com', JSON.stringify(userData));
+      localStorage.setItem(sessionUser, JSON.stringify(userData));
     }
   }
 }
@@ -357,7 +358,7 @@ function addTodosToLocalStorage () {
 function addTodosToListPage () {
   // create a variable from the local storage lists array
   let listName = todoHeader.innerText;
-  let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  let userData = JSON.parse(localStorage.getItem(sessionUser));
   let userLists = userData.lists;
 
   // remove existing todos when returning to list
@@ -397,7 +398,7 @@ function addTodosToListPage () {
 
 function removeTodoFromLocalStorage(todo) {
   let listName = todoHeader.innerText;
-  let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  let userData = JSON.parse(localStorage.getItem(sessionUser));
   let userLists = userData.lists;
 
   for (let i of userLists) {
@@ -405,7 +406,7 @@ function removeTodoFromLocalStorage(todo) {
       let listArr = i.items;
       let todoIndex = listArr.indexOf(todo);
       listArr.splice(todoIndex, 1);
-      localStorage.setItem('jnh@mail.com', JSON.stringify(userData));
+      localStorage.setItem(sessionUser, JSON.stringify(userData));
     }
   }
 }
@@ -454,7 +455,7 @@ const loadDashboard = () => {
   loadDashboardHeader();
   loadNewListForm();
   
-  let userData = JSON.parse(localStorage.getItem('jnh@mail.com'));
+  let userData = JSON.parse(localStorage.getItem(sessionUser));
   if (Object.values(userData.lists).length < 1) {
     loadNoListMsg();
   }
@@ -526,6 +527,7 @@ introBtnLogin.addEventListener('click', () => {
 
 signinForm.addEventListener('submit', (e) => {
   e.preventDefault();
+  sessionUser = signinFormEmail.value;
 //   userName = signupFormEmail.value;
 //   signinErrorDiv.classList.add('error-div');
 
@@ -539,15 +541,16 @@ signinForm.addEventListener('submit', (e) => {
 //     signinDiv.appendChild(signinErrorDiv);
 //     return;
 //   }
-//   if (signinFormEmail.value !== JSON.parse(localStorage.getItem('jnh@mail.com'))['email'] || signinFormPassword.value !== JSON.parse(localStorage.getItem('jnh@mail.com'))['password'] ) {
+//   if (signinFormEmail.value !== JSON.parse(localStorage.getItem(sessionUser))['email'] || signinFormPassword.value !== JSON.parse(localStorage.getItem(sessionUser))['password'] ) {
 //     signinErrorDiv.innerText = 'Incorrect email or password';
 //     signinDiv.appendChild(signinErrorDiv);
 //     return;
 //   }
-//   if (signinFormEmail.value === JSON.parse(localStorage.getItem('jnh@mail.com'))['email'] && signinFormPassword.value === JSON.parse(localStorage.getItem('jnh@mail.com'))['password'] ) {
+//   if (signinFormEmail.value === JSON.parse(localStorage.getItem(sessionUser))['email'] && signinFormPassword.value === JSON.parse(localStorage.getItem(sessionUser))['password'] ) {
 //     signinDiv.remove();
 //     loadDashboard();
 //   }
+
 signinDiv.remove();
 loadDashboard();
 });
