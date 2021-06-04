@@ -303,3 +303,10 @@ h2 {
  .checkbox:checked {
    background-color: red;
  }
+.dashboard-nav {
+   display: flex;
+   justify-content: flex-end;
+}
+.dashboard-settings-link {
+   margin: 20px 80px 0 0;
+}

@@ -53,6 +53,7 @@ let sessionUser;
 
 // dashboard
 const dashboardHeaderBar = document.createElement('header');
+const dashboardNav = document.createElement('nav');
 const dashboardTitle = document.createElement('h1');
 const dashboardList = document.createElement('div');
 const addListForm = document.createElement('form');
@@ -453,6 +454,13 @@ const loadDashboardHeader = () => {
 const loadDashboard = () => {
   introHeaderBar.remove();
   loadDashboardHeader();
+  let accountSettings = document.createElement('a');
+  accountSettings.innerText = 'Account Settings';
+  dashboardNav.classList.add('dashboard-nav');
+  accountSettings.href = '';
+  accountSettings.classList.add('dashboard-settings-link');
+  dashboardNav.appendChild(accountSettings);
+  mainSection.appendChild(dashboardNav)
   loadNewListForm();
   
   let userData = JSON.parse(localStorage.getItem(sessionUser));
