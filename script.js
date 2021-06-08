@@ -54,7 +54,8 @@ let sessionUser;
 // dashboard
 const dashboardHeaderBar = document.createElement('header');
 const dashboardNav = document.createElement('nav');
-const accountSettings = document.createElement('a');
+const accountSettings = document.createElement('button');
+const signOut = document.createElement('button');
 const dashboardTitle = document.createElement('h1');
 const dashboardList = document.createElement('div');
 const addListForm = document.createElement('form');
@@ -68,7 +69,7 @@ const listUL = document.createElement('ul');
 
 // list items page
 const todoNav = document.createElement('nav');
-const todoBackButton = document.createElement('a');
+const todoBackButton = document.createElement('button');
 const todoDiv = document.createElement('div');
 const todoHeaderDiv = document.createElement('div');
 const todoHeader = document.createElement('h3');
@@ -77,6 +78,14 @@ const addTodoBtn = document.createElement('button');
 const addTodoInput = document.createElement('input');
 const todoList = document.createElement('ul');
 // let todoListItem = document.createElement('li');
+
+// account settings page
+const accountHeader = document.createElement('h3');
+const userInfo = document.createElement('form');
+const userFirstName = document.createElement('input');
+const userLastName = document.createElement('input');
+const userEmail = document.createElement('input');
+const userPassword = document.createElement('input');
 
 
 // new user constructor
@@ -458,7 +467,6 @@ const loadDashboard = () => {
   
   accountSettings.innerText = 'Account Settings';
   dashboardNav.classList.add('dashboard-nav');
-  accountSettings.href = '';
   accountSettings.classList.remove('todo-settings-link');
   accountSettings.classList.add('dashboard-settings-link');
   dashboardNav.appendChild(accountSettings);
@@ -487,8 +495,6 @@ function loadListPage(list) {
   accountSettings.classList.remove('dashboard-settings-link');
   accountSettings.classList.add('todo-settings-link');
   todoBackButton.innerText = 'back to dashboard';
-  accountSettings.href = '';
-  todoBackButton.href = '';
 
   todoDiv.classList.add('todo-list-div');
 
@@ -523,6 +529,15 @@ function loadListPage(list) {
 
   // add all existing list items to ui
   addTodosToListPage();
+}
+
+function loadAccountSettings(el) {
+  if (el.classList.contains('dashboard-settings-link')) {
+    console.log('dashboard settings clicked');
+  }
+  if (el.classList.contains('todo-settings-link')) {
+    console.log('todo settings clicked')
+  }
 }
 
 // EVENT LISTENERS
@@ -647,3 +662,8 @@ todoDiv.addEventListener('click', (e) => {
     removeTodo(e);
   }
 });
+
+accountSettings.addEventListener('click', (e) => {
+  e.preventDefault();
+  loadAccountSettings(e.target);
+})
