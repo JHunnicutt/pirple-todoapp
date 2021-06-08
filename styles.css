@@ -307,6 +307,13 @@ h2 {
    display: flex;
    justify-content: flex-end;
 }
-.dashboard-settings-link {
+.todo-nav {
+   display: flex;
+   justify-content: space-between;
+}
+.todo-back-btn {
+   margin: 20px 0 0 30px;
+}
+.dashboard-settings-link, .todo-settings-link {
    margin: 20px 80px 0 0;
 }

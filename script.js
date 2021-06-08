@@ -54,6 +54,7 @@ let sessionUser;
 // dashboard
 const dashboardHeaderBar = document.createElement('header');
 const dashboardNav = document.createElement('nav');
+const accountSettings = document.createElement('a');
 const dashboardTitle = document.createElement('h1');
 const dashboardList = document.createElement('div');
 const addListForm = document.createElement('form');
@@ -454,10 +455,11 @@ const loadDashboardHeader = () => {
 const loadDashboard = () => {
   introHeaderBar.remove();
   loadDashboardHeader();
-  let accountSettings = document.createElement('a');
+  
   accountSettings.innerText = 'Account Settings';
   dashboardNav.classList.add('dashboard-nav');
   accountSettings.href = '';
+  accountSettings.classList.remove('todo-settings-link');
   accountSettings.classList.add('dashboard-settings-link');
   dashboardNav.appendChild(accountSettings);
   mainSection.appendChild(dashboardNav)
@@ -477,14 +479,19 @@ const loadDashboard = () => {
 function loadListPage(list) {
   // removal of dashboard elements
   dashboardList.remove();
- 
+  dashboardNav.remove();
+
   // add outer ui elements
-  todoDiv.classList.add('todo-list-div');
   todoNav.classList.add('todo-nav');
   todoBackButton.classList.add('todo-back-btn');
+  accountSettings.classList.remove('dashboard-settings-link');
+  accountSettings.classList.add('todo-settings-link');
   todoBackButton.innerText = 'back to dashboard';
+  accountSettings.href = '';
   todoBackButton.href = '';
-  
+
+  todoDiv.classList.add('todo-list-div');
+
   // add list name
   todoHeaderDiv.classList.add('todo-header-div');
   todoHeader.classList.add('todo-header');
@@ -504,6 +511,7 @@ function loadListPage(list) {
 
   // append to ui
   todoNav.appendChild(todoBackButton);
+  todoNav.appendChild(accountSettings);
   addTodoForm.appendChild(addTodoBtn);
   addTodoForm.appendChild(addTodoInput);
   todoHeaderDiv.appendChild(todoHeader);
