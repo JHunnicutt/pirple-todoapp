@@ -468,8 +468,8 @@ const loadDashboard = () => {
   accountSettings.innerText = 'Account Settings';
   signOut.innerText = 'Sign Out';
   dashboardNav.classList.add('dashboard-nav');
-  accountSettings.classList.add('account-settings-btn', 'btn-md', 'btn-teal');
-  signOut.classList.add('signout-btn', 'btn-md', 'btn-white');
+  accountSettings.classList.add('account-settings-btn', 'btn-teal');
+  signOut.classList.add('signout-btn', 'btn-white');
   dashboardNav.appendChild(accountSettings);
   dashboardNav.appendChild(signOut);
   mainSection.appendChild(dashboardNav)
@@ -493,7 +493,7 @@ function loadListPage(list) {
 
   // add outer ui elements
   todoNav.classList.add('todo-nav');
-  todoBackButton.classList.add('todo-back-btn', 'btn-md', 'btn-teal');
+  todoBackButton.classList.add('todo-back-btn', 'btn-teal');
   todoBackButton.innerText = 'back to dashboard';
 
   todoDiv.classList.add('todo-list-div');
