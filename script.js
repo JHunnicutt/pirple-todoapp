@@ -80,12 +80,14 @@ const todoList = document.createElement('ul');
 // let todoListItem = document.createElement('li');
 
 // account settings page
-const accountHeader = document.createElement('h3');
+const accountSettingsDiv = document.createElement('div')
+const accountHeader = document.createElement('h2');
 const userInfo = document.createElement('form');
 const userFirstName = document.createElement('input');
 const userLastName = document.createElement('input');
 const userEmail = document.createElement('input');
 const userPassword = document.createElement('input');
+const userSubmit = document.createElement('input');
 
 
 // new user constructor
@@ -532,13 +534,53 @@ function loadListPage(list) {
   addTodosToListPage();
 }
 
-function loadAccountSettings(el) {
-  if (el.classList.contains('dashboard-settings-link')) {
-    console.log('dashboard settings clicked');
-  }
-  if (el.classList.contains('todo-settings-link')) {
-    console.log('todo settings clicked')
-  }
+function loadAccountSettings() {
+  //remove dashboard list div, todo list div, and related nav buttons
+  dashboardList.remove();
+  todoDiv.remove();
+  accountSettings.remove();
+  todoBackButton.remove();
+
+  let userData = JSON.parse(localStorage.getItem(sessionUser));
+
+  accountSettingsDiv.classList.add('account-settings-div');
+  accountHeader.classList.add('account-settings-header');
+  userInfo.classList.add('user-info-form');
+  userFirstName.classList.add('user-first-name');
+  userLastName.classList.add('user-last-name');
+  userEmail.classList.add('user-emaial');
+  userPassword.classList.add('user-password');
+  userSubmit.classList.add('account-settings-submit');
+
+  userFirstName.setAttribute('type', 'text');
+  userFirstName.setAttribute('placeholder', 'First Name');
+  userFirstName.required = true;
+  userLastName.setAttribute('type', 'text');
+  userLastName.setAttribute('placeholder', 'Last Name');
+  userLastName.required = true;
+  userEmail.setAttribute('type', 'text');
+  userEmail.setAttribute('placeholder', 'Email Address');
+  userEmail.required = true;
+  userPassword.setAttribute('type', 'password');
+  userPassword.setAttribute('placeholder', 'Password');
+  userPassword.required = true;
+  userSubmit.setAttribute('type', 'submit');
+
+  accountHeader.innerHTML = 'Account Settings'
+  userFirstName.value = userData.firstName;
+  userLastName.value = userData.lastName;
+  userEmail.value = userData.email;
+  userPassword.value = userData.password;
+  userSubmit.value = 'Save & Return';
+
+  userInfo.appendChild(userFirstName);
+  userInfo.appendChild(userLastName);
+  userInfo.appendChild(userEmail);
+  userInfo.appendChild(userPassword);
+  userInfo.appendChild(userSubmit);
+  accountSettingsDiv.appendChild(accountHeader);
+  accountSettingsDiv.appendChild(userInfo);
+  mainSection.appendChild(accountSettingsDiv);
 }
 
 // EVENT LISTENERS
@@ -666,5 +708,5 @@ todoDiv.addEventListener('click', (e) => {
 
 accountSettings.addEventListener('click', (e) => {
   e.preventDefault();
-  loadAccountSettings(e.target);
+  loadAccountSettings();
 })
