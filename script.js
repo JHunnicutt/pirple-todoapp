@@ -583,6 +583,16 @@ function loadAccountSettings() {
   mainSection.appendChild(accountSettingsDiv);
 }
 
+function updateUserInfo(first, last, email, password) {
+  let userData = JSON.parse(localStorage.getItem(sessionUser));
+  sessionUser = userEmail.value;
+  userData.firstName = first;
+  userData.lastName = last;
+  userData.email = email;
+  userData.password = password;
+
+  localStorage.setItem(sessionUser, JSON.stringify(userData));
+}
 // EVENT LISTENERS
 window.addEventListener('load', () => {
   loadIntroHeader();
@@ -709,4 +719,9 @@ todoDiv.addEventListener('click', (e) => {
 accountSettings.addEventListener('click', (e) => {
   e.preventDefault();
   loadAccountSettings();
-})
+});
+
+userInfo.addEventListener('submit', (e) => {
+  e.preventDefault();
+  updateUserInfo(userFirstName.value, userLastName.value, userEmail.value, userPassword.value);
+});
