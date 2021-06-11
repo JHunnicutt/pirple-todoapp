@@ -585,12 +585,12 @@ function loadAccountSettings() {
 
 function updateUserInfo(first, last, email, password) {
   let userData = JSON.parse(localStorage.getItem(sessionUser));
+  localStorage.removeItem(sessionUser);
   sessionUser = userEmail.value;
   userData.firstName = first;
   userData.lastName = last;
   userData.email = email;
   userData.password = password;
-
   localStorage.setItem(sessionUser, JSON.stringify(userData));
 }
 // EVENT LISTENERS
