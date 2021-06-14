@@ -81,7 +81,7 @@ const todoList = document.createElement('ul');
 
 // account settings page
 const accountSettingsDiv = document.createElement('div')
-const accountHeader = document.createElement('h2');
+const accountHeader = document.createElement('h3');
 const userInfo = document.createElement('form');
 const userFirstName = document.createElement('input');
 const userLastName = document.createElement('input');
