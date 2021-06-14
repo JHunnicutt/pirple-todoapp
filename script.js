@@ -724,4 +724,6 @@ accountSettings.addEventListener('click', (e) => {
 userInfo.addEventListener('submit', (e) => {
   e.preventDefault();
   updateUserInfo(userFirstName.value, userLastName.value, userEmail.value, userPassword.value);
+  accountSettingsDiv.remove();
+  loadDashboard();
 });
