@@ -638,6 +638,7 @@ signinForm.addEventListener('submit', (e) => {
 //     loadDashboard();
 //   }
 
+signinFormEmail.value = '';
 signinDiv.remove();
 loadDashboard();
 });
@@ -729,4 +730,15 @@ userInfo.addEventListener('submit', (e) => {
   updateUserInfo(userFirstName.value, userLastName.value, userEmail.value, userPassword.value);
   accountSettingsDiv.remove();
   loadDashboard();
+});
+
+signOut.addEventListener('click', (e) => {
+  dashboardHeaderBar.remove();
+  dashboardNav.remove();
+  todoNav.remove();
+  dashboardList.remove();
+  todoDiv.remove();
+  accountSettingsDiv.remove();
+  loadIntroHeader();
+  loadIntroButtons();
 });
