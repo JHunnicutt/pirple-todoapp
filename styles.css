@@ -258,14 +258,14 @@ h2 {
    width: 33%;
    margin: 20px auto;
  }
- .todo-header-div {
+ .todo-header-div, .account-settings-header-div {
    border-bottom: 4px solid rgb(65, 158, 158);
    color: rgb(65, 158, 158);
    font-family: 'roboto';
    width: 100%;
    margin-bottom: 35px;
  }
- .todo-header-div h3 {
+ .todo-header-div h3, .account-settings-header {
    font-size: 2.2em;
    font-style: italic;
    margin-bottom: -10px;
@@ -319,4 +319,34 @@ h2 {
 }
 .signout-btn {
    margin: 20px 80px 0 5px
+}
+.account-settings-div {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+.account-settings-header-div {
+   width: 45%;
+}
+.user-info-form {
+   display: flex;
+   flex-direction: column;
+   width: 36%;
+   margin: 0 auto;
+}
+.user-info-form input {
+   height: 40px;
+   margin-bottom: 4px;
+}
+.account-settings-submit {
+   display: flex;
+   height: 40px;
+   margin: 0 auto;
+}
+.user-info-form input:last-child {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   height: 60px;
 }

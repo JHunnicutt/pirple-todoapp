@@ -80,7 +80,8 @@ const todoList = document.createElement('ul');
 // let todoListItem = document.createElement('li');
 
 // account settings page
-const accountSettingsDiv = document.createElement('div')
+const accountSettingsDiv = document.createElement('div');
+const accountHeaderDiv = document.createElement('div');
 const accountHeader = document.createElement('h3');
 const userInfo = document.createElement('form');
 const userFirstName = document.createElement('input');
@@ -544,13 +545,14 @@ function loadAccountSettings() {
   let userData = JSON.parse(localStorage.getItem(sessionUser));
 
   accountSettingsDiv.classList.add('account-settings-div');
+  accountHeaderDiv.classList.add('account-settings-header-div');
   accountHeader.classList.add('account-settings-header');
   userInfo.classList.add('user-info-form');
   userFirstName.classList.add('user-first-name');
   userLastName.classList.add('user-last-name');
   userEmail.classList.add('user-emaial');
   userPassword.classList.add('user-password');
-  userSubmit.classList.add('account-settings-submit');
+  userSubmit.classList.add('account-settings-submit', 'btn', 'btn-lg', 'btn-teal');
 
   userFirstName.setAttribute('type', 'text');
   userFirstName.setAttribute('placeholder', 'First Name');
@@ -578,7 +580,8 @@ function loadAccountSettings() {
   userInfo.appendChild(userEmail);
   userInfo.appendChild(userPassword);
   userInfo.appendChild(userSubmit);
-  accountSettingsDiv.appendChild(accountHeader);
+  accountHeaderDiv.appendChild(accountHeader);
+  accountSettingsDiv.appendChild(accountHeaderDiv);
   accountSettingsDiv.appendChild(userInfo);
   mainSection.appendChild(accountSettingsDiv);
 }
