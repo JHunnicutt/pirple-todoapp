@@ -380,7 +380,6 @@ function addTodosToListPage () {
   let listName = todoHeader.innerText;
   let userData = JSON.parse(localStorage.getItem(sessionUser));
   let userLists = userData.lists;
-
   // remove existing todos when returning to list
   while(todoList.firstChild) {
     todoList.removeChild(todoList.firstChild);
@@ -389,8 +388,11 @@ function addTodosToListPage () {
   // loop through array and assign each item a class and append to a div
   for (let list of userLists) {
     if (list.name === listName) {
-      let listItems = list.items;
-      listItems.forEach(item => {
+      let listTodos = list.items;
+      // listTodos.forEach(item => {
+      //   console.log(item.name)
+      // })
+      listTodos.forEach(item => {
         let todoItem = document.createElement('li');
         let checkboxItem = document.createElement('div');
         let checkbox = document.createElement('input');
@@ -401,7 +403,7 @@ function addTodosToListPage () {
         checkbox.classList.add('checkbox');
         itemText.classList.add('todo-text');
         deleteButton.classList.add('btn-remove', 'remove-todo');
-        itemText.innerText = item;
+        itemText.innerText = item.name;
         deleteButton.innerText = 'X';
         checkbox.setAttribute('type', 'checkbox');
         checkboxItem.appendChild(checkbox);
