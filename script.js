@@ -108,6 +108,12 @@ const List = function (name) {
   this.items = [];
 };
 
+// new todo constructor
+const Todo = function (name) {
+  this.name = name;
+  this.checked = false;
+}
+
 // FUNCTIONS
 const loadIntroHeader = () => {
   introHeaderBar.classList.add('intro-header');
@@ -363,7 +369,7 @@ function addTodosToLocalStorage () {
 
   for (let list of userLists) {
     if (list.name === listName) {
-      list.items.push(listInput);
+      list.items.push(new Todo(listInput));
       localStorage.setItem(sessionUser, JSON.stringify(userData));
     }
   }
