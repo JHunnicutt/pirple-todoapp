@@ -245,6 +245,16 @@ h2 {
  .list-item a:link {
    text-decoration: none;
  }
+ .list-management {
+   display: flex;
+   align-items: center;
+ }
+ .list-edit-btn {
+   color: #fff;
+ }
+ .list-edit-btn:hover {
+   color: rgb(249, 249, 249);
+ }
  .remove-item {
    background-color: rgb(65, 158, 158);
    border-style: none;
