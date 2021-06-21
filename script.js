@@ -302,6 +302,16 @@ function addListToDashboard () {
     // item text
     let listText = document.createElement('span');
     listText.classList.add('item-text');
+    // list managment div
+    let listManagement = document.createElement('div');
+    listManagement.classList.add('list-management');
+    // edit button
+    let listEditLink = document.createElement('a');
+    let listEditButton = document.createElement('span');
+    listEditLink.href = '';
+    listEditLink.classList.add('list-edit-btn');
+    listEditButton.classList.add('material-icons');
+    listEditButton.innerText = 'mode_edit';
     // item button
     let listRemove = document.createElement('button');
     listRemove.classList.add('remove-item');
@@ -310,8 +320,11 @@ function addListToDashboard () {
     listRemove.innerText = 'X'
 
     listLink.appendChild(listText);
+    listEditLink.appendChild(listEditButton);
+    listManagement.appendChild(listEditLink);
+    listManagement.appendChild(listRemove);
     listItem.appendChild(listLink);
-    listItem.appendChild(listRemove);
+    listItem.appendChild(listManagement);
     listUL.appendChild(listItem);
   }
   // append div to dashboard
