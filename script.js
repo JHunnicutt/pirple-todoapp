@@ -411,6 +411,7 @@ function addTodosToListPage () {
         todoItem.appendChild(checkboxItem);
         todoItem.appendChild(deleteButton);
         todoList.appendChild(todoItem);
+
       });
     }
   }
@@ -438,6 +439,32 @@ function removeTodo(todo) {
   removeTodoFromLocalStorage(todo.target.parentElement.children[0].children[1].textContent);
 }
 
+function checkedStatus(item) {
+  const userData = JSON.parse(localStorage.getItem(sessionUser));
+  const userLists = userData.lists;
+  const listName = todoHeader.innerText;
+  const checkedItem = item.nextSibling.innerText;
+  
+  for (let list of userLists) {
+    if (list.name === listName) {
+      for (let todo of list.items) {
+        if(todo.name === checkedItem) {
+          if (todo.checked === false) {
+            todo.checked = true;
+            localStorage.setItem(sessionUser, JSON.stringify(userData));
+            return;
+          }
+          if (todo.checked === true) {
+            todo.checked = false;
+            localStorage.setItem(sessionUser, JSON.stringify(userData));
+            return;
+          }
+        }
+      }
+    }
+  }
+  
+}
 // load the add new list form
 const loadNewListForm = () => {
   dashboardList.classList.add('dashboard-list-div');
@@ -749,4 +776,13 @@ signOut.addEventListener('click', (e) => {
   accountSettingsDiv.remove();
   loadIntroHeader();
   loadIntroButtons();
+});
+
+todoList.addEventListener('click', (e) => {
+  if (e.target.classList.contains('checkbox')) {
+    checkedStatus(e.target);
+  } else {
+    return;
+  }
+  
 });
