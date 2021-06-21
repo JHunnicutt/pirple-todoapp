@@ -389,9 +389,7 @@ function addTodosToListPage () {
   for (let list of userLists) {
     if (list.name === listName) {
       let listTodos = list.items;
-      // listTodos.forEach(item => {
-      //   console.log(item.name)
-      // })
+
       listTodos.forEach(item => {
         let todoItem = document.createElement('li');
         let checkboxItem = document.createElement('div');
@@ -411,6 +409,10 @@ function addTodosToListPage () {
         todoItem.appendChild(checkboxItem);
         todoItem.appendChild(deleteButton);
         todoList.appendChild(todoItem);
+
+        if (item.checked === true) {
+          checkbox.checked = true;
+        }
 
       });
     }
