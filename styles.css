@@ -250,6 +250,8 @@ h2 {
    align-items: center;
  }
  .list-edit-btn {
+   display: flex;
+   align-items: center;
    color: #fff;
  }
  .list-edit-btn:hover {
