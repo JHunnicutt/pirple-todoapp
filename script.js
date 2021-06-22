@@ -355,8 +355,8 @@ function removeListFromLocalStorage (list) {
 
 // delete a list from the dashboard UI
 function removeList (e) {
-  e.target.parentElement.remove();
-  removeListFromLocalStorage(e.target.parentElement.children[0].children[0]);
+  e.target.parentElement.parentElement.remove();
+  removeListFromLocalStorage(e.target.parentElement.parentElement.children[0].children[0]);
 }
 
 // load the message when no lists are present on the dashboard
@@ -660,37 +660,43 @@ function updateUserInfo(first, last, email, password) {
 function editListItem(list) {
   const listTitle = list.firstChild.firstChild.innerText;
   const listEditForm = document.createElement('form')
-  const listEditField = document.createElement('input');
+  const listEditInput = document.createElement('input');
   
-  listEditField.value = listTitle;
-  listEditForm.appendChild(listEditField);
+  listEditInput.value = listTitle;
+  listEditForm.appendChild(listEditInput);
   list.replaceChild(listEditForm, list.firstChild);
 
   listEditForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    updateListName(listTitle, listEditField.value, list);
+    updateListName(listTitle, listEditInput.value, list);
   })
 }
 
 function updateListName(oldName, newName, parent) {
   const userData = JSON.parse(localStorage.getItem(sessionUser));
   const listLink = document.createElement('a');
-  const listSpan = document.createElement('span');
+  const listText = document.createElement('span');
   const listForm = parent.firstChild;
+  
 
-  listLink.classList.add('list-link');
-  listSpan.classList.add('item-text');
-
-  listLink.appendChild(listSpan);
 
   for (let list of userData.lists) {
-    if (list.name === oldName) {
-      list.name = newName;
-      listSpan.innerText = newName;
-      localStorage.setItem(sessionUser, JSON.stringify(userData));
-      parent.replaceChild(listLink, listForm);
+    if(list.name === oldName) {
+      console.log(list.name);
     }
-  }
+  //   if (list.name === oldName) {
+  //     console.log(list.name)
+  //     list.name = newName;
+  //     localStorage.setItem(sessionUser, JSON.stringify(userData));
+
+  //     listLink.classList.add('list-link');
+  //     listText.classList.add('item-text');
+  //     listSpan.innerText = newName;
+  //     listLink.appendChild(listSpan);
+  //     parent.replaceChild(listLink, listForm);
+  //   }
+  // }
+}
 }
 // EVENT LISTENERS
 window.addEventListener('load', () => {
