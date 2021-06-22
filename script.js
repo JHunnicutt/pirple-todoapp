@@ -273,7 +273,7 @@ function addListToLocalStorage () {
   let listInput = addListInput.value;
   let userData = JSON.parse(localStorage.getItem(sessionUser));
 
-  userData.lists.push(new List(listInput));
+  userData.lists.push(new List(listInput.trim()));
   localStorage.setItem(sessionUser, JSON.stringify(userData));
 }
 
@@ -668,7 +668,7 @@ function editListItem(list) {
 
   listEditForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    updateListName(listTitle, listEditInput.value, list);
+    updateListName(listTitle, listEditInput.value.trim(), list);
   })
 }
 
@@ -678,11 +678,10 @@ function updateListName(oldName, newName, parent) {
   const listText = document.createElement('span');
   const listForm = parent.firstChild;
   
-
-
   for (let list of userData.lists) {
     if(list.name === oldName) {
-      console.log(list.name);
+      list.name = newName;
+      localStorage.setItem(sessionUser, JSON.stringify(userData));
     }
   //   if (list.name === oldName) {
   //     console.log(list.name)
