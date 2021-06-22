@@ -249,12 +249,12 @@ h2 {
    display: flex;
    align-items: center;
  }
- .list-edit-btn {
+ .list-edit-link {
    display: flex;
    align-items: center;
    color: #fff;
  }
- .list-edit-btn:hover {
+ .list-edit-link:hover {
    color: rgb(249, 249, 249);
  }
  .remove-item {
@@ -321,13 +321,13 @@ h2 {
    align-items: center;
    justify-content: center;
  }
- .todo-edit-btn {
+ .todo-edit-link {
    display: flex;
    align-items: center;
    color:rgb(65, 158, 158);
    cursor: pointer;
  }
- .todo-edit-btn:hover {
+ .todo-edit-link:hover {
    color: rgb(62, 151, 151);
  }
 .dashboard-nav {

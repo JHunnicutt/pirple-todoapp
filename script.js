@@ -309,8 +309,8 @@ function addListToDashboard () {
     let listEditLink = document.createElement('a');
     let listEditButton = document.createElement('span');
     listEditLink.href = '';
-    listEditLink.classList.add('list-edit-btn');
-    listEditButton.classList.add('material-icons');
+    listEditLink.classList.add('list-edit-link');
+    listEditButton.classList.add('material-icons', 'list-edit-btn');
     listEditButton.innerText = 'mode_edit';
     // item button
     let listRemove = document.createElement('button');
@@ -417,8 +417,8 @@ function addTodosToListPage () {
         todoManagment.classList.add('todo-management');
         checkbox.classList.add('checkbox');
         itemText.classList.add('todo-text');
-        todoEditLink.classList.add('todo-edit-btn');
-        todoEditButton.classList.add('material-icons');
+        todoEditLink.classList.add('todo-edit-link');
+        todoEditButton.classList.add('material-icons', 'todo-edit-btn');
         deleteButton.classList.add('btn-remove', 'remove-todo');
         itemText.innerText = item.name;
         todoEditButton.innerText = 'mode_edit'
