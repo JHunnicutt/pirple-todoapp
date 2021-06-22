@@ -406,21 +406,31 @@ function addTodosToListPage () {
       listTodos.forEach(item => {
         let todoItem = document.createElement('li');
         let checkboxItem = document.createElement('div');
+        let todoManagment = document.createElement('div');
         let checkbox = document.createElement('input');
         let itemText = document.createElement('span');
+        let todoEditLink = document.createElement('a');
+        let todoEditButton = document.createElement('span')
         let deleteButton = document.createElement('button');
         todoItem.classList.add('todo-item');
         checkboxItem.classList.add('checkbox-item');
+        todoManagment.classList.add('todo-management');
         checkbox.classList.add('checkbox');
         itemText.classList.add('todo-text');
+        todoEditLink.classList.add('todo-edit-btn');
+        todoEditButton.classList.add('material-icons');
         deleteButton.classList.add('btn-remove', 'remove-todo');
         itemText.innerText = item.name;
+        todoEditButton.innerText = 'mode_edit'
         deleteButton.innerText = 'X';
         checkbox.setAttribute('type', 'checkbox');
         checkboxItem.appendChild(checkbox);
         checkboxItem.appendChild(itemText);
+        todoEditLink.appendChild(todoEditButton);
+        todoManagment.appendChild(todoEditLink);
+        todoManagment.appendChild(deleteButton);
         todoItem.appendChild(checkboxItem);
-        todoItem.appendChild(deleteButton);
+        todoItem.appendChild(todoManagment);
         todoList.appendChild(todoItem);
 
         if (item.checked === true) {
