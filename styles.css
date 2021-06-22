@@ -313,6 +313,21 @@ h2 {
  .checkbox:checked {
    background-color: red;
  }
+ .todo-management {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
+ }
+ .todo-edit-btn {
+   display: flex;
+   align-items: center;
+   color:rgb(65, 158, 158);
+   cursor: pointer;
+ }
+ .todo-edit-btn:hover {
+   color: rgb(62, 151, 151);
+ }
 .dashboard-nav {
    display: flex;
    justify-content: flex-end;
