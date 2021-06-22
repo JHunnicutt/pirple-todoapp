@@ -656,6 +656,42 @@ function updateUserInfo(first, last, email, password) {
   userData.password = password;
   localStorage.setItem(sessionUser, JSON.stringify(userData));
 }
+
+function editListItem(list) {
+  const listTitle = list.firstChild.firstChild.innerText;
+  const listEditForm = document.createElement('form')
+  const listEditField = document.createElement('input');
+  
+  listEditField.value = listTitle;
+  listEditForm.appendChild(listEditField);
+  list.replaceChild(listEditForm, list.firstChild);
+
+  listEditForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    updateListName(listTitle, listEditField.value, list);
+  })
+}
+
+function updateListName(oldName, newName, parent) {
+  const userData = JSON.parse(localStorage.getItem(sessionUser));
+  const listLink = document.createElement('a');
+  const listSpan = document.createElement('span');
+  const listForm = parent.firstChild;
+
+  listLink.classList.add('list-link');
+  listSpan.classList.add('item-text');
+
+  listLink.appendChild(listSpan);
+
+  for (let list of userData.lists) {
+    if (list.name === oldName) {
+      list.name = newName;
+      listSpan.innerText = newName;
+      localStorage.setItem(sessionUser, JSON.stringify(userData));
+      parent.replaceChild(listLink, listForm);
+    }
+  }
+}
 // EVENT LISTENERS
 window.addEventListener('load', () => {
   loadIntroHeader();
@@ -757,6 +793,10 @@ listUL.addEventListener('click', (e) => {
   }
   if (e.target.classList.contains('item-text')) {
     loadListPage(e.target.textContent);
+  }
+  if (e.target.classList.contains('list-edit-btn')) {
+    editListItem(e.target.parentElement.parentElement.parentElement);
+    // console.log(e.target.parentElement.parentElement.parentElement.firstChild)
   }
 });
 
