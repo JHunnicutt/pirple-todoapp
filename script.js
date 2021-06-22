@@ -682,19 +682,14 @@ function updateListName(oldName, newName, parent) {
     if(list.name === oldName) {
       list.name = newName;
       localStorage.setItem(sessionUser, JSON.stringify(userData));
-    }
-  //   if (list.name === oldName) {
-  //     console.log(list.name)
-  //     list.name = newName;
-  //     localStorage.setItem(sessionUser, JSON.stringify(userData));
 
-  //     listLink.classList.add('list-link');
-  //     listText.classList.add('item-text');
-  //     listSpan.innerText = newName;
-  //     listLink.appendChild(listSpan);
-  //     parent.replaceChild(listLink, listForm);
-  //   }
-  // }
+      listLink.classList.add('list-link');
+      listText.classList.add('item-text');
+      listText.innerText = newName;
+
+      listLink.appendChild(listText);
+      parent.replaceChild(listLink, listForm);
+    }
 }
 }
 // EVENT LISTENERS
