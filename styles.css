@@ -263,6 +263,50 @@ h2 {
    font-size: 1.5em;
    cursor: pointer;
  }
+ .list-item-edit-view {
+   list-style-type: none;
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 8px;
+   border-bottom: 2px solid rgb(65, 158, 158);
+ }
+ .list-management-edit-view {
+   display: flex;
+   align-items: center;
+ }
+ .list-edit-link-edit-view {
+   display: flex;
+   align-items: center;
+   color: rgb(65, 158, 158);
+   text-decoration: none;
+ }
+ .list-edit-link-edit-view:hover {
+    color: rgb(62, 151, 151);
+ }
+ .remove-item-edit-view {
+   background-color: #fff;
+   color: rgb(65, 158, 158);
+   border-style: none;
+   font-size: 1.5em;
+   cursor: pointer;
+ }
+ .edit-list-form {
+    width: 100%;
+ }
+ .list-edit-input {
+    border: none;
+    height: 24px;
+    width: 98%;
+    font-size: 1.7em;
+    color: rgb(65, 158, 158);
+    background-color: rgb(249, 249, 249);
+ }
+ .list-edit-input:focus {
+    outline-style: none;
+ }
+ .remove-item-edit-view:hover {
+    color: rgb(62, 151, 151);
+ }
  .todo-list-div {
    display: flex;
    flex-direction: column;

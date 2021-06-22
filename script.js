@@ -662,14 +662,35 @@ function editListItem(list) {
   const listEditForm = document.createElement('form')
   const listEditInput = document.createElement('input');
   
+  // list item
+  list.classList.remove('list-item')
+  list.classList.add('list-item-edit-view');
+  // list management div
+  list.children[1].classList.remove('list-management');
+  list.children[1].classList.add('list-management-edit-view');
+  // list edit link
+  list.children[1].children[0].classList.remove('list-edit-link');
+  list.children[1].children[0].classList.add('list-edit-link-edit-view');
+  // list edit span
+  list.children[1].children[0].children[0].classList.remove('list-edit-btn');
+  list.children[1].children[0].children[0].classList.add('list-edit-btn-edit-view');
+  // remove button
+  list.children[1].children[1].classList.remove('remove-item');
+  list.children[1].children[1].classList.add('remove-item-edit-view');
+
+  listEditForm.classList.add('edit-list-form');
+  listEditInput.classList.add('list-edit-input');
+  listEditInput.setAttribute('type', 'text');
+  listEditInput.required = true;
   listEditInput.value = listTitle;
+
   listEditForm.appendChild(listEditInput);
   list.replaceChild(listEditForm, list.firstChild);
 
   listEditForm.addEventListener('submit', (e) => {
     e.preventDefault();
     updateListName(listTitle, listEditInput.value.trim(), list);
-  })
+  });
 }
 
 function updateListName(oldName, newName, parent) {
@@ -682,6 +703,22 @@ function updateListName(oldName, newName, parent) {
     if(list.name === oldName) {
       list.name = newName;
       localStorage.setItem(sessionUser, JSON.stringify(userData));
+      
+      // list item
+      parent.classList.remove('list-item-edit-view');
+      parent.classList.add('list-item');
+      // list management div
+      parent.children[1].classList.remove('list-management-edit-view');
+      parent.children[1].classList.add('list-management');
+      // list edit link
+      parent.children[1].children[0].classList.remove('list-edit-link-edit-view');
+      parent.children[1].children[0].classList.add('list-edit-link');
+      // list edit span
+      parent.children[1].children[0].children[0].classList.remove('list-edit-btn-edit-view');
+      parent.children[1].children[0].children[0].classList.add('list-edit-btn');
+      // remove button
+      parent.children[1].children[1].classList.remove('remove-item-edit-view');
+      parent.children[1].children[1].classList.add('remove-item');
 
       listLink.classList.add('list-link');
       listText.classList.add('item-text');
