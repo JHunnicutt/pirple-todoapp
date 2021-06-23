@@ -460,8 +460,8 @@ function removeTodoFromLocalStorage(todo) {
 }
 
 function removeTodo(todo) {
-  todo.target.parentElement.remove();
-  removeTodoFromLocalStorage(todo.target.parentElement.children[0].children[1].textContent);
+  todo.target.parentElement.parentElement.remove();
+  removeTodoFromLocalStorage(todo.target.parentElement.parentElement.children[0].children[1].textContent);
 }
 
 function checkedStatus(item) {
