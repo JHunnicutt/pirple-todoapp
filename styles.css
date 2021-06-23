@@ -341,7 +341,7 @@ h2 {
    padding: 0;
    width: 435px;
  }
- .todo-item {
+ .todo-item, .todo-item-edit-view {
    list-style-type: none;
    display: flex;
    justify-content: space-between;
@@ -352,6 +352,21 @@ h2 {
    border-bottom: 1px solid rgb(65, 158, 158);
    margin-bottom: 5px;
    padding: 3px;
+ }
+ .todo-edit-form {
+    width: 100%;
+ }
+ .todo-edit-input {
+    width: 98%;
+    font-family: 'Roboto';
+    font-weight: bold;
+    font-size: .9em;
+    color: rgb(65, 158, 158);
+    background-color: rgb(249, 249, 249);
+    border: none;
+ }
+ .todo-edit-input:focus {
+    outline-style: none;
  }
  .checkbox-item {
    margin-bottom: -3px;
