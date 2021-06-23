@@ -879,7 +879,6 @@ addListForm.addEventListener('submit', (e) => {
     while(listUL.firstChild) {
       listUL.removeChild(listUL.firstChild);
     }
-    // addListToDashboard();
     loadListPage(addListInput.value);
     addListInput.value = '';
   }
@@ -895,7 +894,6 @@ listUL.addEventListener('click', (e) => {
   }
   if (e.target.classList.contains('list-edit-btn')) {
     editListItem(e.target.parentElement.parentElement.parentElement);
-    // console.log(e.target.parentElement.parentElement.parentElement.firstChild)
   }
 });
 
