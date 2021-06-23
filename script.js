@@ -858,8 +858,8 @@ signupForm.addEventListener('submit', (e) => {
     signupErrorDiv.innerText = errorArr.join(', ');
     signupDiv.appendChild(signupErrorDiv);
   } else {
-    userName = signupFormEmail.value
-    let newUser = new User(signupFormFName.value, signupFormLName.value, signupFormEmail.value, signupFormPassword.value, signupFormTerms.checked);
+    userName = signupFormEmail.value.toLocaleLowerCase();
+    let newUser = new User(signupFormFName.value, signupFormLName.value, signupFormEmail.value.toLocaleLowerCase(), signupFormPassword.value, signupFormTerms.checked);
     localStorage.setItem(userName, JSON.stringify(newUser));
     signupDiv.remove();
     sessionUser = signupFormEmail.value;
