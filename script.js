@@ -841,6 +841,7 @@ loadDashboard();
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault();
   let errorArr = [];
+
   signupErrorDiv.classList.add('error-div');
 
   if (signupFormPassword.value.length < 8) {
@@ -848,6 +849,9 @@ signupForm.addEventListener('submit', (e) => {
   }
   if (signupFormTerms.checked === false){
     errorArr.push('You must agree to the Terms of Use');
+  }
+  if (JSON.parse(localStorage.getItem(signupFormEmail.value))) {
+    errorArr.push('Email is already in use. Please use a different email.')
   }
   if (errorArr.length > 0) {
     console.log('error');
