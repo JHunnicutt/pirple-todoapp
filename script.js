@@ -879,7 +879,8 @@ addListForm.addEventListener('submit', (e) => {
     while(listUL.firstChild) {
       listUL.removeChild(listUL.firstChild);
     }
-    addListToDashboard();
+    // addListToDashboard();
+    loadListPage(addListInput.value);
     addListInput.value = '';
   }
 });
