@@ -809,28 +809,28 @@ introBtnLogin.addEventListener('click', () => {
 signinForm.addEventListener('submit', (e) => {
   e.preventDefault();
   sessionUser = signinFormEmail.value;
-//   userName = signupFormEmail.value;
-//   signinErrorDiv.classList.add('error-div');
+  userName = signupFormEmail.value;
+  signinErrorDiv.classList.add('error-div');
 
-//   if (signinFormEmail.value === '') {
-//     signinErrorDiv.innerText = 'Please enter an email';
-//     signinDiv.appendChild(signinErrorDiv);
-//     return;
-//   }
-//   if (signinFormPassword.value === '') {
-//     signinErrorDiv.innerText = 'Please enter a password';
-//     signinDiv.appendChild(signinErrorDiv);
-//     return;
-//   }
-//   if (signinFormEmail.value !== JSON.parse(localStorage.getItem(sessionUser))['email'] || signinFormPassword.value !== JSON.parse(localStorage.getItem(sessionUser))['password'] ) {
-//     signinErrorDiv.innerText = 'Incorrect email or password';
-//     signinDiv.appendChild(signinErrorDiv);
-//     return;
-//   }
-//   if (signinFormEmail.value === JSON.parse(localStorage.getItem(sessionUser))['email'] && signinFormPassword.value === JSON.parse(localStorage.getItem(sessionUser))['password'] ) {
-//     signinDiv.remove();
-//     loadDashboard();
-//   }
+  if (signinFormEmail.value === '') {
+    signinErrorDiv.innerText = 'Please enter an email';
+    signinDiv.appendChild(signinErrorDiv);
+    return;
+  }
+  if (signinFormPassword.value === '') {
+    signinErrorDiv.innerText = 'Please enter a password';
+    signinDiv.appendChild(signinErrorDiv);
+    return;
+  }
+  if (signinFormEmail.value !== JSON.parse(localStorage.getItem(sessionUser))['email'] || signinFormPassword.value !== JSON.parse(localStorage.getItem(sessionUser))['password'] ) {
+    signinErrorDiv.innerText = 'Incorrect email or password';
+    signinDiv.appendChild(signinErrorDiv);
+    return;
+  }
+  if (signinFormEmail.value === JSON.parse(localStorage.getItem(sessionUser))['email'] && signinFormPassword.value === JSON.parse(localStorage.getItem(sessionUser))['password'] ) {
+    signinDiv.remove();
+    loadDashboard();
+  }
 
 signinFormEmail.value = '';
 signinDiv.remove();
