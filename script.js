@@ -808,33 +808,48 @@ introBtnLogin.addEventListener('click', () => {
 
 signinForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  sessionUser = signinFormEmail.value;
-  userName = signupFormEmail.value;
+  
+  let emailInput = signinFormEmail.value.toLocaleLowerCase().trim();
+  let passwordInput = signinFormPassword.value;
   signinErrorDiv.classList.add('error-div');
 
-  if (signinFormEmail.value === '') {
+  // empty email field
+  if (signinFormEmail.value === '' || signinFormEmail === null) {
     signinErrorDiv.innerText = 'Please enter an email';
     signinDiv.appendChild(signinErrorDiv);
     return;
   }
-  if (signinFormPassword.value === '') {
+  // empty password field
+  if (signinFormPassword.value === '' || signinFormPassword == null) {
     signinErrorDiv.innerText = 'Please enter a password';
     signinDiv.appendChild(signinErrorDiv);
     return;
   }
-  if (signinFormEmail.value !== JSON.parse(localStorage.getItem(sessionUser))['email'] || signinFormPassword.value !== JSON.parse(localStorage.getItem(sessionUser))['password'] ) {
-    signinErrorDiv.innerText = 'Incorrect email or password';
+
+  try {
+    if (JSON.parse(localStorage.getItem(emailInput))['email'] === emailInput && JSON.parse(localStorage.getItem(emailInput))['password'] !== passwordInput) {
+      signinFormEmail.value = '';
+      signinFormPassword.value = '';
+      signinErrorDiv.innerText = 'Invalid password';
+      signinDiv.appendChild(signinErrorDiv);
+      return;
+    }
+    if (JSON.parse(localStorage.getItem(emailInput))['email'] === emailInput && JSON.parse(localStorage.getItem(emailInput))['password'] === passwordInput) {
+      signinFormEmail.value = '';
+      signinFormPassword.value = '';
+      signinErrorDiv.innerText = ''
+      signinDiv.remove();
+      sessionUser = emailInput;
+      loadDashboard();
+    }
+  } 
+  catch (error) {
+    signinFormEmail.value = '';
+    signinFormPassword.value = '';
+    signinErrorDiv.innerText = 'Invalid email address or password';
     signinDiv.appendChild(signinErrorDiv);
     return;
   }
-  if (signinFormEmail.value === JSON.parse(localStorage.getItem(sessionUser))['email'] && signinFormPassword.value === JSON.parse(localStorage.getItem(sessionUser))['password'] ) {
-    signinDiv.remove();
-    loadDashboard();
-  }
-
-signinFormEmail.value = '';
-signinDiv.remove();
-loadDashboard();
 });
 
 
@@ -862,7 +877,7 @@ signupForm.addEventListener('submit', (e) => {
     let newUser = new User(signupFormFName.value, signupFormLName.value, signupFormEmail.value.toLocaleLowerCase().trim(), signupFormPassword.value, signupFormTerms.checked);
     localStorage.setItem(userName, JSON.stringify(newUser));
     signupDiv.remove();
-    sessionUser = signupFormEmail.value;
+    sessionUser = signupFormEmail.value.toLocaleLowerCase().trim();
     loadSignupConfirmation();
   }
 });
