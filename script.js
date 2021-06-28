@@ -4,12 +4,12 @@ const appBody = document.body;
 const mainSection = document.getElementById('main-section');
 
 // header
-const introHeaderBar = document.createElement('header');
+// const introHeaderBar = document.createElement('header');
 const appTitle = document.createElement('h1');
 const appTagline = document.createElement('h5');
 
 // intro buttons
-const introBtnDiv = document.createElement('div');
+// const introBtnDiv = document.createElement('div');
 const introBtnLogin = document.createElement('button');
 const introBtnSignup = document.createElement('button');
 
@@ -116,30 +116,26 @@ const Todo = function (name) {
 
 // FUNCTIONS
 const loadIntroHeader = () => {
-  introHeaderBar.classList.add('intro-header');
-  appTitle.id = 'app-title';
-  appTagline.id = 'tagline-description';
 
-  appTitle.innerText = 'TODO APP';
-  appTagline.innerText = 'Set it...don\'t forget it';
+  const introHeaderBar = `
+    <header class="intro-header">
+      <h1 id="app-title">TODO APP</h1>
+      <h5 id="tagline-description">Set it, don't forget it</h5>
+    </header>`;
 
-  introHeaderBar.appendChild(appTitle);
-  introHeaderBar.appendChild(appTagline);
-  mainSection.appendChild(introHeaderBar);
+  mainSection.innerHTML += introHeaderBar;
 }
 
 // intro signin and sign up buttons
 const loadIntroButtons = () => {
-  introBtnDiv.classList.add('btn-intro-div');
-  introBtnLogin.classList.add('btn-lg', 'btn-teal');
-  introBtnSignup.classList.add('btn-lg', 'btn-white');
 
-  introBtnLogin.innerText = 'Login';
-  introBtnSignup.innerText = 'Sign Up';
+  const introBtnDiv = `
+    <div class="btn-intro-div">
+      <button class="btn-lg btn-teal">Login</button>
+      <button class="btn-lg btn-white">Sign Up</button>
+    </div>`;
 
-  introBtnDiv.appendChild(introBtnLogin);
-  introBtnDiv.appendChild(introBtnSignup);
-  mainSection.appendChild(introBtnDiv);
+  mainSection.innerHTML += introBtnDiv;
 }
 
 // load signin form
