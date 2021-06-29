@@ -116,16 +116,18 @@ const Todo = function (name) {
 
 // FUNCTIONS
 const loadIntro = () => {
-
-  mainSection.innerHTML = `
+  const introHeader = `
     <header class="intro-header">
       <h1 id="app-title">TODO APP</h1>
       <h5 id="tagline-description">Set it, don't forget it</h5>
-    </header>
+    </header>`;
+  const introButtons = `
     <div class="btn-intro-div">
       <button id='login-btn' class="btn-lg btn-teal">Login</button>
       <button id='signup-btn' class="btn-lg btn-white">Sign Up</button>
     </div>`;
+    
+  mainSection.innerHTML = introHeader + introButtons;
 }
 
 // load signin form
@@ -163,12 +165,13 @@ const loadSignin = () => {
 
 // load sign up form
 const loadSignup = () => {
-
-  mainSection.innerHTML = `
+  const introHeader = `
     <header class="intro-header">
       <h1 id="app-title">TODO APP</h1>
       <h5 id="tagline-description">Set it, don't forget it</h5>
-    </header>
+    </header>`;
+
+  const signupPage = `
     <div class='signup-div form-div'>
       <h2>Sign Up</h2>
       <form id='signup-form' class='app-form'>
@@ -183,7 +186,13 @@ const loadSignup = () => {
       <button id='signup-form-submit' class='btn-lg' type='submit'>Sign Up</button>
       </form>
     </div>`;
+
+    mainSection.innerHTML = introHeader + signupPage;
 }
+
+mainSection.addEventListener('click', (e) =>{
+  console.log(e.target.parentElement.children[0].value)
+})
 
 // load the signup confirmation view
 const loadSignupConfirmation = () => {
