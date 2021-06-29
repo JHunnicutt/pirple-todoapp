@@ -115,110 +115,74 @@ const Todo = function (name) {
 }
 
 // FUNCTIONS
-const loadIntroHeader = () => {
+const loadIntro = () => {
 
-  const introHeaderBar = `
+  mainSection.innerHTML = `
     <header class="intro-header">
       <h1 id="app-title">TODO APP</h1>
       <h5 id="tagline-description">Set it, don't forget it</h5>
-    </header>`;
-
-  mainSection.innerHTML += introHeaderBar;
-}
-
-// intro signin and sign up buttons
-const loadIntroButtons = () => {
-
-  const introBtnDiv = `
+    </header>
     <div class="btn-intro-div">
-      <button class="btn-lg btn-teal">Login</button>
-      <button class="btn-lg btn-white">Sign Up</button>
+      <button id='login-btn' class="btn-lg btn-teal">Login</button>
+      <button id='signup-btn' class="btn-lg btn-white">Sign Up</button>
     </div>`;
-
-  mainSection.innerHTML += introBtnDiv;
 }
 
 // load signin form
 const loadSignin = () => {
-  signinForm.id = 'signin-form';
-  signinFormSubmit.id = 'signin-form-submit'
-  signinForm.classList.add('app-form');
-  signinDiv.classList.add('signin-div', 'form-div');
-  signinFormEmail.classList.add('signin-email', 'form-input');
-  signinFormPassword.classList.add('signin-password', 'form-input');
-  signinFormSubmit.classList.add('btn-lg', 'btn-teal');
+  // signinForm.id = 'signin-form';
+  // signinFormSubmit.id = 'signin-form-submit'
+  // signinForm.classList.add('app-form');
+  // signinDiv.classList.add('signin-div', 'form-div');
+  // signinFormEmail.classList.add('signin-email', 'form-input');
+  // signinFormPassword.classList.add('signin-password', 'form-input');
+  // signinFormSubmit.classList.add('btn-lg', 'btn-teal');
 
-  signinFormEmail.setAttribute('type', 'text');
-  signinFormEmail.setAttribute('placeholder', 'Email Address');
-  signinFormPassword.setAttribute('type', 'password');
-  signinFormPassword.setAttribute('placeholder', 'Password');
-  signinFormSubmit.setAttribute('type', 'submit');
+  // signinFormEmail.setAttribute('type', 'text');
+  // signinFormEmail.setAttribute('placeholder', 'Email Address');
+  // signinFormPassword.setAttribute('type', 'password');
+  // signinFormPassword.setAttribute('placeholder', 'Password');
+  // signinFormSubmit.setAttribute('type', 'submit');
 
-  signinHeader.innerText = 'Sign In';
-  signinFormSubmit.innerText = 'Go to Dashboard';
+  // signinHeader.innerText = 'Sign In';
+  // signinFormSubmit.innerText = 'Go to Dashboard';
 
-  signinForm.appendChild(signinFormEmail);
-  signinForm.appendChild(signinFormPassword);
-  signinForm.appendChild(signinFormSubmit);
-  signinDiv.appendChild(signinHeader);
-  signinDiv.appendChild(signinForm);
-  mainSection.appendChild(signinDiv);
+  // signinForm.appendChild(signinFormEmail);
+  // signinForm.appendChild(signinFormPassword);
+  // signinForm.appendChild(signinFormSubmit);
+  // signinDiv.appendChild(signinHeader);
+  // signinDiv.appendChild(signinForm);
+  // mainSection.appendChild(signinDiv);
+
+  mainSection.innerHTML = `
+    <header class="intro-header">
+      <h1 id="app-title">TODO APP</h1>
+      <h5 id="tagline-description">Set it, don't forget it</h5>
+    </header>`
 }
 
 // load sign up form
 const loadSignup = () => {
-  signupForm.id = 'signup-form';
-  signupFormTerms.id = 'agree-to-terms';
-  signupFormSubmit.id = 'signup-form-submit';
 
-  signupDiv.classList.add('signup-div', 'form-div');
-  signupForm.classList.add('app-form');
-  signupFormFName.classList.add('form-input');
-  signupFormLName.classList.add('form-input');
-  signupFormEmail.classList.add('form-input');
-  signupFormPassword.classList.add('form-input');
-  signupFormTerms.classList.add('form-checkbox');
-  signupFormSubmit.classList.add('btn-lg');
-  termsDiv.classList.add('terms-div');
-
-  signupFormFName.setAttribute('type', 'text');
-  signupFormFName.setAttribute('placeholder', 'First Name');
-  signupFormFName.required = true;
-
-  signupFormLName.setAttribute('type', 'text');
-  signupFormLName.setAttribute('placeholder', 'Last Name');
-  signupFormLName.required = true;
-
-  signupFormEmail.setAttribute('type', 'text');
-  signupFormEmail.setAttribute('placeholder', 'Email Address');
-  signupFormEmail.required = true;
-
-  signupFormPassword.setAttribute('type', 'password');
-  signupFormPassword.setAttribute('placeholder', 'Password');
-  signupFormPassword.required = true;
-
-  signupFormTerms.setAttribute('type', 'checkbox');
-  // signupFormTerms.required = true;
-
-  signupFormTermsLabel.setAttribute('for', 'agree-to-terms');
-
-  signupFormSubmit.setAttribute('type', 'submit');
-
-  signupHeader.innerText = 'Sign Up';
-  signupFormTermsLabel.innerText = 'I Agree to Terms of Use';
-  signupFormSubmit.innerText = 'Sign Up';
-
-  termsDiv.appendChild(signupFormTerms);
-  termsDiv.appendChild(signupFormTermsLabel);
-  signupForm.appendChild(signupFormFName);
-  signupForm.appendChild(signupFormLName);
-  signupForm.appendChild(signupFormEmail);
-  signupForm.appendChild(signupFormPassword);
-  signupForm.appendChild(termsDiv);
-  signupForm.appendChild(signupFormSubmit);
-  signupDiv.appendChild(signupHeader);
-  signupDiv.appendChild(signupForm);
-  mainSection.appendChild(signupDiv);
+  mainSection.innerHTML = `
+    <header class="intro-header">
+      <h1 id="app-title">TODO APP</h1>
+      <h5 id="tagline-description">Set it, don't forget it</h5>
+    </header>
+    <div class='signup-div form-div'>
+      <h2>Sign Up</h2>
+      <form id='signup-form' class='app-form'>
+      <input class='form-input' type="text" placeholder='First Name' required>
+      <input class='form-input' type="text" placeholder='Last  Name' required>
+      <input class='form-input' type="text" placeholder='Email Address' required>
+      <input class='form-input' type="password" placeholder='Password' required>
+      <div class='terms-div'>
+        <input id='agree-to-terms' class='form-checkbox' type="checkbox">
+        <label For="agree-to-terms">I Agree to Terms of Use</label>
+      </div>
+      <button id='signup-form-submit' class='btn-lg' type='submit'>Sign Up</button>
+      </form>
+    </div>`;
 }
 
 // load the signup confirmation view
@@ -788,13 +752,13 @@ function updateTodoName(oldName, newName, list, parent) {
 
 // EVENT LISTENERS
 window.addEventListener('load', () => {
-  loadIntroHeader();
-  loadIntroButtons();
+  loadIntro();
 });
 
-introBtnSignup.addEventListener('click', () => {
-  introBtnDiv.remove();
-  loadSignup();
+mainSection.addEventListener('click', (e) => {
+  if (e.target.id === 'signup-btn') {
+    loadSignup()
+  }
 });
 
 introBtnLogin.addEventListener('click', () => {
