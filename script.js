@@ -5,13 +5,13 @@ const mainSection = document.getElementById('main-section');
 
 // header
 // const introHeaderBar = document.createElement('header');
-const appTitle = document.createElement('h1');
-const appTagline = document.createElement('h5');
+// const appTitle = document.createElement('h1');
+// const appTagline = document.createElement('h5');
 
 // intro buttons
 // const introBtnDiv = document.createElement('div');
-const introBtnLogin = document.createElement('button');
-const introBtnSignup = document.createElement('button');
+// const introBtnLogin = document.createElement('button');
+// const introBtnSignup = document.createElement('button');
 
 // signin form
 const signinDiv = document.createElement('div');
@@ -126,7 +126,7 @@ const loadIntro = () => {
       <button id='login-btn' class="btn-lg btn-teal">Login</button>
       <button id='signup-btn' class="btn-lg btn-white">Sign Up</button>
     </div>`;
-    
+
   mainSection.innerHTML = introHeader + introButtons;
 }
 
