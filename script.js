@@ -115,19 +115,21 @@ const Todo = function (name) {
 }
 
 // FUNCTIONS
-const loadIntro = () => {
-  const introHeader = `
-    <header class="intro-header">
-      <h1 id="app-title">TODO APP</h1>
-      <h5 id="tagline-description">Set it, don't forget it</h5>
-    </header>`;
-  const introButtons = `
-    <div class="btn-intro-div">
-      <button id='login-btn' class="btn-lg btn-teal">Login</button>
-      <button id='signup-btn' class="btn-lg btn-white">Sign Up</button>
-    </div>`;
 
-  mainSection.innerHTML = introHeader + introButtons;
+function introHeader() {
+  return `
+  <header class="intro-header">
+    <h1 id="app-title">TODO APP</h1>
+    <h5 id="tagline-description">Set it, don't forget it</h5>
+  </header>`;
+}
+
+function introButtons() {
+  return `
+  <div class='btn-intro-div'>
+    <button id='login-btn' class='btn-lg btn-teal'>Login</button>
+    <button id='signup-btn' class='btn-lg btn-white'>Sign Up</button>
+  </div>`;
 }
 
 // load signin form
@@ -189,10 +191,6 @@ const loadSignup = () => {
 
     mainSection.innerHTML = introHeader + signupPage;
 }
-
-mainSection.addEventListener('click', (e) =>{
-  console.log(e.target.parentElement.children[0].value)
-})
 
 // load the signup confirmation view
 const loadSignupConfirmation = () => {
@@ -760,9 +758,11 @@ function updateTodoName(oldName, newName, list, parent) {
 }
 
 // EVENT LISTENERS
-window.addEventListener('load', () => {
-  loadIntro();
-});
+// window.addEventListener('load', () => {
+//   loadIntro();
+// });
+
+mainSection.innerHTML = `${introHeader()} ${introButtons()}`
 
 mainSection.addEventListener('click', (e) => {
   if (e.target.id === 'signup-btn') {
