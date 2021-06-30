@@ -14,13 +14,13 @@ const mainSection = document.getElementById('main-section');
 // const introBtnSignup = document.createElement('button');
 
 // signin form
-const signinDiv = document.createElement('div');
-const signinHeader = document.createElement('h2');
+// const signinDiv = document.createElement('div');
+// const signinHeader = document.createElement('h2');
 // const signinForm = document.createElement('form');
-const signinFormEmail = document.createElement('input');
-const signinFormPassword = document.createElement('input');
-const signinFormSubmit = document.createElement('button');
-const signinErrorDiv = document.createElement('div');
+// const signinFormEmail = document.createElement('input');
+// const signinFormPassword = document.createElement('input');
+// const signinFormSubmit = document.createElement('button');
+// const signinErrorDiv = document.createElement('div');
 
 // signup form
 const signupDiv = document.createElement('div');
@@ -755,9 +755,6 @@ function updateTodoName(oldName, newName, list, parent) {
 }
 
 // EVENT LISTENERS
-// window.addEventListener('load', () => {
-//   loadIntro();
-// });
 
 mainSection.innerHTML = `${introHeader()} ${introButtons()}`
 
@@ -767,14 +764,27 @@ mainSection.addEventListener('click', (e) => {
     mainSection.innerHTML = `${introHeader()} ${signinForm()}`
   }
   if (e.target.id === 'signup-btn') {
-    mainSection.innerHTML = `${introHeader()} ${signupForm()}}`
+    mainSection.innerHTML = `${introHeader()} ${signupForm()}`
   }
 });
+function signupValidator(fname, lname, email, password, terms) {
+  console.log(fname, lname, email, password, terms)
+}
+// sign up submit
+mainSection.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let inputFName = e.target.children[0].value.trim();
+  let inputLName = e.target.children[1].value.trim();
+  let inputEmail = e.target.children[2].value.toLowerCase().trim();
+  let inputPassword = e.target.children[3].value.trim();
+  let agreeToTerms = e.target.children[4].children[0].checked;
+  console.log(inputFName, inputLName, inputEmail, inputPassword, agreeToTerms);
+})
 
-introBtnLogin.addEventListener('click', () => {
-  introBtnDiv.remove();
-  loadSignin();
-});
+// introBtnLogin.addEventListener('click', () => {
+//   introBtnDiv.remove();
+//   loadSignin();
+// });
 
 signinForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -823,34 +833,34 @@ signinForm.addEventListener('submit', (e) => {
 });
 
 
-signupForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  let errorArr = [];
+// signupForm.addEventListener('submit', (e) => {
+//   e.preventDefault();
+//   let errorArr = [];
 
-  signupErrorDiv.classList.add('error-div');
+//   signupErrorDiv.classList.add('error-div');
 
-  if (signupFormPassword.value.length < 8) {
-    errorArr.push('The password must be at least 8 characters in length');
-  }
-  if (signupFormTerms.checked === false){
-    errorArr.push('You must agree to the Terms of Use');
-  }
-  if (JSON.parse(localStorage.getItem(signupFormEmail.value))) {
-    errorArr.push('Email is already in use. Please use a different email.')
-  }
-  if (errorArr.length > 0) {
-    console.log('error');
-    signupErrorDiv.innerText = errorArr.join(', ');
-    signupDiv.appendChild(signupErrorDiv);
-  } else {
-    userName = signupFormEmail.value.toLocaleLowerCase().trim();
-    let newUser = new User(signupFormFName.value, signupFormLName.value, signupFormEmail.value.toLocaleLowerCase().trim(), signupFormPassword.value, signupFormTerms.checked);
-    localStorage.setItem(userName, JSON.stringify(newUser));
-    signupDiv.remove();
-    sessionUser = signupFormEmail.value.toLocaleLowerCase().trim();
-    loadSignupConfirmation();
-  }
-});
+//   if (signupFormPassword.value.length < 8) {
+//     errorArr.push('The password must be at least 8 characters in length');
+//   }
+//   if (signupFormTerms.checked === false){
+//     errorArr.push('You must agree to the Terms of Use');
+//   }
+//   if (JSON.parse(localStorage.getItem(signupFormEmail.value))) {
+//     errorArr.push('Email is already in use. Please use a different email.')
+//   }
+//   if (errorArr.length > 0) {
+//     console.log('error');
+//     signupErrorDiv.innerText = errorArr.join(', ');
+//     signupDiv.appendChild(signupErrorDiv);
+//   } else {
+//     userName = signupFormEmail.value.toLocaleLowerCase().trim();
+//     let newUser = new User(signupFormFName.value, signupFormLName.value, signupFormEmail.value.toLocaleLowerCase().trim(), signupFormPassword.value, signupFormTerms.checked);
+//     localStorage.setItem(userName, JSON.stringify(newUser));
+//     signupDiv.remove();
+//     sessionUser = signupFormEmail.value.toLocaleLowerCase().trim();
+//     loadSignupConfirmation();
+//   }
+// });
 
 confSubmitButton.addEventListener('click', (e) => {
   e.preventDefault();
