@@ -16,7 +16,7 @@ const mainSection = document.getElementById('main-section');
 // signin form
 const signinDiv = document.createElement('div');
 const signinHeader = document.createElement('h2');
-const signinForm = document.createElement('form');
+// const signinForm = document.createElement('form');
 const signinFormEmail = document.createElement('input');
 const signinFormPassword = document.createElement('input');
 const signinFormSubmit = document.createElement('button');
@@ -25,7 +25,7 @@ const signinErrorDiv = document.createElement('div');
 // signup form
 const signupDiv = document.createElement('div');
 const signupHeader = document.createElement('h2');
-const signupForm = document.createElement('form');
+// const signupForm = document.createElement('form');
 const signupFormFName = document.createElement('input');
 const signupFormLName = document.createElement('input');
 const signupFormEmail = document.createElement('input');
@@ -133,7 +133,17 @@ function introButtons() {
 }
 
 // load signin form
-const loadSignin = () => {
+function signinForm() {
+  return `
+  <div class='signin-div form-div'>
+    <h2>Sign In</h2>
+    <form id='signin-form' class='app-form'>
+      <input type="text" placeholder='Email Address' class='signin-email form-input' />
+      <input type="password" placeholder='Password' class='signin-password form-input' />
+      <button id='signin-form-submit' class='btn-lg btn-teal'>Sign In</button>
+    </form>
+  </div>`
+}
   // signinForm.id = 'signin-form';
   // signinFormSubmit.id = 'signin-form-submit'
   // signinForm.classList.add('app-form');
@@ -158,38 +168,25 @@ const loadSignin = () => {
   // signinDiv.appendChild(signinForm);
   // mainSection.appendChild(signinDiv);
 
-  mainSection.innerHTML = `
-    <header class="intro-header">
-      <h1 id="app-title">TODO APP</h1>
-      <h5 id="tagline-description">Set it, don't forget it</h5>
-    </header>`
-}
+
 
 // load sign up form
-const loadSignup = () => {
-  const introHeader = `
-    <header class="intro-header">
-      <h1 id="app-title">TODO APP</h1>
-      <h5 id="tagline-description">Set it, don't forget it</h5>
-    </header>`;
-
-  const signupPage = `
-    <div class='signup-div form-div'>
-      <h2>Sign Up</h2>
-      <form id='signup-form' class='app-form'>
-      <input class='form-input' type="text" placeholder='First Name' required>
-      <input class='form-input' type="text" placeholder='Last  Name' required>
-      <input class='form-input' type="text" placeholder='Email Address' required>
-      <input class='form-input' type="password" placeholder='Password' required>
-      <div class='terms-div'>
-        <input id='agree-to-terms' class='form-checkbox' type="checkbox">
-        <label For="agree-to-terms">I Agree to Terms of Use</label>
-      </div>
-      <button id='signup-form-submit' class='btn-lg' type='submit'>Sign Up</button>
-      </form>
-    </div>`;
-
-    mainSection.innerHTML = introHeader + signupPage;
+function signupForm() {
+  return `
+  <div class='signup-div form-div'>
+    <h2>Sign Up</h2>
+    <form id='signup-form' class='app-form'>
+    <input class='form-input' type="text" placeholder='First Name' required>
+    <input class='form-input' type="text" placeholder='Last  Name' required>
+    <input class='form-input' type="text" placeholder='Email Address' required>
+    <input class='form-input' type="password" placeholder='Password' required>
+    <div class='terms-div'>
+      <input id='agree-to-terms' class='form-checkbox' type="checkbox">
+      <label For="agree-to-terms">I Agree to Terms of Use</label>
+    </div>
+    <button id='signup-form-submit' class='btn-lg' type='submit'>Sign Up</button>
+    </form>
+  </div>`;
 }
 
 // load the signup confirmation view
@@ -764,9 +761,13 @@ function updateTodoName(oldName, newName, list, parent) {
 
 mainSection.innerHTML = `${introHeader()} ${introButtons()}`
 
+// load signin/signup page
 mainSection.addEventListener('click', (e) => {
+  if (e.target.id === 'login-btn') {
+    mainSection.innerHTML = `${introHeader()} ${signinForm()}`
+  }
   if (e.target.id === 'signup-btn') {
-    loadSignup()
+    mainSection.innerHTML = `${introHeader()} ${signupForm()}}`
   }
 });
 
