@@ -758,18 +758,15 @@ mainSection.addEventListener('click', (e) => {
 // submitting the signup form
 mainSection.addEventListener('submit', (e) => {
   e.preventDefault();
-  let inputFName = e.target.children[0].value.trim();
-  let inputLName = e.target.children[1].value.trim();
-  let inputEmail = e.target.children[2].value.toLowerCase().trim();
-  let inputPassword = e.target.children[3].value.trim();
-  let agreeToTerms = e.target.children[4].children[0].checked;
-  mainSection.innerHTML = `${signupValidator(inputFName, inputLName, inputEmail, inputPassword, agreeToTerms)}`;
+  if (e.target.id === 'signup-form') {
+    let inputFName = e.target.children[0].value.trim();
+    let inputLName = e.target.children[1].value.trim();
+    let inputEmail = e.target.children[2].value.toLowerCase().trim();
+    let inputPassword = e.target.children[3].value.trim();
+    let agreeToTerms = e.target.children[4].children[0].checked;
+    mainSection.innerHTML = `${signupValidator(inputFName, inputLName, inputEmail, inputPassword, agreeToTerms)}`;
+  }
 })
-
-// introBtnLogin.addEventListener('click', () => {
-//   introBtnDiv.remove();
-//   loadSignin();
-// });
 
 signinForm.addEventListener('submit', (e) => {
   e.preventDefault();
