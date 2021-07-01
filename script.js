@@ -144,31 +144,6 @@ function signinForm() {
     </form>
   </div>`
 }
-  // signinForm.id = 'signin-form';
-  // signinFormSubmit.id = 'signin-form-submit'
-  // signinForm.classList.add('app-form');
-  // signinDiv.classList.add('signin-div', 'form-div');
-  // signinFormEmail.classList.add('signin-email', 'form-input');
-  // signinFormPassword.classList.add('signin-password', 'form-input');
-  // signinFormSubmit.classList.add('btn-lg', 'btn-teal');
-
-  // signinFormEmail.setAttribute('type', 'text');
-  // signinFormEmail.setAttribute('placeholder', 'Email Address');
-  // signinFormPassword.setAttribute('type', 'password');
-  // signinFormPassword.setAttribute('placeholder', 'Password');
-  // signinFormSubmit.setAttribute('type', 'submit');
-
-  // signinHeader.innerText = 'Sign In';
-  // signinFormSubmit.innerText = 'Go to Dashboard';
-
-  // signinForm.appendChild(signinFormEmail);
-  // signinForm.appendChild(signinFormPassword);
-  // signinForm.appendChild(signinFormSubmit);
-  // signinDiv.appendChild(signinHeader);
-  // signinDiv.appendChild(signinForm);
-  // mainSection.appendChild(signinDiv);
-
-
 
 // load sign up form
 function signupForm() {
