@@ -768,7 +768,39 @@ mainSection.addEventListener('click', (e) => {
   }
 });
 function signupValidator(fname, lname, email, password, terms) {
-  console.log(fname, lname, email, password, terms)
+  let errorArr = [];
+  if (password.length < 8) {
+    errorArr.push('Your password must be 8 or more characters');
+    // return `
+    //   <div class='error-div'>
+    //     <p>Your password must be 8 or more characters</p>
+    //   </div>`
+  }
+  if (!terms) {
+    errorArr.push('You must agree to the terms of use')
+    // return `
+    //   <div class="error-div">
+    //     <p>You must agree to the terms of use</p>
+    //   </div>`
+  }
+  if (JSON.parse(localStorage.getItem(email))) {
+    errorArr.push('This email is already is use');
+    // return `
+    //   <div class='error-div'>
+    //     <p>This email is already is use</p>
+    //   </div>`
+  }
+  if (errorArr.length > 0) {
+    return `
+    <div class='error-arr'>
+      <ul>
+      ${errorArr.map(function(error) {
+        return `
+          <li>${error}</li>`
+      }).join('')}
+      </ul>
+    </div>`
+  }
 }
 // sign up submit
 mainSection.addEventListener('submit', (e) => {
@@ -778,7 +810,7 @@ mainSection.addEventListener('submit', (e) => {
   let inputEmail = e.target.children[2].value.toLowerCase().trim();
   let inputPassword = e.target.children[3].value.trim();
   let agreeToTerms = e.target.children[4].children[0].checked;
-  console.log(inputFName, inputLName, inputEmail, inputPassword, agreeToTerms);
+  mainSection.innerHTML += `${signupValidator(inputFName, inputLName, inputEmail, inputPassword, agreeToTerms)}`;
 })
 
 // introBtnLogin.addEventListener('click', () => {
