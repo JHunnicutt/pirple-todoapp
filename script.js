@@ -114,7 +114,7 @@ const Todo = function (name) {
   this.checked = false;
 }
 
-// FUNCTIONS
+// TEMPLATES
 
 function introHeader() {
   return `
@@ -190,46 +190,24 @@ function signupForm() {
 }
 
 // load the signup confirmation view
-const loadSignupConfirmation = () => {
-  confirmationDiv.classList.add('confirmation-div');
-  confTableDiv.classList.add('conf-table-div');
-  confLabelDiv.classList.add('conf-label-div');
-  confLabelFName.classList.add('conf-label');
-  confLabelLName.classList.add('conf-label');
-  confLabelEmail.classList.add('conf-label');
-  confInfoDiv.classList.add('conf-info-div');
-  confInfoFName.classList.add('conf-label');
-  confInfoLName.classList.add('conf-label');
-  confInfoEmail.classList.add('conf-label');
-  confSubmitButton.classList.add('btn-lg', 'btn-teal');
-
-  confirmationHeader.innerText = 'Please Confirm Your Info'
-  confLabelFName.innerText = 'First Name';
-  confLabelLName.innerText = 'Last Name';
-  confLabelEmail.innerText = 'Email Address';
-
-  confInfoFName.innerText = JSON.parse(localStorage.getItem(userName))['firstName'];
-  confInfoLName.innerText = JSON.parse(localStorage.getItem(userName))['lastName'];
-  confInfoEmail.innerText = JSON.parse(localStorage.getItem(userName))['email'];
-
-  confSubmitButton.innerText = 'Go to Dashboard'
-
-  confLabelDiv.appendChild(confLabelFName);
-  confLabelDiv.appendChild(confLabelLName);
-  confLabelDiv.appendChild(confLabelEmail);
-
-  confInfoDiv.appendChild(confInfoFName);
-  confInfoDiv.appendChild(confInfoLName);
-  confInfoDiv.appendChild(confInfoEmail);
-
-  confTableDiv.appendChild(confLabelDiv);
-  confTableDiv.appendChild(confInfoDiv);
-
-  confirmationDiv.appendChild(confirmationHeader);
-  confirmationDiv.appendChild(confTableDiv);
-  confirmationDiv.appendChild(confSubmitButton);
-
-  mainSection.appendChild(confirmationDiv);
+function signupConfirmation(firstName, lastName, emailAddress) {
+  return `
+  <div class='confirmation-div'>
+    <h2>Please Confirm Your Info</h2>
+    <div class='conf-table-div'>
+      <div class='conf-label-div'>
+        <p class='conf-label'>First Name</p>
+        <p class='conf-label'>Last Name</p>
+        <p class='conf-label'>Email Address</p>
+      </div>
+      <div class='conf-info-div'>
+        <p class='conf-label'>${firstName}</p>
+        <p class='conf-label'>${lastName}</p>
+        <p class='conf-label'>${emailAddress}</p>
+      </div>
+    </div>
+    <button class='btn-lg btn-teal'>Go to Dashboard</button>
+  </div>`
 }
 
 // add items to list
@@ -489,7 +467,7 @@ const loadDashboardHeader = () => {
 
 // load the dashboard
 const loadDashboard = () => {
-  introHeaderBar.remove();
+  // introHeaderBar.remove();
   loadDashboardHeader();
   
   accountSettings.innerText = 'Account Settings';
@@ -753,6 +731,40 @@ function updateTodoName(oldName, newName, list, parent) {
     }
   }
 }
+// FUNCTIONS 
+
+// set signup inputs to local storage
+function newUserLocalStorage(firstName, lastName, emailAddress, pass, agreeToTerms) {
+  let newUser = new User(firstName, lastName, emailAddress, pass, agreeToTerms);
+  localStorage.setItem(emailAddress, JSON.stringify(newUser));
+}
+
+// validates signup form, displays error and loads confirmation
+function signupValidator(fname, lname, email, password, terms) {
+  let errorArr = [];
+  if (password.length < 8) {
+    errorArr.push('Your password must be 8 or more characters');
+  }
+  if (!terms) {
+    errorArr.push('You must agree to the terms of use')
+  }
+  if (JSON.parse(localStorage.getItem(email))) {
+    errorArr.push('This email is already is use');
+  }
+  if (errorArr.length > 0) {
+    return `
+    ${introHeader()}
+    ${signupForm()}
+    <div class='error-arr'>
+      <ul>
+      ${errorArr.map((error) => `<li>${error}</li>`).join('')}
+      </ul>
+    </div>`
+  } else {
+    newUserLocalStorage(fname, lname, email, password, terms);
+    return `${introHeader()} ${signupConfirmation(fname, lname, email)}`
+  }
+}
 
 // EVENT LISTENERS
 
@@ -767,27 +779,8 @@ mainSection.addEventListener('click', (e) => {
     mainSection.innerHTML = `${introHeader()} ${signupForm()}`
   }
 });
-function signupValidator(fname, lname, email, password, terms) {
-  let errorArr = [];
-  if (password.length < 8) {
-    errorArr.push('Your password must be 8 or more characters');
-  }
-  if (!terms) {
-    errorArr.push('You must agree to the terms of use')
-  }
-  if (JSON.parse(localStorage.getItem(email))) {
-    errorArr.push('This email is already is use');
-  }
-  if (errorArr.length > 0) {
-    return `
-    <div class='error-arr'>
-      <ul>
-      ${errorArr.map((error) => `<li>${error}</li>`).join('')}
-      </ul>
-    </div>`
-  }
-}
-// sign up submit
+
+// submitting the signup form
 mainSection.addEventListener('submit', (e) => {
   e.preventDefault();
   let inputFName = e.target.children[0].value.trim();
@@ -795,7 +788,7 @@ mainSection.addEventListener('submit', (e) => {
   let inputEmail = e.target.children[2].value.toLowerCase().trim();
   let inputPassword = e.target.children[3].value.trim();
   let agreeToTerms = e.target.children[4].children[0].checked;
-  mainSection.innerHTML += `${signupValidator(inputFName, inputLName, inputEmail, inputPassword, agreeToTerms)}`;
+  mainSection.innerHTML = `${signupValidator(inputFName, inputLName, inputEmail, inputPassword, agreeToTerms)}`;
 })
 
 // introBtnLogin.addEventListener('click', () => {
