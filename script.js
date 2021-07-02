@@ -714,6 +714,47 @@ function newUserLocalStorage(firstName, lastName, emailAddress, pass, agreeToTer
   localStorage.setItem(emailAddress, JSON.stringify(newUser));
 }
 
+function signinValidator(emailAddres, pass) {
+  let userData = JSON.parse(localStorage.getItem(emailAddres));
+  let errorArr = [];
+ 
+  try {
+     // empty email field
+    if (emailAddres === '' || emailAddres === null) {
+      errorArr.push('Please enter an email address');
+    }
+    // empty password
+    else if (pass === '' || pass === null) {
+      errorArr.push('Please enter a password');
+    }
+    // incorrect password
+    else if (emailAddres === userData['email'] && pass !== userData['password']) {
+      errorArr.push('Invalid password')
+    }
+    // incorrect email
+    else if (emailAddres !== userData['email']) {
+      errorArr.push('Invalid email address')
+    }
+  } catch {
+    errorArr.push('Invalid login')
+  }
+  if (errorArr.length > 0) {
+    return `
+    ${introHeader()}
+    ${signinForm()}
+    <div class='error-arr'>
+      <ul>
+      ${errorArr.map((error) => `<li>${error}</li>`).join('')}
+      </ul>
+    </div>`
+  } else {
+    return `
+    ${introHeader()}
+    ${signinForm()}
+    <p>Success</p>`
+  }
+}
+
 // validates signup form, displays error and loads confirmation
 function signupValidator(fname, lname, email, password, terms) {
   let errorArr = [];
@@ -768,50 +809,55 @@ mainSection.addEventListener('submit', (e) => {
   }
 })
 
-signinForm.addEventListener('submit', (e) => {
+mainSection.addEventListener('submit', (e) => {
   e.preventDefault();
+  if (e.target.id === 'signin-form') {
+    let emailInput = e.target.children[0].value.toLowerCase().trim();
+    let passwordInput = e.target.children[1].value.trim();
+    mainSection.innerHTML = `${signinValidator(emailInput, passwordInput)}`
+  }
   
-  let emailInput = signinFormEmail.value.toLocaleLowerCase().trim();
-  let passwordInput = signinFormPassword.value;
-  signinErrorDiv.classList.add('error-div');
+  // let emailInput = signinFormEmail.value.toLocaleLowerCase().trim();
+  // let passwordInput = signinFormPassword.value;
+  // signinErrorDiv.classList.add('error-div');
 
-  // empty email field
-  if (signinFormEmail.value === '' || signinFormEmail === null) {
-    signinErrorDiv.innerText = 'Please enter an email';
-    signinDiv.appendChild(signinErrorDiv);
-    return;
-  }
-  // empty password field
-  if (signinFormPassword.value === '' || signinFormPassword == null) {
-    signinErrorDiv.innerText = 'Please enter a password';
-    signinDiv.appendChild(signinErrorDiv);
-    return;
-  }
+  // // empty email field
+  // if (signinFormEmail.value === '' || signinFormEmail === null) {
+  //   signinErrorDiv.innerText = 'Please enter an email';
+  //   signinDiv.appendChild(signinErrorDiv);
+  //   return;
+  // }
+  // // empty password field
+  // if (signinFormPassword.value === '' || signinFormPassword == null) {
+  //   signinErrorDiv.innerText = 'Please enter a password';
+  //   signinDiv.appendChild(signinErrorDiv);
+  //   return;
+  // }
 
-  try {
-    if (JSON.parse(localStorage.getItem(emailInput))['email'] === emailInput && JSON.parse(localStorage.getItem(emailInput))['password'] !== passwordInput) {
-      signinFormEmail.value = '';
-      signinFormPassword.value = '';
-      signinErrorDiv.innerText = 'Invalid password';
-      signinDiv.appendChild(signinErrorDiv);
-      return;
-    }
-    if (JSON.parse(localStorage.getItem(emailInput))['email'] === emailInput && JSON.parse(localStorage.getItem(emailInput))['password'] === passwordInput) {
-      signinFormEmail.value = '';
-      signinFormPassword.value = '';
-      signinErrorDiv.innerText = ''
-      signinDiv.remove();
-      sessionUser = emailInput;
-      loadDashboard();
-    }
-  } 
-  catch (error) {
-    signinFormEmail.value = '';
-    signinFormPassword.value = '';
-    signinErrorDiv.innerText = 'Invalid email address or password';
-    signinDiv.appendChild(signinErrorDiv);
-    return;
-  }
+  // try {
+  //   if (JSON.parse(localStorage.getItem(emailInput))['email'] === emailInput && JSON.parse(localStorage.getItem(emailInput))['password'] !== passwordInput) {
+  //     signinFormEmail.value = '';
+  //     signinFormPassword.value = '';
+  //     signinErrorDiv.innerText = 'Invalid password';
+  //     signinDiv.appendChild(signinErrorDiv);
+  //     return;
+  //   }
+  //   if (JSON.parse(localStorage.getItem(emailInput))['email'] === emailInput && JSON.parse(localStorage.getItem(emailInput))['password'] === passwordInput) {
+  //     signinFormEmail.value = '';
+  //     signinFormPassword.value = '';
+  //     signinErrorDiv.innerText = ''
+  //     signinDiv.remove();
+  //     sessionUser = emailInput;
+  //     loadDashboard();
+  //   }
+  // } 
+  // catch (error) {
+  //   signinFormEmail.value = '';
+  //   signinFormPassword.value = '';
+  //   signinErrorDiv.innerText = 'Invalid email address or password';
+  //   signinDiv.appendChild(signinErrorDiv);
+  //   return;
+  // }
 });
 
 
