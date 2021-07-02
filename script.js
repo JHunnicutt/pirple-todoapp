@@ -796,6 +796,16 @@ mainSection.addEventListener('click', (e) => {
   }
 });
 
+// submitting the signin form
+mainSection.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (e.target.id === 'signin-form') {
+    let emailInput = e.target.children[0].value.toLowerCase().trim();
+    let passwordInput = e.target.children[1].value.trim();
+    mainSection.innerHTML = `${signinValidator(emailInput, passwordInput)}`;
+  }
+})
+
 // submitting the signup form
 mainSection.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -809,92 +819,11 @@ mainSection.addEventListener('submit', (e) => {
   }
 })
 
-mainSection.addEventListener('submit', (e) => {
-  e.preventDefault();
-  if (e.target.id === 'signin-form') {
-    let emailInput = e.target.children[0].value.toLowerCase().trim();
-    let passwordInput = e.target.children[1].value.trim();
-    mainSection.innerHTML = `${signinValidator(emailInput, passwordInput)}`
-  }
-  
-  // let emailInput = signinFormEmail.value.toLocaleLowerCase().trim();
-  // let passwordInput = signinFormPassword.value;
-  // signinErrorDiv.classList.add('error-div');
-
-  // // empty email field
-  // if (signinFormEmail.value === '' || signinFormEmail === null) {
-  //   signinErrorDiv.innerText = 'Please enter an email';
-  //   signinDiv.appendChild(signinErrorDiv);
-  //   return;
-  // }
-  // // empty password field
-  // if (signinFormPassword.value === '' || signinFormPassword == null) {
-  //   signinErrorDiv.innerText = 'Please enter a password';
-  //   signinDiv.appendChild(signinErrorDiv);
-  //   return;
-  // }
-
-  // try {
-  //   if (JSON.parse(localStorage.getItem(emailInput))['email'] === emailInput && JSON.parse(localStorage.getItem(emailInput))['password'] !== passwordInput) {
-  //     signinFormEmail.value = '';
-  //     signinFormPassword.value = '';
-  //     signinErrorDiv.innerText = 'Invalid password';
-  //     signinDiv.appendChild(signinErrorDiv);
-  //     return;
-  //   }
-  //   if (JSON.parse(localStorage.getItem(emailInput))['email'] === emailInput && JSON.parse(localStorage.getItem(emailInput))['password'] === passwordInput) {
-  //     signinFormEmail.value = '';
-  //     signinFormPassword.value = '';
-  //     signinErrorDiv.innerText = ''
-  //     signinDiv.remove();
-  //     sessionUser = emailInput;
-  //     loadDashboard();
-  //   }
-  // } 
-  // catch (error) {
-  //   signinFormEmail.value = '';
-  //   signinFormPassword.value = '';
-  //   signinErrorDiv.innerText = 'Invalid email address or password';
-  //   signinDiv.appendChild(signinErrorDiv);
-  //   return;
-  // }
-});
-
-
-// signupForm.addEventListener('submit', (e) => {
+// confSubmitButton.addEventListener('click', (e) => {
 //   e.preventDefault();
-//   let errorArr = [];
-
-//   signupErrorDiv.classList.add('error-div');
-
-//   if (signupFormPassword.value.length < 8) {
-//     errorArr.push('The password must be at least 8 characters in length');
-//   }
-//   if (signupFormTerms.checked === false){
-//     errorArr.push('You must agree to the Terms of Use');
-//   }
-//   if (JSON.parse(localStorage.getItem(signupFormEmail.value))) {
-//     errorArr.push('Email is already in use. Please use a different email.')
-//   }
-//   if (errorArr.length > 0) {
-//     console.log('error');
-//     signupErrorDiv.innerText = errorArr.join(', ');
-//     signupDiv.appendChild(signupErrorDiv);
-//   } else {
-//     userName = signupFormEmail.value.toLocaleLowerCase().trim();
-//     let newUser = new User(signupFormFName.value, signupFormLName.value, signupFormEmail.value.toLocaleLowerCase().trim(), signupFormPassword.value, signupFormTerms.checked);
-//     localStorage.setItem(userName, JSON.stringify(newUser));
-//     signupDiv.remove();
-//     sessionUser = signupFormEmail.value.toLocaleLowerCase().trim();
-//     loadSignupConfirmation();
-//   }
+//   confirmationDiv.remove();
+//   loadDashboard();
 // });
-
-confSubmitButton.addEventListener('click', (e) => {
-  e.preventDefault();
-  confirmationDiv.remove();
-  loadDashboard();
-});
 
 addListForm.addEventListener('submit', (e) => {
   e.preventDefault();
