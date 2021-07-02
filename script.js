@@ -53,18 +53,18 @@ let sessionUser;
 
 // dashboard
 const dashboardHeaderBar = document.createElement('header');
-const dashboardNav = document.createElement('nav');
+// const dashboardNav = document.createElement('nav');
 const accountSettings = document.createElement('button');
 const signOut = document.createElement('button');
 const dashboardTitle = document.createElement('h1');
 const dashboardList = document.createElement('div');
-const addListForm = document.createElement('form');
+// const addListForm = document.createElement('form');
 const addListBtn = document.createElement('button');
 const addListInput = document.createElement('input');
 const noListMsg = document.createElement('div');
 const materialDesignUpArrow = document.createElement('span');
 const noListMsgText = document.createElement('p');
-const listContainer = document.createElement('div');
+// const listContainer = document.createElement('div');
 const listUL = document.createElement('ul');
 
 // list items page
@@ -183,6 +183,66 @@ function signupConfirmation(firstName, lastName, emailAddress) {
     </div>
     <button class='btn-lg btn-teal'>Go to Dashboard</button>
   </div>`
+}
+
+function dashboardHeader() {
+  return `
+  <header class='dashboard-header'>
+    <h1 id='app-title-dashboard'>TODO APP</h1>
+  </header>`
+}
+
+function dashboardNav() {
+  return `
+  <nav class ='dashboard-nav'>
+    <button id='account-settings-btn' class='account-settings-btn btn-teal'>Account Settings</button>
+    <button id='signout-btn' class='signout-btn btn-white'>Sign Out</button>
+  </nav>`
+}
+
+function addListForm() {
+  return `
+  <div class='list-form-div'>
+    <form" class='add-list-form'>
+      <button id='add-list-btn' class='btn-md btn-teal add-list-btn'>+</button>
+      <input type="text" class='add-list-input' placeholder='list name'>
+    </form>
+  </div>
+  `;
+}
+
+function listContainer() {
+  let userData = JSON.parse(localStorage.getItem(sessionUser))
+
+  if (userData.lists.length < 1) {
+    return `
+    <div class='no-list-msg'>
+      <span class='material-icons md-36'>arrow_upward</span>
+      <p>Use the + button to add a list</p>
+    </div>`
+  } else {
+    return `
+    <div class='list-container'>
+      <ul class='list-ul'>
+        ${userData.lists.map((list) => `${listItemTemplate(list.name)}`).join('')}
+      </ul>
+    </div>`
+  }
+}
+
+function listItemTemplate(name) {
+  return `
+    <li class='list-item'>
+      <a href="" class='list-link'>
+        <span class='item-text'>${name}</span>
+      </a>
+      <div class='list-management'>
+        <a href="" class='list-edit-link'>
+          <span class='material-icons list-edit-btn'>mode_edit</span>
+        </a>
+        <button class='remove-item'>X</button>
+      </div>
+    </li>`
 }
 
 // add items to list
@@ -748,10 +808,12 @@ function signinValidator(emailAddres, pass) {
       </ul>
     </div>`
   } else {
+    sessionUser = emailAddres;
     return `
-    ${introHeader()}
-    ${signinForm()}
-    <p>Success</p>`
+    ${dashboardHeader()}
+    ${dashboardNav()}
+    ${addListForm()}
+    ${listContainer()}`;
   }
 }
 
