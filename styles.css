@@ -143,8 +143,17 @@ h2 {
    background-color: rgb(62, 151, 151);
 }
 .error-div {
-  color: hsl(0, 90%, 65%);
-  font-weight: bold;
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   color: hsl(0, 90%, 65%);
+   font-weight: bold;
+   font-family: 'Roboto';
+   font-size: 1.3em;
+}
+.error-div ul {
+   list-style-type: none;
+   padding: 0;
 }
 .confirmation-div {
     display: flex;

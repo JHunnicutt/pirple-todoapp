@@ -742,7 +742,7 @@ function signinValidator(emailAddres, pass) {
     return `
     ${introHeader()}
     ${signinForm()}
-    <div class='error-arr'>
+    <div class='error-div'>
       <ul>
       ${errorArr.map((error) => `<li>${error}</li>`).join('')}
       </ul>
@@ -771,7 +771,7 @@ function signupValidator(fname, lname, email, password, terms) {
     return `
     ${introHeader()}
     ${signupForm()}
-    <div class='error-arr'>
+    <div class='error-div'>
       <ul>
       ${errorArr.map((error) => `<li>${error}</li>`).join('')}
       </ul>
