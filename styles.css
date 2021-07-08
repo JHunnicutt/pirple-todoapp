@@ -86,7 +86,7 @@ h2 {
    border: 2px solid rgb(65, 158, 158);
 }
 .btn-white:hover {
-   background-color: rgb(249, 249, 249);
+   background-color: rgb(235, 235, 235);
    border-color: rgb(62, 151, 151);
    color: rgb(62, 151, 151);
 }
@@ -239,9 +239,16 @@ h2 {
    background-color: rgb(65, 158, 158);
    margin-bottom: 8px;
  }
+ .list-item-btn {
+    background-color: rgb(65, 158, 158);
+    color: #fff;
+    border-style: none;
+    padding-right: 1.5em;
+    cursor: pointer;
+ }
+
  .item-text, .remove-item {
    font-family: 'Roboto';
-   color: #fff;
  }
  .item-text {
    position: relative;
@@ -258,19 +265,26 @@ h2 {
    display: flex;
    align-items: center;
  }
- .list-edit-link {
+ .list-edit-btn {
    display: flex;
    align-items: center;
    color: #fff;
+   background-color: rgb(65, 158, 158);
+   border-style: none;
+   cursor: pointer;
  }
- .list-edit-link:hover {
-   color: rgb(249, 249, 249);
+ .list-edit-btn:hover {
+   color:rgb(235, 235, 235);
  }
  .remove-item {
    background-color: rgb(65, 158, 158);
+   color: #fff;
    border-style: none;
    font-size: 1.5em;
    cursor: pointer;
+ }
+ .remove-item:hover {
+    color:rgb(235, 235, 235);
  }
  .list-item-edit-view {
    list-style-type: none;

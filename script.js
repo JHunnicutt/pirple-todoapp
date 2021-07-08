@@ -54,7 +54,7 @@ let sessionUser;
 // dashboard
 const dashboardHeaderBar = document.createElement('header');
 // const dashboardNav = document.createElement('nav');
-const accountSettings = document.createElement('button');
+// const accountSettings = document.createElement('button');
 const signOut = document.createElement('button');
 const dashboardTitle = document.createElement('h1');
 const dashboardList = document.createElement('div');
@@ -80,9 +80,9 @@ const todoList = document.createElement('ul');
 // let todoListItem = document.createElement('li');
 
 // account settings page
-const accountSettingsDiv = document.createElement('div');
-const accountHeaderDiv = document.createElement('div');
-const accountHeader = document.createElement('h3');
+// const accountSettingsDiv = document.createElement('div');
+// const accountHeaderDiv = document.createElement('div');
+// const accountHeader = document.createElement('h3');
 const userInfo = document.createElement('form');
 const userFirstName = document.createElement('input');
 const userLastName = document.createElement('input');
@@ -233,16 +233,40 @@ function listContainer() {
 function listItemTemplate(name) {
   return `
     <li class='list-item'>
-      <a href="" class='list-link'>
+      <button class='list-item-btn'>
         <span class='item-text'>${name}</span>
-      </a>
+      </button>
       <div class='list-management'>
-        <a href="" class='list-edit-link'>
-          <span class='material-icons list-edit-btn'>mode_edit</span>
-        </a>
+        <button class='list-edit-btn'>
+          <span class='material-icons list-edit-span'>mode_edit</span>
+        </button>
         <button class='remove-item'>X</button>
       </div>
     </li>`
+}
+
+function accountSettingsNav() {
+  return `
+  <nav class='todo-nav'>
+    <button id='signout-btn' class='signout-btn btn-white'>Sign Out</button>
+  </nav>`
+}
+
+function accountSettings() {
+  return `
+  <div class='account-settings-div'>
+    <div class='account-settings-header-div'>
+      <h3 class='account-settings-header'>Account Settings</h3>
+    </div>
+    <form class='user-info-form'>
+      <input type="text" class='user-first-name' required />
+      <input type="text" class='user-last-name' required />
+      <input type="text" class='user-last-name' required />
+      <input type="text" class='user-email' required />
+      <input type="password" class='user-password' required />
+      <input type="submit" class='account-settings-submit btn btn-lg btn-teal' value='Save & Return' />
+    </form>
+  </div>`
 }
 
 // add items to list
@@ -850,6 +874,7 @@ mainSection.innerHTML = `${introHeader()} ${introButtons()}`
 
 // load signin/signup page
 mainSection.addEventListener('click', (e) => {
+  console.log(e.target);
   if (e.target.id === 'login-btn') {
     mainSection.innerHTML = `${introHeader()} ${signinForm()}`
   }
