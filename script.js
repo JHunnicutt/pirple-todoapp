@@ -58,7 +58,7 @@ const dashboardHeaderBar = document.createElement('header');
 const signOut = document.createElement('button');
 const dashboardTitle = document.createElement('h1');
 const dashboardList = document.createElement('div');
-// const addListForm = document.createElement('form');
+const addListForm = document.createElement('form');
 const addListBtn = document.createElement('button');
 const addListInput = document.createElement('input');
 const noListMsg = document.createElement('div');
@@ -80,9 +80,9 @@ const todoList = document.createElement('ul');
 // let todoListItem = document.createElement('li');
 
 // account settings page
-// const accountSettingsDiv = document.createElement('div');
-// const accountHeaderDiv = document.createElement('div');
-// const accountHeader = document.createElement('h3');
+const accountSettingsDiv = document.createElement('div');
+const accountHeaderDiv = document.createElement('div');
+const accountHeader = document.createElement('h3');
 const userInfo = document.createElement('form');
 const userFirstName = document.createElement('input');
 const userLastName = document.createElement('input');
@@ -115,34 +115,46 @@ const Todo = function (name) {
 }
 
 // TEMPLATES
+const introHeader = document.createElement('header');
 
-function introHeader() {
-  return `
-  <header class="intro-header">
-    <h1 id="app-title">TODO APP</h1>
-    <h5 id="tagline-description">Set it, don't forget it</h5>
-  </header>`;
+function introHeaderTemp() {
+  introHeader.classList.add('intro-header');
+  introHeader.innerHTML = `
+    <h1 id='app-title'>TODO APP</h1>
+    <h5 id='tagline-description'>Set it, don't forget it</h5>`;
+  return introHeader;
 }
 
-function introButtons() {
-  return `
-  <div class='btn-intro-div'>
+const introButtons = document.createElement('div');
+
+function introButtonsTemp() {
+  introButtons.classList.add('btn-intro-div');
+  introButtons.innerHTML = `
     <button id='login-btn' class='btn-lg btn-teal'>Login</button>
-    <button id='signup-btn' class='btn-lg btn-white'>Sign Up</button>
-  </div>`;
+    <button id='signup-btn' class='btn-lg btn-white'>Sign Up</button>`;
+  return introButtons;
 }
 
-// load signin form
-function signinForm() {
-  return `
-  <div class='signin-div form-div'>
-    <h2>Sign In</h2>
-    <form id='signin-form' class='app-form'>
-      <input type="text" placeholder='Email Address' class='signin-email form-input' />
-      <input type="password" placeholder='Password' class='signin-password form-input' />
-      <button id='signin-form-submit' class='btn-lg btn-teal'>Sign In</button>
-    </form>
-  </div>`
+// load login form
+const loginDiv = document.createElement('div');
+const loginForm = document.createElement('form');
+
+function loginFormTemp() {
+  loginDiv.classList.add('signin-div', 'form-div');
+  loginForm.id = 'signin-form';
+  loginForm.classList.add('app-form');
+
+  loginForm.innerHTML = `
+    <input type="text" placeholder='Email Address' class='signin-email form-input' />
+    <input type="password" placeholder='Password' class='signin-password form-input' />
+    <button id='signin-form-submit' class='btn-lg btn-teal'>Sign In</button>`
+  
+  loginDiv.innerHTML = `
+    <h2>Sign In</h2>`;
+    
+  loginDiv.appendChild(loginForm);
+
+  return loginDiv;
 }
 
 // load sign up form
@@ -200,13 +212,16 @@ function dashboardNav() {
   </nav>`
 }
 
-function addListForm() {
-  return `
-  <div class='list-form-div'>
-    <form" class='add-list-form'>
+function addListFormDiv() {
+  addListForm.innerHTML = `
+    <form" id='add-list-form' class='add-list-form'>
       <button id='add-list-btn' class='btn-md btn-teal add-list-btn'>+</button>
       <input type="text" class='add-list-input' placeholder='list name'>
     </form>
+  `
+  return `
+  <div class='list-form-div'>
+    ${addListForm}
   </div>
   `;
 }
@@ -836,7 +851,7 @@ function signinValidator(emailAddres, pass) {
     return `
     ${dashboardHeader()}
     ${dashboardNav()}
-    ${addListForm()}
+    ${addListFormDiv()}
     ${listContainer()}`;
   }
 }
@@ -870,16 +885,16 @@ function signupValidator(fname, lname, email, password, terms) {
 
 // EVENT LISTENERS
 
-mainSection.innerHTML = `${introHeader()} ${introButtons()}`
+mainSection.appendChild(introHeaderTemp())
+mainSection.appendChild(introButtonsTemp())
 
 // load signin/signup page
-mainSection.addEventListener('click', (e) => {
-  console.log(e.target);
+introButtons.addEventListener('click', (e) => {
   if (e.target.id === 'login-btn') {
-    mainSection.innerHTML = `${introHeader()} ${signinForm()}`
+    mainSection.replaceChild(loginFormTemp(), introButtonsTemp());
   }
   if (e.target.id === 'signup-btn') {
-    mainSection.innerHTML = `${introHeader()} ${signupForm()}`
+    mainSection.replaceChild(signupFormTemp(), introButtonsTemp());
   }
 });
 
@@ -906,12 +921,19 @@ mainSection.addEventListener('submit', (e) => {
   }
 })
 
-// confSubmitButton.addEventListener('click', (e) => {
-//   e.preventDefault();
-//   confirmationDiv.remove();
-//   loadDashboard();
-// });
-
+// add list items
+mainSection.addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (e.target.id = 'add-list-form') {
+    console.log("test")
+    // addListToLocalStorage();
+    // mainSection.innerHTML = `
+    // ${dashboardHeader()} 
+    // ${dashboardNav()}
+    // ${addListForm()}
+    // ${listContainer()}`
+  }
+})
 addListForm.addEventListener('submit', (e) => {
   e.preventDefault();
   if (addListInput.value === '') {
@@ -963,10 +985,10 @@ todoDiv.addEventListener('click', (e) => {
   }
 });
 
-accountSettings.addEventListener('click', (e) => {
-  e.preventDefault();
-  loadAccountSettings();
-});
+// accountSettings.addEventListener('click', (e) => {
+//   e.preventDefault();
+//   loadAccountSettings();
+// });
 
 userInfo.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -975,16 +997,16 @@ userInfo.addEventListener('submit', (e) => {
   loadDashboard();
 });
 
-signOut.addEventListener('click', (e) => {
-  dashboardHeaderBar.remove();
-  dashboardNav.remove();
-  todoNav.remove();
-  dashboardList.remove();
-  todoDiv.remove();
-  accountSettingsDiv.remove();
-  loadIntroHeader();
-  loadIntroButtons();
-});
+// signOut.addEventListener('click', (e) => {
+//   dashboardHeaderBar.remove();
+//   dashboardNav.remove();
+//   todoNav.remove();
+//   dashboardList.remove();
+//   todoDiv.remove();
+//   accountSettingsDiv.remove();
+//   loadIntroHeader();
+//   loadIntroButtons();
+// });
 
 todoList.addEventListener('click', (e) => {
   if (e.target.classList.contains('checkbox')) {
