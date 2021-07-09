@@ -133,13 +133,13 @@ h2 {
 .form-checkbox {
    margin: 0 7px 0 0;
 }
-#signup-form-submit, #signin-form-submit {
+#signup-form-submit, #login-form-submit {
    margin: 15px auto;
    background-color: rgb(65, 158, 158);
    border: none;
    color: #fff;
 }
-#signup-form-submit:hover, #signin-form-submit:hover {
+#signup-form-submit:hover, #login-form-submit:hover {
    background-color: rgb(62, 151, 151);
 }
 .error-div {

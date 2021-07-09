@@ -140,17 +140,17 @@ const loginDiv = document.createElement('div');
 const loginForm = document.createElement('form');
 
 function loginFormTemp() {
-  loginDiv.classList.add('signin-div', 'form-div');
-  loginForm.id = 'signin-form';
+  loginDiv.classList.add('login-div', 'form-div');
+  loginForm.id = 'login-form';
   loginForm.classList.add('app-form');
 
   loginForm.innerHTML = `
-    <input type="text" placeholder='Email Address' class='signin-email form-input' />
-    <input type="password" placeholder='Password' class='signin-password form-input' />
-    <button id='signin-form-submit' class='btn-lg btn-teal'>Sign In</button>`
+    <input type="text" placeholder='Email Address' class='login-email form-input' />
+    <input type="password" placeholder='Password' class='login-password form-input' />
+    <button id='login-form-submit' class='btn-lg btn-teal'>Log In</button>`
   
   loginDiv.innerHTML = `
-    <h2>Sign In</h2>`;
+    <h2>Log In</h2>`;
     
   loginDiv.appendChild(loginForm);
 
