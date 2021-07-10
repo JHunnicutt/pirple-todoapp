@@ -23,7 +23,7 @@ const mainSection = document.getElementById('main-section');
 // const signinErrorDiv = document.createElement('div');
 
 // signup form
-const signupDiv = document.createElement('div');
+// const signupDiv = document.createElement('div');
 const signupHeader = document.createElement('h2');
 // const signupForm = document.createElement('form');
 const signupFormFName = document.createElement('input');
@@ -144,25 +144,31 @@ function loginFormTemp() {
   loginForm.id = 'login-form';
   loginForm.classList.add('app-form');
 
+  loginDiv.innerHTML = `
+  <h2>Log In</h2>`;
+
   loginForm.innerHTML = `
     <input type="text" placeholder='Email Address' class='login-email form-input' />
     <input type="password" placeholder='Password' class='login-password form-input' />
-    <button id='login-form-submit' class='btn-lg btn-teal'>Log In</button>`
+    <button id='login-form-submit' class='btn-lg btn-teal'>Log In</button>`;
   
-  loginDiv.innerHTML = `
-    <h2>Log In</h2>`;
-    
   loginDiv.appendChild(loginForm);
 
   return loginDiv;
 }
 
 // load sign up form
-function signupForm() {
-  return `
-  <div class='signup-div form-div'>
-    <h2>Sign Up</h2>
-    <form id='signup-form' class='app-form'>
+const signupDiv = document.createElement('div');
+const signupForm = document.createElement('form');
+
+function signupFormTemp() {
+  signupDiv.classList.add('signup-div', 'form-div');
+  signupForm.id = 'signup-form'
+  signupForm.classList.add('app-form');
+
+  signupDiv.innerHTML = `<h2>Sign Up</h2>`;
+
+  signupForm.innerHTML = `
     <input class='form-input' type="text" placeholder='First Name' required>
     <input class='form-input' type="text" placeholder='Last  Name' required>
     <input class='form-input' type="text" placeholder='Email Address' required>
@@ -171,9 +177,11 @@ function signupForm() {
       <input id='agree-to-terms' class='form-checkbox' type="checkbox">
       <label For="agree-to-terms">I Agree to Terms of Use</label>
     </div>
-    <button id='signup-form-submit' class='btn-lg' type='submit'>Sign Up</button>
-    </form>
-  </div>`;
+    <button id='signup-form-submit' class='btn-lg' type='submit'>Sign Up</button>`;
+
+    signupDiv.appendChild(signupForm);
+
+  return signupDiv;
 }
 
 // load the signup confirmation view
@@ -813,10 +821,15 @@ function newUserLocalStorage(firstName, lastName, emailAddress, pass, agreeToTer
   localStorage.setItem(emailAddress, JSON.stringify(newUser));
 }
 
-function signinValidator(emailAddres, pass) {
+function loginValidator(emailAddres, pass, form) {
   let userData = JSON.parse(localStorage.getItem(emailAddres));
   let errorArr = [];
- 
+  
+
+  if (document.querySelector('.error-div')) {
+    loginDiv.lastChild.remove();
+  }
+  
   try {
      // empty email field
     if (emailAddres === '' || emailAddres === null) {
@@ -838,14 +851,16 @@ function signinValidator(emailAddres, pass) {
     errorArr.push('Invalid login')
   }
   if (errorArr.length > 0) {
-    return `
-    ${introHeader()}
-    ${signinForm()}
-    <div class='error-div'>
+    let errorDiv = document.createElement('div');
+    errorDiv.classList.add('error-div');
+    errorDiv.innerHTML = `
       <ul>
       ${errorArr.map((error) => `<li>${error}</li>`).join('')}
-      </ul>
-    </div>`
+      </ul>`;
+    loginDiv.appendChild(errorDiv);
+    form.children[0].value = '';
+    form.children[1].value = '';
+    errorArr = [];
   } else {
     sessionUser = emailAddres;
     return `
@@ -898,14 +913,13 @@ introButtons.addEventListener('click', (e) => {
   }
 });
 
-// submitting the signin form
-mainSection.addEventListener('submit', (e) => {
+// submitting the login form
+loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  if (e.target.id === 'signin-form') {
-    let emailInput = e.target.children[0].value.toLowerCase().trim();
-    let passwordInput = e.target.children[1].value.trim();
-    mainSection.innerHTML = `${signinValidator(emailInput, passwordInput)}`;
-  }
+  let emailInput = e.target.children[0].value.toLowerCase().trim();
+  let passwordInput = e.target.children[1].value.trim();
+  // mainSection.innerHTML = `${signinValidator(emailInput, passwordInput)}`;
+  loginValidator(emailInput, passwordInput, e.target);
 })
 
 // submitting the signup form
@@ -925,7 +939,6 @@ mainSection.addEventListener('submit', (e) => {
 mainSection.addEventListener('submit', (e) => {
   e.preventDefault();
   if (e.target.id = 'add-list-form') {
-    console.log("test")
     // addListToLocalStorage();
     // mainSection.innerHTML = `
     // ${dashboardHeader()} 
