@@ -185,9 +185,12 @@ function signupFormTemp() {
 }
 
 // load the signup confirmation view
-function signupConfirmation(firstName, lastName, emailAddress) {
-  return `
-  <div class='confirmation-div'>
+const signupConfirmationDiv = document.createElement('div');
+
+function signupConfirmationTemp(firstName, lastName, emailAddress) {
+  signupConfirmationDiv.classList.add('confirmation-div');
+
+  signupConfirmationDiv.innerHTML = `
     <h2>Please Confirm Your Info</h2>
     <div class='conf-table-div'>
       <div class='conf-label-div'>
@@ -201,8 +204,9 @@ function signupConfirmation(firstName, lastName, emailAddress) {
         <p class='conf-label'>${emailAddress}</p>
       </div>
     </div>
-    <button class='btn-lg btn-teal'>Go to Dashboard</button>
-  </div>`
+    <button id='signup-confirm-btn' class='btn-lg btn-teal'>Go to Dashboard</button>`
+
+  return signupConfirmationDiv;
 }
 
 // dashboard header 
@@ -837,7 +841,6 @@ function loginValidator(emailAddres, pass, form) {
   let userData = JSON.parse(localStorage.getItem(emailAddres));
   let errorArr = [];
   
-
   if (document.querySelector('.error-div')) {
     loginDiv.lastChild.remove();
   }
@@ -883,8 +886,13 @@ function loginValidator(emailAddres, pass, form) {
 }
 
 // validates signup form, displays error and loads confirmation
-function signupValidator(fname, lname, email, password, terms) {
+function signupValidator(fname, lname, email, password, terms, form) {
   let errorArr = [];
+
+  if (document.querySelector('.error-div')) {
+    signupDiv.lastChild.remove();
+  }
+
   if (password.length < 8) {
     errorArr.push('Your password must be 8 or more characters');
   }
@@ -895,17 +903,18 @@ function signupValidator(fname, lname, email, password, terms) {
     errorArr.push('This email is already is use');
   }
   if (errorArr.length > 0) {
-    return `
-    ${introHeader()}
-    ${signupForm()}
-    <div class='error-div'>
+    let errorDiv = document.createElement('div');
+    errorDiv.classList.add('error-div');
+    errorDiv.innerHTML = `
       <ul>
       ${errorArr.map((error) => `<li>${error}</li>`).join('')}
-      </ul>
-    </div>`
+      </ul>`;
+    signupDiv.appendChild(errorDiv);
+    errorArr = [];
   } else {
+    sessionUser = email;
     newUserLocalStorage(fname, lname, email, password, terms);
-    return `${introHeader()} ${signupConfirmation(fname, lname, email)}`
+    mainSection.replaceChild(signupConfirmationTemp(fname, lname, email), signupFormTemp());
   }
 }
 
@@ -929,20 +938,27 @@ loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
   let emailInput = e.target.children[0].value.toLowerCase().trim();
   let passwordInput = e.target.children[1].value.trim();
-  // mainSection.innerHTML = `${signinValidator(emailInput, passwordInput)}`;
   loginValidator(emailInput, passwordInput, e.target);
-})
+});
 
 // submitting the signup form
-mainSection.addEventListener('submit', (e) => {
+signupForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  if (e.target.id === 'signup-form') {
-    let inputFName = e.target.children[0].value.trim();
-    let inputLName = e.target.children[1].value.trim();
-    let inputEmail = e.target.children[2].value.toLowerCase().trim();
-    let inputPassword = e.target.children[3].value.trim();
-    let agreeToTerms = e.target.children[4].children[0].checked;
-    mainSection.innerHTML = `${signupValidator(inputFName, inputLName, inputEmail, inputPassword, agreeToTerms)}`;
+  let inputFName = e.target.children[0].value.trim();
+  let inputLName = e.target.children[1].value.trim();
+  let inputEmail = e.target.children[2].value.toLowerCase().trim();
+  let inputPassword = e.target.children[3].value.trim();
+  let agreeToTerms = e.target.children[4].children[0].checked;
+  signupValidator(inputFName, inputLName, inputEmail, inputPassword, agreeToTerms, e.target);
+});
+
+// confirming user info and signing into the dashboard
+signupConfirmationDiv.addEventListener('click', (e) => {
+  if (e.target.id === 'signup-confirm-btn') {
+    mainSection.replaceChild(dashboardHeaderTemp(), introHeaderTemp());
+    mainSection.replaceChild(dashboardNavTemp(), signupConfirmationTemp());
+    mainSection.appendChild(addListFormTemp());
+    mainSection.appendChild(listContainerTemp());
   }
 })
 
