@@ -58,7 +58,7 @@ const dashboardHeaderBar = document.createElement('header');
 const signOut = document.createElement('button');
 const dashboardTitle = document.createElement('h1');
 const dashboardList = document.createElement('div');
-const addListForm = document.createElement('form');
+// const addListForm = document.createElement('form');
 const addListBtn = document.createElement('button');
 const addListInput = document.createElement('input');
 const noListMsg = document.createElement('div');
@@ -205,52 +205,64 @@ function signupConfirmation(firstName, lastName, emailAddress) {
   </div>`
 }
 
-function dashboardHeader() {
-  return `
-  <header class='dashboard-header'>
-    <h1 id='app-title-dashboard'>TODO APP</h1>
-  </header>`
+// dashboard header 
+const dashboardHeader = document.createElement('header');
+
+function dashboardHeaderTemp() {
+  dashboardHeader.classList.add('dashboard-header');
+
+  dashboardHeader.innerHTML = `
+    <h1 id='app-title-dashboard'>TODO APP</h1>`;
+
+  return dashboardHeader;
 }
 
-function dashboardNav() {
-  return `
-  <nav class ='dashboard-nav'>
+// dashboard navigation bar
+const dashboardNav = document.createElement('nav');
+
+function dashboardNavTemp() {
+  dashboardNav.classList.add('dashboard-nav');
+
+  dashboardNav.innerHTML = `
     <button id='account-settings-btn' class='account-settings-btn btn-teal'>Account Settings</button>
-    <button id='signout-btn' class='signout-btn btn-white'>Sign Out</button>
-  </nav>`
+    <button id='signout-btn' class='signout-btn btn-white'>Sign Out</button>`
+  
+  return dashboardNav;
 }
+// add new list form and button
+const addListForm = document.createElement('form');
+function addListFormTemp() {
+  addListForm.id = 'add-list-form';
+  addListForm.classList.add('add-list-form');
 
-function addListFormDiv() {
   addListForm.innerHTML = `
-    <form" id='add-list-form' class='add-list-form'>
       <button id='add-list-btn' class='btn-md btn-teal add-list-btn'>+</button>
-      <input type="text" class='add-list-input' placeholder='list name'>
-    </form>
-  `
-  return `
-  <div class='list-form-div'>
-    ${addListForm}
-  </div>
-  `;
+      <input type="text" class='add-list-input' placeholder='list name'>`
+
+  return addListForm;
 }
 
-function listContainer() {
-  let userData = JSON.parse(localStorage.getItem(sessionUser))
+// list container
+const listContainer = document.createElement('div');
+
+function listContainerTemp() {
+  let userData = JSON.parse(localStorage.getItem(sessionUser));
+  listContainer.classList.add('list-container');
 
   if (userData.lists.length < 1) {
-    return `
+    listContainer.innerHTML = `
     <div class='no-list-msg'>
       <span class='material-icons md-36'>arrow_upward</span>
       <p>Use the + button to add a list</p>
     </div>`
   } else {
-    return `
-    <div class='list-container'>
+    listContainer.innerHTML = `
       <ul class='list-ul'>
         ${userData.lists.map((list) => `${listItemTemplate(list.name)}`).join('')}
-      </ul>
-    </div>`
+      </ul>`
   }
+
+  return listContainer;
 }
 
 function listItemTemplate(name) {
@@ -863,11 +875,10 @@ function loginValidator(emailAddres, pass, form) {
     errorArr = [];
   } else {
     sessionUser = emailAddres;
-    return `
-    ${dashboardHeader()}
-    ${dashboardNav()}
-    ${addListFormDiv()}
-    ${listContainer()}`;
+    mainSection.replaceChild(dashboardHeaderTemp(), introHeaderTemp());
+    mainSection.replaceChild(dashboardNavTemp(), loginFormTemp());
+    mainSection.appendChild(addListFormTemp());
+    mainSection.appendChild(listContainerTemp());
   }
 }
 
