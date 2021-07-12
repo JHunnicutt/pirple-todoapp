@@ -235,6 +235,7 @@ function dashboardNavTemp() {
 }
 // add new list form and button
 const addListForm = document.createElement('form');
+
 function addListFormTemp() {
   addListForm.id = 'add-list-form';
   addListForm.classList.add('add-list-form');
@@ -262,14 +263,14 @@ function listContainerTemp() {
   } else {
     listContainer.innerHTML = `
       <ul class='list-ul'>
-        ${userData.lists.map((list) => `${listItemTemplate(list.name)}`).join('')}
+        ${userData.lists.map((list) => `${listItemTemp(list.name)}`).join('')}
       </ul>`
   }
 
   return listContainer;
 }
 
-function listItemTemplate(name) {
+function listItemTemp(name) {
   return `
     <li class='list-item'>
       <button class='list-item-btn'>
@@ -284,14 +285,14 @@ function listItemTemplate(name) {
     </li>`
 }
 
-function accountSettingsNav() {
+function accountSettingsNavTemp() {
   return `
   <nav class='todo-nav'>
     <button id='signout-btn' class='signout-btn btn-white'>Sign Out</button>
   </nav>`
 }
 
-function accountSettings() {
+function accountSettingsTemp() {
   return `
   <div class='account-settings-div'>
     <div class='account-settings-header-div'>
@@ -308,14 +309,7 @@ function accountSettings() {
   </div>`
 }
 
-// add items to list
-function addListToLocalStorage () {
-  let listInput = addListInput.value;
-  let userData = JSON.parse(localStorage.getItem(sessionUser));
 
-  userData.lists.push(new List(listInput.trim()));
-  localStorage.setItem(sessionUser, JSON.stringify(userData));
-}
 
 function addListToDashboard () {
   // create a variable from the local storage lists array
@@ -918,6 +912,15 @@ function signupValidator(fname, lname, email, password, terms, form) {
   }
 }
 
+// add list items to local storage
+function addListToLocalStorage (list) {
+  let userData = JSON.parse(localStorage.getItem(sessionUser));
+
+  userData.lists.push(new List(list));
+
+  localStorage.setItem(sessionUser, JSON.stringify(userData));
+}
+
 // EVENT LISTENERS
 
 mainSection.appendChild(introHeaderTemp())
@@ -963,30 +966,20 @@ signupConfirmationDiv.addEventListener('click', (e) => {
 })
 
 // add list items
-mainSection.addEventListener('submit', (e) => {
-  e.preventDefault();
-  if (e.target.id = 'add-list-form') {
-    // addListToLocalStorage();
-    // mainSection.innerHTML = `
-    // ${dashboardHeader()} 
-    // ${dashboardNav()}
-    // ${addListForm()}
-    // ${listContainer()}`
-  }
-})
 addListForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  if (addListInput.value === '') {
-    alert('Please type in a list name');
-    return;
-  } else {
-    addListToLocalStorage();
-    while(listUL.firstChild) {
-      listUL.removeChild(listUL.firstChild);
-    }
-    loadListPage(addListInput.value);
-    addListInput.value = '';
-  }
+  
+  // remove existing DOM element
+  listContainer.remove();
+
+  // update local storage
+  addListToLocalStorage(e.target.children[1].value.trim());
+
+  // add new DOM element with updated list item
+  mainSection.appendChild(listContainerTemp());
+  
+  // clear form of input value
+  e.target.children[1].value = '';
 });
 
 listUL.addEventListener('click', (e) => {
