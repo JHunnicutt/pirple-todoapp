@@ -309,105 +309,6 @@ function accountSettingsTemp() {
   </div>`
 }
 
-
-
-function addListToDashboard () {
-  // create a variable from the local storage lists array
-  const userData = JSON.parse(localStorage.getItem(sessionUser));
-
-  // list container
-  listUL.classList.add('list-ul');
-
-  // remove existing list when returning to dashboard
-  while(listUL.firstChild) {
-    listUL.removeChild(listUL.firstChild);
-  }
-
-  // loop through array and assign each item a class and append to a div
-  for (let i of userData.lists) {
-
-    // list item
-    let listItem = document.createElement('li');
-    listItem.classList.add('list-item');
-    // item link
-    let listLink = document.createElement('a');
-    listLink.classList.add('list-link');
-    listLink.href = ' ';
-    // item text
-    let listText = document.createElement('span');
-    listText.classList.add('item-text');
-    // list managment div
-    let listManagement = document.createElement('div');
-    listManagement.classList.add('list-management');
-    // edit button
-    let listEditLink = document.createElement('a');
-    let listEditButton = document.createElement('span');
-    listEditLink.href = '';
-    listEditLink.classList.add('list-edit-link');
-    listEditButton.classList.add('material-icons', 'list-edit-btn');
-    listEditButton.innerText = 'mode_edit';
-    // item button
-    let listRemove = document.createElement('button');
-    listRemove.classList.add('remove-item');
-
-    listText.innerText = i.name;
-    listRemove.innerText = 'X'
-
-    listLink.appendChild(listText);
-    listEditLink.appendChild(listEditButton);
-    listManagement.appendChild(listEditLink);
-    listManagement.appendChild(listRemove);
-    listItem.appendChild(listLink);
-    listItem.appendChild(listManagement);
-    listUL.appendChild(listItem);
-  }
-  // append div to dashboard
-  listContainer.appendChild(listUL);
-
-  if (Object.values(userData.lists).length > 0) {
-    removeNoListMsg()
-  }
-}
-
-// remove list items from local storage
-function removeListFromLocalStorage (list) {
-  let userData = JSON.parse(localStorage.getItem(sessionUser));
-  let userLists = userData.lists;
-  // console.log(userLists);
-  for(let i in userLists) {
-    
-    if (list.textContent === userLists[i].name) {
-      userLists.splice(i, 1);
-      localStorage.setItem(sessionUser, JSON.stringify(userData));
-    }
-  }
-
-  if (Object.values(userData.lists).length < 1) {
-    loadNoListMsg();
-  }
-}
-
-// delete a list from the dashboard UI
-function removeList (e) {
-  e.target.parentElement.parentElement.remove();
-  removeListFromLocalStorage(e.target.parentElement.parentElement.children[0].children[0]);
-}
-
-// load the message when no lists are present on the dashboard
-const loadNoListMsg = () => {
-  noListMsg.classList.add('no-list-msg');
-  materialDesignUpArrow.classList.add('material-icons', 'md-36');
-  materialDesignUpArrow.innerText = 'arrow_upward';
-  noListMsgText.innerText = ' Use the + button to add a list';
-  noListMsg.appendChild(materialDesignUpArrow);
-  noListMsg.appendChild(noListMsgText);
-  listContainer.appendChild(noListMsg);
-}
-// removes the message directing people to add a list
-function removeNoListMsg () {
-  noListMsg.remove();
-}
-
 function addTodosToLocalStorage () {
   let listName = todoHeader.innerText;
   let listInput = addTodoInput.value;
@@ -523,110 +424,6 @@ function checkedStatus(item) {
     }
   }
   
-}
-// load the add new list form
-const loadNewListForm = () => {
-  dashboardList.classList.add('dashboard-list-div');
-  addListForm.classList.add('add-list-form');
-  addListBtn.classList.add('btn-md', 'btn-teal', 'add-list-btn');
-  addListInput.classList.add('add-list-input');
-  listContainer.classList.add('list-container');
-
-  addListInput.setAttribute('type', 'text');
-  addListInput.setAttribute('placeholder', 'List Name');
-  
-  addListBtn.innerText = '+';
-  
-  addListForm.appendChild(addListBtn);
-  addListForm.appendChild(addListInput);
-
-  dashboardList.appendChild(addListForm);
-  dashboardList.appendChild(listContainer);
-
-  mainSection.appendChild(dashboardList);
-}
-
-// load the dashboard app header
-const loadDashboardHeader = () => {
-  dashboardTitle.id = 'app-title-dashboard';
-  dashboardHeaderBar.classList.add('dashboard-header');
-
-  dashboardTitle.innerText = 'TODO APP';
-
-  dashboardHeaderBar.appendChild(dashboardTitle);
-  mainSection.appendChild(dashboardHeaderBar);
-}
-
-// load the dashboard
-const loadDashboard = () => {
-  // introHeaderBar.remove();
-  loadDashboardHeader();
-  
-  accountSettings.innerText = 'Account Settings';
-  signOut.innerText = 'Sign Out';
-  dashboardNav.classList.add('dashboard-nav');
-  accountSettings.classList.add('account-settings-btn', 'btn-teal');
-  signOut.classList.add('signout-btn', 'btn-white');
-  dashboardNav.appendChild(accountSettings);
-  dashboardNav.appendChild(signOut);
-  mainSection.appendChild(dashboardNav)
-  loadNewListForm();
-  
-  let userData = JSON.parse(localStorage.getItem(sessionUser));
-  if (Object.values(userData.lists).length < 1) {
-    loadNoListMsg();
-  }
-  if (Object.values(userData.lists).length > 0){
-    removeNoListMsg();
-    addListToDashboard();
-  }
-}
-
-// creating the list page of to-do items
-function loadListPage(list) {
-  // removal of dashboard elements
-  dashboardList.remove();
-  dashboardNav.remove();
-
-  // add outer ui elements
-  todoNav.classList.add('todo-nav');
-  todoBackButton.classList.add('todo-back-btn', 'btn-teal');
-  todoBackButton.innerText = 'back to dashboard';
-
-  todoDiv.classList.add('todo-list-div');
-
-  // add list name
-  todoHeaderDiv.classList.add('todo-header-div');
-  todoHeader.classList.add('todo-header');
-  todoHeader.innerText = list;
-  
-  // add todo form
-  addTodoForm.classList.add('add-todo-form');
-  addTodoBtn.classList.add('add-todo-btn', 'btn-sm', 'btn-white');
-  addTodoBtn.innerText = '+';
-  addTodoInput.classList.add('add-todo-input');
-  addTodoBtn.setAttribute('type', 'submit');
-  addTodoInput.setAttribute('type', 'text');
-  addTodoInput.setAttribute('placeholder', 'List Item');
-
-  // add ul container
-  todoList.classList.add('todo-list');
-
-  // append to ui
-  todoNav.appendChild(todoBackButton);
-  todoNav.appendChild(accountSettings);
-  todoNav.appendChild(signOut)
-  addTodoForm.appendChild(addTodoBtn);
-  addTodoForm.appendChild(addTodoInput);
-  todoHeaderDiv.appendChild(todoHeader);
-  todoDiv.appendChild(todoHeaderDiv);
-  todoDiv.appendChild(addTodoForm);
-  mainSection.appendChild(todoNav);
-  mainSection.appendChild(todoDiv);
-  mainSection.appendChild(todoList);
-
-  // add all existing list items to ui
-  addTodosToListPage();
 }
 
 function loadAccountSettings() {
@@ -921,6 +718,36 @@ function addListToLocalStorage (list) {
   localStorage.setItem(sessionUser, JSON.stringify(userData));
 }
 
+// delete a list from the dashboard UI
+function removeList (listItem) {
+  listItem.remove();
+  removeListFromLocalStorage(listItem.children[0].children[0].textContent);
+
+  if (!document.querySelector('.list-item')) {
+    listContainer.innerHTML = `
+    <div class='no-list-msg'>
+      <span class='material-icons md-36'>arrow_upward</span>
+      <p>Use the + button to add a list</p>
+    </div>`
+  } else {
+    return;
+  }
+}
+
+// remove list items from local storage
+function removeListFromLocalStorage (listItem) {
+  let userData = JSON.parse(localStorage.getItem(sessionUser));
+  let userLists = userData.lists;
+
+  for(let i in userLists) {
+    
+    if (listItem === userLists[i].name) {
+      userLists.splice(i, 1);
+      localStorage.setItem(sessionUser, JSON.stringify(userData));
+    }
+  }
+}
+
 // EVENT LISTENERS
 
 mainSection.appendChild(introHeaderTemp())
@@ -968,28 +795,30 @@ signupConfirmationDiv.addEventListener('click', (e) => {
 // add list items
 addListForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  
   // remove existing DOM element
   listContainer.remove();
-
   // update local storage
   addListToLocalStorage(e.target.children[1].value.trim());
-
+  // go into list item
   // add new DOM element with updated list item
   mainSection.appendChild(listContainerTemp());
-  
   // clear form of input value
   e.target.children[1].value = '';
 });
 
-listUL.addEventListener('click', (e) => {
+// list item interaction
+listContainer.addEventListener('click', (e) => {
   e.preventDefault();
+  // deleting a list item
   if (e.target.classList.contains('remove-item')) {
-    removeList(e);
+    removeList(e.target.parentElement.parentElement);
+    // removeListFromLocalStorage(e.target.parentElement.parentElement.firstChild.firstChild);
   }
+  // entering the list item
   if (e.target.classList.contains('item-text')) {
     loadListPage(e.target.textContent);
   }
+  // editing the item's text
   if (e.target.classList.contains('list-edit-btn')) {
     editListItem(e.target.parentElement.parentElement.parentElement);
   }
