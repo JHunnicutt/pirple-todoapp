@@ -349,8 +349,13 @@ h2 {
    font-style: italic;
    margin-bottom: -10px;
  }
+ .todo-header-div {
+    width: 40%;
+    margin: 2.5em auto;
+ }
  .add-todo-form {
    display: flex;
+   justify-content: center;;
  }
  .add-todo-form button {
    margin-right: 2px;
@@ -361,6 +366,9 @@ h2 {
    margin-left: 2px;
  }
  .todo-list {
+   display: flex;
+   flex-direction: column;
+   margin: 2em auto; 
    padding: 0;
    width: 435px;
  }
@@ -408,6 +416,7 @@ h2 {
    align-items: center;
    color:rgb(65, 158, 158);
    cursor: pointer;
+   text-decoration: none;
  }
  .todo-edit-link:hover {
    color: rgb(62, 151, 151);

@@ -68,12 +68,12 @@ const noListMsgText = document.createElement('p');
 const listUL = document.createElement('ul');
 
 // list items page
-const todoNav = document.createElement('nav');
+// const todoNav = document.createElement('nav');
 const todoBackButton = document.createElement('button');
 const todoDiv = document.createElement('div');
-const todoHeaderDiv = document.createElement('div');
+// const todoHeaderDiv = document.createElement('div');
 const todoHeader = document.createElement('h3');
-const addTodoForm = document.createElement('form');
+// const addTodoForm = document.createElement('form');
 const addTodoBtn = document.createElement('button');
 const addTodoInput = document.createElement('input');
 const todoList = document.createElement('ul');
@@ -233,6 +233,7 @@ function dashboardNavTemp() {
   
   return dashboardNav;
 }
+
 // add new list form and button
 const addListForm = document.createElement('form');
 
@@ -281,6 +282,87 @@ function listItemTemp(name) {
           <span class='material-icons list-edit-span'>mode_edit</span>
         </button>
         <button class='remove-item'>X</button>
+      </div>
+    </li>`
+}
+
+// todo nav
+const secondaryNav = document.createElement('nav');
+
+function secondaryNavTemp() {
+  secondaryNav.classList.add('todo-nav');
+
+  secondaryNav.innerHTML = `
+    <button class='todo-back-btn btn-teal'>Back to Dashboard</button>
+    <button class='account-settings-btn btn-teal'>Account Settings</button>
+    <button class='signout-btn btn-white'>Sign Out</button>`;
+
+  return secondaryNav;
+}
+
+// todo item header
+const todoHeaderDiv = document.createElement('div');
+
+function todoHeaderTemp(list) {
+  todoHeaderDiv.classList.add('todo-header-div');
+
+  todoHeaderDiv.innerHTML = `
+    <h3 class='todoHeader'>${list}</h3>`;
+
+  return todoHeaderDiv;
+}
+
+// add todo items form and button
+const addTodoForm = document.createElement('form');
+
+function addTodoFormTemp() {
+  addTodoForm.classList.add('add-todo-form');
+
+  addTodoForm.innerHTML = `
+    <button class='add-todo-btn btn-sm btn-white' type='submit'>+</button>
+    <input class='add-todo-input' type="text" placeholder = 'List Item' required/>`
+
+  return addTodoForm;
+}
+
+// todo container
+const todoContainer = document.createElement('div');
+
+function todoContainerTemp(listName) {
+  let userData = JSON.parse(localStorage.getItem(sessionUser));
+  let todoItems;
+  todoContainer.classList.add('todo-container');
+
+  for(let list of userData.lists) {
+    if (list.name === listName) {
+      todoItems = list.items.map((item) => {
+        return item.name
+      })
+    }
+  }
+
+  todoContainer.innerHTML = `
+    <ul class='todo-list'>
+      ${todoItems.map((todo) => {
+        return `${todoItemTemp(todo)}`
+      }).join('')}
+    </ul>`
+
+    return todoContainer;
+}
+
+function todoItemTemp(todo) {
+  return `
+    <li class='todo-item'>
+      <div class=''checkbox-item>
+        <input class='checkbox' type="checkbox" />
+        <span class='todo-text'>${todo}</span>
+      </div>
+      <div class='todo-management'>
+        <a href="" class='todo-edit-link'>
+          <span class='material-icons todo-edit-btn'>mode_edit</span>
+        </a>
+        <button class='btn-remove remove-todo'>X</button>
       </div>
     </li>`
 }
@@ -812,11 +894,13 @@ listContainer.addEventListener('click', (e) => {
   // deleting a list item
   if (e.target.classList.contains('remove-item')) {
     removeList(e.target.parentElement.parentElement);
-    // removeListFromLocalStorage(e.target.parentElement.parentElement.firstChild.firstChild);
   }
   // entering the list item
   if (e.target.classList.contains('item-text')) {
-    loadListPage(e.target.textContent);
+    mainSection.replaceChild(secondaryNavTemp(), dashboardNavTemp());
+    mainSection.replaceChild(todoHeaderTemp(e.target.innerText), addListFormTemp());
+    mainSection.replaceChild(addTodoFormTemp(), listContainerTemp());
+    mainSection.appendChild(todoContainerTemp(e.target.innerText));
   }
   // editing the item's text
   if (e.target.classList.contains('list-edit-btn')) {
