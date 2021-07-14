@@ -908,6 +908,20 @@ listContainer.addEventListener('click', (e) => {
   // }
 });
 
+// add todo items
+addTodoForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  let currentList = todoHeaderDiv.children[0].innerText;
+  // remove existing DOM element
+  todoContainer.remove();
+  // update local storage
+  addTodosToLocalStorage(e.target.children[1].value, currentList);
+  // add DOM element with updated todo item
+  mainSection.appendChild(todoContainerTemp(currentList));
+  // clear form of input value
+  e.target.children[1].value = '';
+})
+
 // back button
 secondaryNav.addEventListener('click', (e) => {
   if (e.target.classList.contains('todo-back-btn')) {
