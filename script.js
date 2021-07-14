@@ -327,10 +327,11 @@ function addTodoFormTemp() {
 
 // todo container
 const todoContainer = document.createElement('div');
+let todoItems;
 
 function todoContainerTemp(listName) {
   let userData = JSON.parse(localStorage.getItem(sessionUser));
-  let todoItems;
+  
   todoContainer.classList.add('todo-container');
 
   for(let list of userData.lists) {
@@ -391,19 +392,7 @@ function accountSettingsTemp() {
   </div>`
 }
 
-function addTodosToLocalStorage () {
-  let listName = todoHeader.innerText;
-  let listInput = addTodoInput.value;
-  let userData = JSON.parse(localStorage.getItem(sessionUser));
-  let userLists = userData.lists;
 
-  for (let list of userLists) {
-    if (list.name === listName) {
-      list.items.push(new Todo(listInput));
-      localStorage.setItem(sessionUser, JSON.stringify(userData));
-    }
-  }
-}
 
 function addTodosToListPage () {
   // create a variable from the local storage lists array
@@ -830,6 +819,17 @@ function removeListFromLocalStorage (listItem) {
   }
 }
 
+function addTodosToLocalStorage (todoItem, listItem) {
+  let userData = JSON.parse(localStorage.getItem(sessionUser));
+
+  for (let list of userData.lists) {
+    if (list.name === listItem) {
+      list.items.push(new Todo(todoItem));
+      localStorage.setItem(sessionUser, JSON.stringify(userData));
+    }
+  }
+}
+
 // EVENT LISTENERS
 
 mainSection.appendChild(introHeaderTemp())
@@ -903,10 +903,25 @@ listContainer.addEventListener('click', (e) => {
     mainSection.appendChild(todoContainerTemp(e.target.innerText));
   }
   // editing the item's text
-  if (e.target.classList.contains('list-edit-btn')) {
-    editListItem(e.target.parentElement.parentElement.parentElement);
-  }
+  // if (e.target.classList.contains('list-edit-btn')) {
+  //   editListItem(e.target.parentElement.parentElement.parentElement);
+  // }
 });
+
+// back button
+secondaryNav.addEventListener('click', (e) => {
+  if (e.target.classList.contains('todo-back-btn')) {
+    mainSection.replaceChild(dashboardNavTemp(), secondaryNavTemp());
+    todoHeaderDiv.remove();
+    mainSection.replaceChild(addListFormTemp(), addTodoFormTemp());
+    mainSection.replaceChild(listContainerTemp(), todoContainerTemp());
+  }
+})
+
+
+
+
+
 
 todoBackButton.addEventListener('click', (e) => {
   e.preventDefault();
