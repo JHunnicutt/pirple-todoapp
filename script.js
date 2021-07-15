@@ -450,25 +450,7 @@ function addTodosToListPage () {
   todoDiv.appendChild(todoList);
 }
 
-function removeTodoFromLocalStorage(todo) {
-  let listName = todoHeader.innerText;
-  let userData = JSON.parse(localStorage.getItem(sessionUser));
-  let userLists = userData.lists;
 
-  for (let i of userLists) {
-    if (i.name === listName) {
-      let listArr = i.items;
-      let todoIndex = listArr.indexOf(todo);
-      listArr.splice(todoIndex, 1);
-      localStorage.setItem(sessionUser, JSON.stringify(userData));
-    }
-  }
-}
-
-function removeTodo(todo) {
-  todo.target.parentElement.parentElement.remove();
-  removeTodoFromLocalStorage(todo.target.parentElement.parentElement.children[0].children[1].textContent);
-}
 
 function checkedStatus(item) {
   const userData = JSON.parse(localStorage.getItem(sessionUser));
@@ -781,7 +763,7 @@ function signupValidator(fname, lname, email, password, terms, form) {
 }
 
 // add list items to local storage
-function addListToLocalStorage (list) {
+function addListToLocalStorage(list) {
   let userData = JSON.parse(localStorage.getItem(sessionUser));
 
   userData.lists.push(new List(list));
@@ -789,8 +771,20 @@ function addListToLocalStorage (list) {
   localStorage.setItem(sessionUser, JSON.stringify(userData));
 }
 
+// add todo to local storage
+function addTodosToLocalStorage (todoItem, listItem) {
+  let userData = JSON.parse(localStorage.getItem(sessionUser));
+
+  for (let list of userData.lists) {
+    if (list.name === listItem) {
+      list.items.push(new Todo(todoItem));
+      localStorage.setItem(sessionUser, JSON.stringify(userData));
+    }
+  }
+}
+
 // delete a list from the dashboard UI
-function removeList (listItem) {
+function removeList(listItem) {
   listItem.remove();
   removeListFromLocalStorage(listItem.children[0].children[0].textContent);
 
@@ -805,7 +799,7 @@ function removeList (listItem) {
   }
 }
 
-// remove list items from local storage
+// delete list items from local storage
 function removeListFromLocalStorage (listItem) {
   let userData = JSON.parse(localStorage.getItem(sessionUser));
   let userLists = userData.lists;
@@ -819,12 +813,21 @@ function removeListFromLocalStorage (listItem) {
   }
 }
 
-function addTodosToLocalStorage (todoItem, listItem) {
+// delete a todo item from the dashboard UI
+function removeTodo(todoItem, listName) {
+  todoItem.parentElement.parentElement.remove();
+  removeTodoFromLocalStorage(todoItem.parentElement.parentElement.children[0].children[1].textContent, listName);
+}
+
+// delete a todo item from local storage
+function removeTodoFromLocalStorage(todoItem, listName) {
   let userData = JSON.parse(localStorage.getItem(sessionUser));
 
-  for (let list of userData.lists) {
-    if (list.name === listItem) {
-      list.items.push(new Todo(todoItem));
+  for (let i of userData.lists) {
+    if (i.name === listName) {
+      let listArr = i.items;
+      let todoIndex = listArr.indexOf(todoItem);
+      listArr.splice(todoIndex, 1);
       localStorage.setItem(sessionUser, JSON.stringify(userData));
     }
   }
@@ -920,6 +923,18 @@ addTodoForm.addEventListener('submit', (e) => {
   mainSection.appendChild(todoContainerTemp(currentList));
   // clear form of input value
   e.target.children[1].value = '';
+});
+
+// todo item interaction
+todoContainer.addEventListener('click', (e) => {
+  e.preventDefault();
+  let currentList = todoHeaderDiv.children[0].innerText;
+  // deleting todo item
+  if (e.target.classList.contains('remove-todo')) {
+    removeTodo(e.target, currentList);
+  }
+  // checking todo box
+  // editing todo item
 })
 
 // back button
