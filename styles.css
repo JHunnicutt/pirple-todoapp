@@ -431,13 +431,16 @@ h2 {
 }
 .secondary-back-btn {
    margin: 20px auto 0 20px;
-   padding: 3px
+   padding: 3px;
+   cursor: pointer;
 }
 .account-settings-btn {
    margin: 20px 5px 0 0;
+   cursor: pointer;
 }
 .signout-btn {
-   margin: 20px 80px 0 5px
+   margin: 20px 80px 0 5px;
+   cursor: pointer;
 }
 .account-settings-div {
    display: flex;

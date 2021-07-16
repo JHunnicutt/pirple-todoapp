@@ -893,30 +893,6 @@ todoContainer.addEventListener('click', (e) => {
   // editing todo item
 });
 
-// primary nav interation
-primaryNav.addEventListener('click', (e) => {
-  if (e.target.classList.contains('account-settings-btn')) {
-    mainSection.replaceChild(tertiaryNavTemp(), primaryNavTemp());
-    addListForm.remove();
-    listContainer.remove();
-    mainSection.appendChild(accountSettingsHeaderTemp());
-    mainSection.appendChild(accountSettingsFormTemp());
-  }
-})
-
-// secondary nav interaction
-secondaryNav.addEventListener('click', (e) => {
-  // back button
-  if (e.target.classList.contains('todo-back-btn')) {
-    mainSection.replaceChild(primaryNavTemp(), secondaryNavTemp());
-    todoHeaderDiv.remove();
-    mainSection.replaceChild(addListFormTemp(), addTodoFormTemp());
-    mainSection.replaceChild(listContainerTemp(), todoContainerTemp());
-  }
-  // account settings
-  // signout
-});
-
 // submitting new account info 
 accountSettingsForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -930,6 +906,52 @@ accountSettingsForm.addEventListener('submit', (e) => {
   mainSection.replaceChild(addListFormTemp(), accountSettingsHeaderTemp());
   mainSection.replaceChild(listContainerTemp(), accountSettingsFormTemp());
 });
+
+// primary nav intergation
+primaryNav.addEventListener('click', (e) => {
+// account settings
+  if (e.target.classList.contains('account-settings-btn')) {
+    mainSection.replaceChild(tertiaryNavTemp(), primaryNavTemp());
+    addListForm.remove();
+    listContainer.remove();
+    mainSection.appendChild(accountSettingsHeaderTemp());
+    mainSection.appendChild(accountSettingsFormTemp());
+  }
+  // signout
+});
+
+// secondary nav interagtion
+secondaryNav.addEventListener('click', (e) => {
+  // back button
+  if (e.target.classList.contains('secondary-back-btn')) {
+    mainSection.replaceChild(primaryNavTemp(), secondaryNavTemp());
+    todoHeaderDiv.remove();
+    mainSection.replaceChild(addListFormTemp(), addTodoFormTemp());
+    mainSection.replaceChild(listContainerTemp(), todoContainerTemp());
+  }
+  // account settings
+  if (e.target.classList.contains('account-settings-btn')) {
+    mainSection.replaceChild(tertiaryNavTemp(), secondaryNavTemp());
+    todoHeaderDiv.remove()
+    addTodoForm.remove();
+    todoContainer.remove();
+    mainSection.appendChild(accountSettingsHeaderTemp());
+    mainSection.appendChild(accountSettingsFormTemp());
+  }
+  // signout
+});
+
+// tertiary nav integration
+tertiaryNav.addEventListener('click', (e) => {
+  // back to dashboard
+  if (e.target.classList.contains('secondary-back-btn')) {
+    mainSection.replaceChild(primaryNavTemp(), tertiaryNavTemp());
+    mainSection.replaceChild(addListFormTemp(), accountSettingsHeaderTemp());
+    mainSection.replaceChild(listContainerTemp(), accountSettingsFormTemp());
+  }
+  // signout
+})
+
 
 
 
