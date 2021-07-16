@@ -421,16 +421,17 @@ h2 {
  .todo-edit-link:hover {
    color: rgb(62, 151, 151);
  }
-.dashboard-nav {
+.primary-nav {
    display: flex;
    justify-content: flex-end;
 }
-.todo-nav {
+.secondary-nav {
    display: flex;
    justify-content: flex-end;
 }
-.todo-back-btn {
+.secondary-back-btn {
    margin: 20px auto 0 20px;
+   padding: 3px
 }
 .account-settings-btn {
    margin: 20px 5px 0 0;
@@ -446,6 +447,7 @@ h2 {
 }
 .account-settings-header-div {
    width: 45%;
+   margin: 2em auto;
 }
 .user-info-form {
    display: flex;
@@ -467,4 +469,7 @@ h2 {
    flex-direction: row;
    justify-content: center;
    height: 60px;
+}
+.tertiary-nav {
+   display: flex;
 }

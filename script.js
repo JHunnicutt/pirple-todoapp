@@ -80,7 +80,7 @@ const todoList = document.createElement('ul');
 // let todoListItem = document.createElement('li');
 
 // account settings page
-const accountSettingsDiv = document.createElement('div');
+// const accountSettingsDiv = document.createElement('div');
 const accountHeaderDiv = document.createElement('div');
 const accountHeader = document.createElement('h3');
 const userInfo = document.createElement('form');
@@ -222,16 +222,16 @@ function dashboardHeaderTemp() {
 }
 
 // dashboard navigation bar
-const dashboardNav = document.createElement('nav');
+const primaryNav = document.createElement('nav');
 
-function dashboardNavTemp() {
-  dashboardNav.classList.add('dashboard-nav');
+function primaryNavTemp() {
+  primaryNav.classList.add('primary-nav');
 
-  dashboardNav.innerHTML = `
+  primaryNav.innerHTML = `
     <button id='account-settings-btn' class='account-settings-btn btn-teal'>Account Settings</button>
     <button id='signout-btn' class='signout-btn btn-white'>Sign Out</button>`
   
-  return dashboardNav;
+  return primaryNav;
 }
 
 // add new list form and button
@@ -286,14 +286,14 @@ function listItemTemp(name) {
     </li>`
 }
 
-// todo nav
+// todo page or secondary nav
 const secondaryNav = document.createElement('nav');
 
 function secondaryNavTemp() {
-  secondaryNav.classList.add('todo-nav');
+  secondaryNav.classList.add('secondary-nav');
 
   secondaryNav.innerHTML = `
-    <button class='todo-back-btn btn-teal'>Back to Dashboard</button>
+    <button class='secondary-back-btn btn-teal'>Back to Dashboard</button>
     <button class='account-settings-btn btn-teal'>Account Settings</button>
     <button class='signout-btn btn-white'>Sign Out</button>`;
 
@@ -325,7 +325,7 @@ function addTodoFormTemp() {
   return addTodoForm;
 }
 
-// todo container
+// todo container and todo items
 const todoContainer = document.createElement('div');
 let todoItems;
 
@@ -368,86 +368,42 @@ function todoItemTemp(todo) {
     </li>`
 }
 
-function accountSettingsNavTemp() {
-  return `
-  <nav class='todo-nav'>
-    <button id='signout-btn' class='signout-btn btn-white'>Sign Out</button>
-  </nav>`
+// tertiary nav
+const tertiaryNav = document.createElement('nav');
+
+function tertiaryNavTemp() {
+  tertiaryNav.classList.add('tertiary-nav')
+  tertiaryNav.innerHTML = `
+    <button class='secondary-back-btn btn-teal'>Back to Dashboard</button>
+    <button id='signout-btn' class='signout-btn btn-white'>Sign Out</button>`;
+
+  return tertiaryNav;
 }
 
-function accountSettingsTemp() {
-  return `
-  <div class='account-settings-div'>
-    <div class='account-settings-header-div'>
-      <h3 class='account-settings-header'>Account Settings</h3>
-    </div>
-    <form class='user-info-form'>
-      <input type="text" class='user-first-name' required />
-      <input type="text" class='user-last-name' required />
-      <input type="text" class='user-last-name' required />
-      <input type="text" class='user-email' required />
-      <input type="password" class='user-password' required />
-      <input type="submit" class='account-settings-submit btn btn-lg btn-teal' value='Save & Return' />
-    </form>
-  </div>`
+// account settings page
+const accountSettingsHeader = document.createElement('div');
+
+function accountSettingsHeaderTemp() {
+  accountSettingsHeader.classList.add('account-settings-header-div');
+  accountSettingsHeader.innerHTML = `
+    <h3 class='account-settings-header'>Account Settings</h3>`;
+  return accountSettingsHeader;
 }
 
+const accountSettingsForm = document.createElement('form');
 
-
-function addTodosToListPage () {
-  // create a variable from the local storage lists array
-  let listName = todoHeader.innerText;
+function accountSettingsFormTemp() {
   let userData = JSON.parse(localStorage.getItem(sessionUser));
-  let userLists = userData.lists;
-  // remove existing todos when returning to list
-  while(todoList.firstChild) {
-    todoList.removeChild(todoList.firstChild);
-  }
-  
-  // loop through array and assign each item a class and append to a div
-  for (let list of userLists) {
-    if (list.name === listName) {
-      let listTodos = list.items;
+  accountSettingsForm.classList.add('user-info-form');
 
-      listTodos.forEach(item => {
-        let todoItem = document.createElement('li');
-        let checkboxItem = document.createElement('div');
-        let todoManagment = document.createElement('div');
-        let checkbox = document.createElement('input');
-        let itemText = document.createElement('span');
-        let todoEditLink = document.createElement('a');
-        let todoEditButton = document.createElement('span')
-        let deleteButton = document.createElement('button');
-        todoItem.classList.add('todo-item');
-        checkboxItem.classList.add('checkbox-item');
-        todoManagment.classList.add('todo-management');
-        checkbox.classList.add('checkbox');
-        itemText.classList.add('todo-text');
-        todoEditLink.classList.add('todo-edit-link');
-        todoEditButton.classList.add('material-icons', 'todo-edit-btn');
-        deleteButton.classList.add('btn-remove', 'remove-todo');
-        itemText.innerText = item.name;
-        todoEditButton.innerText = 'mode_edit'
-        deleteButton.innerText = 'X';
-        checkbox.setAttribute('type', 'checkbox');
-        checkboxItem.appendChild(checkbox);
-        checkboxItem.appendChild(itemText);
-        todoEditLink.appendChild(todoEditButton);
-        todoManagment.appendChild(todoEditLink);
-        todoManagment.appendChild(deleteButton);
-        todoItem.appendChild(checkboxItem);
-        todoItem.appendChild(todoManagment);
-        todoList.appendChild(todoItem);
+  accountSettingsForm.innerHTML = `
+    <input type="text" class='user-first-name' value='${userData.firstName}' placeholder='First Name' required />
+    <input type="text" class='user-last-name' value='${userData.lastName}' placeholder='Last Name' required />
+    <input type="text" class='user-email' value='${userData.email}' placeholder='Email Address' required />
+    <input type="password" class='user-password' value='${userData.password}' required />
+    <input type="submit" class='account-settings-submit btn btn-lg btn-teal' value='Save & Return' />`;
 
-        if (item.checked === true) {
-          checkbox.checked = true;
-        }
-
-      });
-    }
-  }
-
-  todoDiv.appendChild(todoList);
+  return accountSettingsForm;
 }
 
 
@@ -528,17 +484,6 @@ function loadAccountSettings() {
   accountSettingsDiv.appendChild(accountHeaderDiv);
   accountSettingsDiv.appendChild(userInfo);
   mainSection.appendChild(accountSettingsDiv);
-}
-
-function updateUserInfo(first, last, email, password) {
-  let userData = JSON.parse(localStorage.getItem(sessionUser));
-  localStorage.removeItem(sessionUser);
-  sessionUser = userEmail.value;
-  userData.firstName = first;
-  userData.lastName = last;
-  userData.email = email;
-  userData.password = password;
-  localStorage.setItem(sessionUser, JSON.stringify(userData));
 }
 
 function editListItem(list) {
@@ -723,7 +668,7 @@ function loginValidator(emailAddres, pass, form) {
   } else {
     sessionUser = emailAddres;
     mainSection.replaceChild(dashboardHeaderTemp(), introHeaderTemp());
-    mainSection.replaceChild(dashboardNavTemp(), loginFormTemp());
+    mainSection.replaceChild(primaryNavTemp(), loginFormTemp());
     mainSection.appendChild(addListFormTemp());
     mainSection.appendChild(listContainerTemp());
   }
@@ -833,6 +778,17 @@ function removeTodoFromLocalStorage(todoItem, listName) {
   }
 }
 
+function updateUserInfo(first, last, email, password) {
+  let userData = JSON.parse(localStorage.getItem(sessionUser));
+  localStorage.removeItem(sessionUser);
+  sessionUser = email;
+  userData.firstName = first;
+  userData.lastName = last;
+  userData.email = email;
+  userData.password = password;
+  localStorage.setItem(sessionUser, JSON.stringify(userData));
+}
+
 // EVENT LISTENERS
 
 mainSection.appendChild(introHeaderTemp())
@@ -871,7 +827,7 @@ signupForm.addEventListener('submit', (e) => {
 signupConfirmationDiv.addEventListener('click', (e) => {
   if (e.target.id === 'signup-confirm-btn') {
     mainSection.replaceChild(dashboardHeaderTemp(), introHeaderTemp());
-    mainSection.replaceChild(dashboardNavTemp(), signupConfirmationTemp());
+    mainSection.replaceChild(primaryNavTemp(), signupConfirmationTemp());
     mainSection.appendChild(addListFormTemp());
     mainSection.appendChild(listContainerTemp());
   }
@@ -900,7 +856,7 @@ listContainer.addEventListener('click', (e) => {
   }
   // entering the list item
   if (e.target.classList.contains('item-text')) {
-    mainSection.replaceChild(secondaryNavTemp(), dashboardNavTemp());
+    mainSection.replaceChild(secondaryNavTemp(), primaryNavTemp());
     mainSection.replaceChild(todoHeaderTemp(e.target.innerText), addListFormTemp());
     mainSection.replaceChild(addTodoFormTemp(), listContainerTemp());
     mainSection.appendChild(todoContainerTemp(e.target.innerText));
@@ -935,17 +891,45 @@ todoContainer.addEventListener('click', (e) => {
   }
   // checking todo box
   // editing todo item
+});
+
+// primary nav interation
+primaryNav.addEventListener('click', (e) => {
+  if (e.target.classList.contains('account-settings-btn')) {
+    mainSection.replaceChild(tertiaryNavTemp(), primaryNavTemp());
+    addListForm.remove();
+    listContainer.remove();
+    mainSection.appendChild(accountSettingsHeaderTemp());
+    mainSection.appendChild(accountSettingsFormTemp());
+  }
 })
 
-// back button
+// secondary nav interaction
 secondaryNav.addEventListener('click', (e) => {
+  // back button
   if (e.target.classList.contains('todo-back-btn')) {
-    mainSection.replaceChild(dashboardNavTemp(), secondaryNavTemp());
+    mainSection.replaceChild(primaryNavTemp(), secondaryNavTemp());
     todoHeaderDiv.remove();
     mainSection.replaceChild(addListFormTemp(), addTodoFormTemp());
     mainSection.replaceChild(listContainerTemp(), todoContainerTemp());
   }
-})
+  // account settings
+  // signout
+});
+
+// submitting new account info 
+accountSettingsForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  updateUserInfo(
+    e.target.children[0].value.trim(),
+    e.target.children[1].value.trim(),
+    e.target.children[2].value.toLowerCase().trim(),
+    e.target.children[3].value.trim()
+  );
+  mainSection.replaceChild(primaryNavTemp(), tertiaryNavTemp());
+  mainSection.replaceChild(addListFormTemp(), accountSettingsHeaderTemp());
+  mainSection.replaceChild(listContainerTemp(), accountSettingsFormTemp());
+});
 
 
 
@@ -980,12 +964,7 @@ todoDiv.addEventListener('click', (e) => {
 //   loadAccountSettings();
 // });
 
-userInfo.addEventListener('submit', (e) => {
-  e.preventDefault();
-  updateUserInfo(userFirstName.value, userLastName.value, userEmail.value, userPassword.value);
-  accountSettingsDiv.remove();
-  loadDashboard();
-});
+
 
 // signOut.addEventListener('click', (e) => {
 //   dashboardHeaderBar.remove();
