@@ -883,7 +883,6 @@ addTodoForm.addEventListener('submit', (e) => {
 
 // todo item interaction
 todoContainer.addEventListener('click', (e) => {
-  e.preventDefault();
   let currentList = todoHeaderDiv.children[0].innerText;
   // deleting todo item
   if (e.target.classList.contains('remove-todo')) {
@@ -954,7 +953,9 @@ tertiaryNav.addEventListener('click', (e) => {
 
 
 
-
+mainSection.addEventListener('click', (e) => {
+  console.log(e.target)
+})
 
 
 
