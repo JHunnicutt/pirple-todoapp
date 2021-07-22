@@ -326,38 +326,40 @@ function addTodoFormTemp() {
 }
 
 // todo container and todo items
+
+// initial variables to be used in the function
 const todoContainer = document.createElement('div');
-let todoItems;
+let todotems;
 
 function todoContainerTemp(listName) {
+  // pull data from local storage and store as a variable
   let userData = JSON.parse(localStorage.getItem(sessionUser));
-  
-  todoContainer.classList.add('todo-container');
 
-  for(let list of userData.lists) {
+  // add class to containing div
+  todoContainer.classList.add('todo-container');
+  
+  for (let list of userData.lists) {
     if (list.name === listName) {
-      todoItems = list.items.map((item) => {
-        return item.name
-      })
+      todoItems = list;
     }
   }
 
   todoContainer.innerHTML = `
     <ul class='todo-list'>
-      ${todoItems.map((todo) => {
-        return `${todoItemTemp(todo)}`
+      ${todoItems.items.map((todo) => {
+        return `${todoItemTemp(todo.name, todo.checked)}`
       }).join('')}
     </ul>`
 
     return todoContainer;
 }
 
-function todoItemTemp(todo) {
+function todoItemTemp(name, check) {
   return `
     <li class='todo-item'>
       <div class=''checkbox-item>
-        <input class='checkbox' type="checkbox" />
-        <span class='todo-text'>${todo}</span>
+        <input class='checkbox' type="checkbox" ${check ? `checked` : ``} />
+        <span class='todo-text'>${name}</span>
       </div>
       <div class='todo-management'>
         <a href="" class='todo-edit-link'>
@@ -408,7 +410,7 @@ function accountSettingsFormTemp() {
 
 
 
-function checkedStatus(item) {
+function checkedStatusFunc(item) {
   const userData = JSON.parse(localStorage.getItem(sessionUser));
   const userLists = userData.lists;
   const listName = todoHeader.innerText;
@@ -953,9 +955,9 @@ tertiaryNav.addEventListener('click', (e) => {
 
 
 
-mainSection.addEventListener('click', (e) => {
-  console.log(e.target)
-})
+// mainSection.addEventListener('click', (e) => {
+//   console.log(e.target)
+// })
 
 
 
