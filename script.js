@@ -410,32 +410,7 @@ function accountSettingsFormTemp() {
 
 
 
-function checkedStatusFunc(item) {
-  const userData = JSON.parse(localStorage.getItem(sessionUser));
-  const userLists = userData.lists;
-  const listName = todoHeader.innerText;
-  const checkedItem = item.nextSibling.innerText;
-  
-  for (let list of userLists) {
-    if (list.name === listName) {
-      for (let todo of list.items) {
-        if(todo.name === checkedItem) {
-          if (todo.checked === false) {
-            todo.checked = true;
-            localStorage.setItem(sessionUser, JSON.stringify(userData));
-            return;
-          }
-          if (todo.checked === true) {
-            todo.checked = false;
-            localStorage.setItem(sessionUser, JSON.stringify(userData));
-            return;
-          }
-        }
-      }
-    }
-  }
-  
-}
+
 
 function loadAccountSettings() {
   //remove dashboard list div, todo list div, and related nav buttons
@@ -791,6 +766,34 @@ function updateUserInfo(first, last, email, password) {
   localStorage.setItem(sessionUser, JSON.stringify(userData));
 }
 
+function checkedStatusLocalStorage(listName, itemName) {
+  const userData = JSON.parse(localStorage.getItem(sessionUser));
+
+  // loop through list items
+  for (let list of userData.lists) {
+    if (list.name === listName) {
+      // loop through todo items
+      for (let item of list.items) {
+        if (item.name === itemName) {
+          // if checked is false, mark true
+          if (item.checked === false) {
+            item.checked = true;
+            localStorage.setItem(sessionUser, JSON.stringify(userData));
+            return;
+          }
+          // if checked is true, mark false
+          if (item.checked === true) {
+            item.checked = false;
+            localStorage.setItem(sessionUser, JSON.stringify(userData));
+            return;
+          }
+        }
+      }
+    }
+  }
+
+}
+
 // EVENT LISTENERS
 
 mainSection.appendChild(introHeaderTemp())
@@ -1002,10 +1005,8 @@ todoDiv.addEventListener('click', (e) => {
 //   loadIntroButtons();
 // });
 
-todoList.addEventListener('click', (e) => {
+todoContainer.addEventListener('click', (e) => {
   if (e.target.classList.contains('checkbox')) {
-    checkedStatus(e.target);
-  } else {
-    return;
+    checkedStatusLocalStorage(todoHeaderDiv.children[0].textContent, e.target.nextElementSibling.textContent);
   }
 });
