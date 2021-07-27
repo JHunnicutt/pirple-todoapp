@@ -260,12 +260,12 @@ function listContainerTemp() {
     <div class='no-list-msg'>
       <span class='material-icons md-36'>arrow_upward</span>
       <p>Use the + button to add a list</p>
-    </div>`
+    </div>`;
   } else {
     listContainer.innerHTML = `
       <ul class='list-ul'>
         ${userData.lists.map((list) => `${listItemTemp(list.name)}`).join('')}
-      </ul>`
+      </ul>`;
   }
 
   return listContainer;
@@ -283,7 +283,35 @@ function listItemTemp(name) {
         </button>
         <button class='remove-item'>X</button>
       </div>
-    </li>`
+    </li>`;
+}
+
+let updatedListItem = document.createElement('li');
+
+function updatedListItemTemp(name) {
+  updatedListItem.classList.add('list-item');
+
+  updatedListItem.innerHTML = `
+    <button class='list-item-btn'>
+      <span class='item-text'>${name}</span>
+    </button>
+    <div class='list-management'>
+      <button class='list-edit-btn'>
+        <span class='material-icons list-edit-span'>mode_edit</span>
+      </button>
+      <button class='remove-item'>X</button>
+    </div>`;
+    
+  return updatedListItem;
+}
+
+function listItemEditTemp(name) {
+  return `
+  <li class='list-item-edit-view'>
+    <form class='edit-list-form'>
+      <input class='list-edit-input' type=text value='${name}' required>
+    </form>
+  </li>`;
 }
 
 // todo page or secondary nav
@@ -291,7 +319,6 @@ const secondaryNav = document.createElement('nav');
 
 function secondaryNavTemp() {
   secondaryNav.classList.add('secondary-nav');
-
   secondaryNav.innerHTML = `
     <button class='secondary-back-btn btn-teal'>Back to Dashboard</button>
     <button class='account-settings-btn btn-teal'>Account Settings</button>
@@ -302,10 +329,8 @@ function secondaryNavTemp() {
 
 // todo item header
 const todoHeaderDiv = document.createElement('div');
-
 function todoHeaderTemp(list) {
   todoHeaderDiv.classList.add('todo-header-div');
-
   todoHeaderDiv.innerHTML = `
     <h3 class='todoHeader'>${list}</h3>`;
 
@@ -317,7 +342,6 @@ const addTodoForm = document.createElement('form');
 
 function addTodoFormTemp() {
   addTodoForm.classList.add('add-todo-form');
-
   addTodoForm.innerHTML = `
     <button class='add-todo-btn btn-sm btn-white' type='submit'>+</button>
     <input class='add-todo-input' type="text" placeholder = 'List Item' required/>`
@@ -329,7 +353,7 @@ function addTodoFormTemp() {
 
 // initial variables to be used in the function
 const todoContainer = document.createElement('div');
-let todotems;
+let todoItems;
 
 function todoContainerTemp(listName) {
   // pull data from local storage and store as a variable
@@ -408,133 +432,165 @@ function accountSettingsFormTemp() {
   return accountSettingsForm;
 }
 
+// list edit view
 
+let editListItem = document.createElement('li');
+let editListForm = document.createElement('form');
 
+// list item in edit view
+function editlistItemTemp(name) {
+  editListItem.classList.add('list-item-edit-view');
+  editListItem.appendChild(editListFormTemp(name));
 
-
-function loadAccountSettings() {
-  //remove dashboard list div, todo list div, and related nav buttons
-  dashboardList.remove();
-  todoDiv.remove();
-  accountSettings.remove();
-  todoBackButton.remove();
-
-  let userData = JSON.parse(localStorage.getItem(sessionUser));
-
-  accountSettingsDiv.classList.add('account-settings-div');
-  accountHeaderDiv.classList.add('account-settings-header-div');
-  accountHeader.classList.add('account-settings-header');
-  userInfo.classList.add('user-info-form');
-  userFirstName.classList.add('user-first-name');
-  userLastName.classList.add('user-last-name');
-  userEmail.classList.add('user-emaial');
-  userPassword.classList.add('user-password');
-  userSubmit.classList.add('account-settings-submit', 'btn', 'btn-lg', 'btn-teal');
-
-  userFirstName.setAttribute('type', 'text');
-  userFirstName.setAttribute('placeholder', 'First Name');
-  userFirstName.required = true;
-  userLastName.setAttribute('type', 'text');
-  userLastName.setAttribute('placeholder', 'Last Name');
-  userLastName.required = true;
-  userEmail.setAttribute('type', 'text');
-  userEmail.setAttribute('placeholder', 'Email Address');
-  userEmail.required = true;
-  userPassword.setAttribute('type', 'password');
-  userPassword.setAttribute('placeholder', 'Password');
-  userPassword.required = true;
-  userSubmit.setAttribute('type', 'submit');
-
-  accountHeader.innerHTML = 'Account Settings'
-  userFirstName.value = userData.firstName;
-  userLastName.value = userData.lastName;
-  userEmail.value = userData.email;
-  userPassword.value = userData.password;
-  userSubmit.value = 'Save & Return';
-
-  userInfo.appendChild(userFirstName);
-  userInfo.appendChild(userLastName);
-  userInfo.appendChild(userEmail);
-  userInfo.appendChild(userPassword);
-  userInfo.appendChild(userSubmit);
-  accountHeaderDiv.appendChild(accountHeader);
-  accountSettingsDiv.appendChild(accountHeaderDiv);
-  accountSettingsDiv.appendChild(userInfo);
-  mainSection.appendChild(accountSettingsDiv);
+  return editListItem;
 }
 
-function editListItem(list) {
-  const listTitle = list.firstChild.firstChild.innerText;
-  const listEditForm = document.createElement('form')
-  const listEditInput = document.createElement('input');
-  
-  // list item
-  list.classList.remove('list-item')
-  list.classList.add('list-item-edit-view');
-  // list management div
-  list.children[1].classList.remove('list-management');
-  list.children[1].classList.add('list-management-edit-view');
-  // list edit link
-  list.children[1].children[0].classList.remove('list-edit-link');
-  list.children[1].children[0].classList.add('list-edit-link-edit-view');
-  // list edit span
-  list.children[1].children[0].children[0].classList.remove('list-edit-btn');
-  list.children[1].children[0].children[0].classList.add('list-edit-btn-edit-view');
-  // remove button
-  list.children[1].children[1].classList.remove('remove-item');
-  list.children[1].children[1].classList.add('remove-item-edit-view');
+// list edit form
+function editListFormTemp(formValue) {
+  editListForm.classList.add('edit-list-form');
+  editListForm.innerHTML = `
+  <input class='list-edit-input' type="text" value='${formValue}' placeholder='List Name' required />`;
 
-  listEditForm.classList.add('edit-list-form');
-  listEditInput.classList.add('list-edit-input');
-  listEditInput.setAttribute('type', 'text');
-  listEditInput.required = true;
-  listEditInput.value = listTitle;
-
-  listEditForm.appendChild(listEditInput);
-  list.replaceChild(listEditForm, list.firstChild);
-
-  listEditForm.addEventListener('submit', (e) => {
+  // event listener placed inside of templating function so formValue is accessible
+  editListForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    updateListName(listTitle, listEditInput.value.trim(), list);
+    let formInput = e.target.children[0].value.trim();
+    let listItemParent = e.target.parentElement.parentElement;
+    let listItemChild = e.target.parentElement;
+    updateListName(formValue, formInput, listItemParent, listItemChild);
   });
+  return editListForm;
 }
 
-function updateListName(oldName, newName, parent) {
-  const userData = JSON.parse(localStorage.getItem(sessionUser));
-  const listLink = document.createElement('a');
-  const listText = document.createElement('span');
-  const listForm = parent.firstChild;
+
+
+
+
+
+
+// function loadAccountSettings() {
+//   //remove dashboard list div, todo list div, and related nav buttons
+//   dashboardList.remove();
+//   todoDiv.remove();
+//   accountSettings.remove();
+//   todoBackButton.remove();
+
+//   let userData = JSON.parse(localStorage.getItem(sessionUser));
+
+//   accountSettingsDiv.classList.add('account-settings-div');
+//   accountHeaderDiv.classList.add('account-settings-header-div');
+//   accountHeader.classList.add('account-settings-header');
+//   userInfo.classList.add('user-info-form');
+//   userFirstName.classList.add('user-first-name');
+//   userLastName.classList.add('user-last-name');
+//   userEmail.classList.add('user-emaial');
+//   userPassword.classList.add('user-password');
+//   userSubmit.classList.add('account-settings-submit', 'btn', 'btn-lg', 'btn-teal');
+
+//   userFirstName.setAttribute('type', 'text');
+//   userFirstName.setAttribute('placeholder', 'First Name');
+//   userFirstName.required = true;
+//   userLastName.setAttribute('type', 'text');
+//   userLastName.setAttribute('placeholder', 'Last Name');
+//   userLastName.required = true;
+//   userEmail.setAttribute('type', 'text');
+//   userEmail.setAttribute('placeholder', 'Email Address');
+//   userEmail.required = true;
+//   userPassword.setAttribute('type', 'password');
+//   userPassword.setAttribute('placeholder', 'Password');
+//   userPassword.required = true;
+//   userSubmit.setAttribute('type', 'submit');
+
+//   accountHeader.innerHTML = 'Account Settings'
+//   userFirstName.value = userData.firstName;
+//   userLastName.value = userData.lastName;
+//   userEmail.value = userData.email;
+//   userPassword.value = userData.password;
+//   userSubmit.value = 'Save & Return';
+
+//   userInfo.appendChild(userFirstName);
+//   userInfo.appendChild(userLastName);
+//   userInfo.appendChild(userEmail);
+//   userInfo.appendChild(userPassword);
+//   userInfo.appendChild(userSubmit);
+//   accountHeaderDiv.appendChild(accountHeader);
+//   accountSettingsDiv.appendChild(accountHeaderDiv);
+//   accountSettingsDiv.appendChild(userInfo);
+//   mainSection.appendChild(accountSettingsDiv);
+// }
+
+// function editListItem(list) {
+//   const listTitle = list.firstChild.firstChild.innerText;
+//   const listEditForm = document.createElement('form')
+//   const listEditInput = document.createElement('input');
   
-  for (let list of userData.lists) {
-    if(list.name === oldName) {
-      list.name = newName;
-      localStorage.setItem(sessionUser, JSON.stringify(userData));
+//   // list item
+//   list.classList.remove('list-item')
+//   list.classList.add('list-item-edit-view');
+//   // list management div
+//   list.children[1].classList.remove('list-management');
+//   list.children[1].classList.add('list-management-edit-view');
+//   // list edit link
+//   list.children[1].children[0].classList.remove('list-edit-link');
+//   list.children[1].children[0].classList.add('list-edit-link-edit-view');
+//   // list edit span
+//   list.children[1].children[0].children[0].classList.remove('list-edit-btn');
+//   list.children[1].children[0].children[0].classList.add('list-edit-btn-edit-view');
+//   // remove button
+//   list.children[1].children[1].classList.remove('remove-item');
+//   list.children[1].children[1].classList.add('remove-item-edit-view');
+
+//   listEditForm.classList.add('edit-list-form');
+//   listEditInput.classList.add('list-edit-input');
+//   listEditInput.setAttribute('type', 'text');
+//   listEditInput.required = true;
+//   listEditInput.value = listTitle;
+
+//   listEditForm.appendChild(listEditInput);
+//   list.replaceChild(listEditForm, list.firstChild);
+
+//   listEditForm.addEventListener('submit', (e) => {
+//     e.preventDefault();
+//     updateListName(listTitle, listEditInput.value.trim(), list);
+//   });
+// }
+
+// function updateListName(oldName, newName, parent) {
+//   const userData = JSON.parse(localStorage.getItem(sessionUser));
+//   const listLink = document.createElement('a');
+//   const listText = document.createElement('span');
+//   const listForm = parent.firstChild;
+  
+//   for (let list of userData.lists) {
+//     if(list.name === oldName) {
+//       list.name = newName;
+//       localStorage.setItem(sessionUser, JSON.stringify(userData));
       
-      // list item
-      parent.classList.remove('list-item-edit-view');
-      parent.classList.add('list-item');
-      // list management div
-      parent.children[1].classList.remove('list-management-edit-view');
-      parent.children[1].classList.add('list-management');
-      // list edit link
-      parent.children[1].children[0].classList.remove('list-edit-link-edit-view');
-      parent.children[1].children[0].classList.add('list-edit-link');
-      // list edit span
-      parent.children[1].children[0].children[0].classList.remove('list-edit-btn-edit-view');
-      parent.children[1].children[0].children[0].classList.add('list-edit-btn');
-      // remove button
-      parent.children[1].children[1].classList.remove('remove-item-edit-view');
-      parent.children[1].children[1].classList.add('remove-item');
+//       // list item
+//       parent.classList.remove('list-item-edit-view');
+//       parent.classList.add('list-item');
+//       // list management div
+//       parent.children[1].classList.remove('list-management-edit-view');
+//       parent.children[1].classList.add('list-management');
+//       // list edit link
+//       parent.children[1].children[0].classList.remove('list-edit-link-edit-view');
+//       parent.children[1].children[0].classList.add('list-edit-link');
+//       // list edit span
+//       parent.children[1].children[0].children[0].classList.remove('list-edit-btn-edit-view');
+//       parent.children[1].children[0].children[0].classList.add('list-edit-btn');
+//       // remove button
+//       parent.children[1].children[1].classList.remove('remove-item-edit-view');
+//       parent.children[1].children[1].classList.add('remove-item');
 
-      listLink.classList.add('list-link');
-      listText.classList.add('item-text');
-      listText.innerText = newName;
+//       listLink.classList.add('list-link');
+//       listText.classList.add('item-text');
+//       listText.innerText = newName;
 
-      listLink.appendChild(listText);
-      parent.replaceChild(listLink, listForm);
-    }
-}
-}
+//       listLink.appendChild(listText);
+//       parent.replaceChild(listLink, listForm);
+//     }
+// }
+// }
 
 function editTodoItem(todo) {
   const todoName = todo.children[0].children[1].innerText;
@@ -595,6 +651,12 @@ function updateTodoName(oldName, newName, list, parent) {
     }
   }
 }
+
+
+
+
+
+
 // FUNCTIONS 
 
 // set signup inputs to local storage
@@ -791,7 +853,18 @@ function checkedStatusLocalStorage(listName, itemName) {
       }
     }
   }
+}
 
+function updateListName(oldList, newList, parent, child) {
+  let userData = JSON.parse(localStorage.getItem(sessionUser));
+
+  for (let list of userData.lists) {
+    if (list.name == oldList) {
+      list.name = newList;
+      localStorage.setItem(sessionUser, JSON.stringify(userData));
+    }
+  }
+  parent.replaceChild(updatedListItemTemp(newList), child);
 }
 
 // EVENT LISTENERS
@@ -852,6 +925,8 @@ addListForm.addEventListener('submit', (e) => {
   e.target.children[1].value = '';
 });
 
+
+
 // list item interaction
 listContainer.addEventListener('click', (e) => {
   e.preventDefault();
@@ -867,10 +942,17 @@ listContainer.addEventListener('click', (e) => {
     mainSection.appendChild(todoContainerTemp(e.target.innerText));
   }
   // editing the item's text
-  // if (e.target.classList.contains('list-edit-btn')) {
-  //   editListItem(e.target.parentElement.parentElement.parentElement);
-  // }
+  if (e.target.classList.contains('list-edit-span')) {
+    let listName = e.target.parentElement.parentElement.parentElement.children[0].children[0].innerText;
+    let listParent = e.target.parentElement.parentElement.parentElement.parentElement;
+
+    listParent.replaceChild(editlistItemTemp(listName), e.target.parentElement.parentElement.parentElement);
+    // listContainer.appendChild(editListFormTemp('test'))
+
+  }
 });
+
+
 
 // add todo items
 addTodoForm.addEventListener('submit', (e) => {
@@ -1007,6 +1089,6 @@ todoDiv.addEventListener('click', (e) => {
 
 todoContainer.addEventListener('click', (e) => {
   if (e.target.classList.contains('checkbox')) {
-    checkedStatusLocalStorage(todoHeaderDiv.children[0].textContent, e.target.nextElementSibling.textContent);
+    // checkedStatusLocalStorage(todoHeaderDiv.children[0].textContent, e.target.nextElementSibling.textContent);
   }
 });
