@@ -748,8 +748,8 @@ function updateTodoName(oldTodo, newTodo, listName, parent, child) {
 
 // EVENT LISTENERS
 
-mainSection.appendChild(introHeaderTemp())
-mainSection.appendChild(introButtonsTemp())
+mainSection.appendChild(introHeaderTemp());
+mainSection.appendChild(introButtonsTemp());
 
 // load signin/signup page
 introButtons.addEventListener('click', (e) => {
@@ -828,8 +828,6 @@ listContainer.addEventListener('click', (e) => {
     let listName = e.target.parentElement.parentElement.parentElement.children[0].children[0].innerText;
 
     listParent.replaceChild(editlistItemTemp(listName), listItem);
-    // listContainer.appendChild(editListFormTemp('test'))
-
   }
 });
 
@@ -895,6 +893,13 @@ primaryNav.addEventListener('click', (e) => {
     mainSection.appendChild(accountSettingsFormTemp());
   }
   // signout
+  if (e.target.classList.contains('signout-btn')) {
+    while(mainSection.firstChild) {
+      mainSection.removeChild(mainSection.firstChild);
+    }
+    mainSection.appendChild(introHeaderTemp());
+    mainSection.appendChild(introButtonsTemp());
+  }
 });
 
 // secondary nav interagtion
@@ -916,6 +921,13 @@ secondaryNav.addEventListener('click', (e) => {
     mainSection.appendChild(accountSettingsFormTemp());
   }
   // signout
+  if (e.target.classList.contains('signout-btn')) {
+    while(mainSection.firstChild) {
+      mainSection.removeChild(mainSection.firstChild);
+    }
+    mainSection.appendChild(introHeaderTemp());
+    mainSection.appendChild(introButtonsTemp());
+  }
 });
 
 // tertiary nav integration
@@ -927,54 +939,11 @@ tertiaryNav.addEventListener('click', (e) => {
     mainSection.replaceChild(listContainerTemp(), accountSettingsFormTemp());
   }
   // signout
-})
-
-
-
-// mainSection.addEventListener('click', (e) => {
-//   console.log(e.target)
-// })
-
-
-
-// todoBackButton.addEventListener('click', (e) => {
-//   e.preventDefault();
-//   todoNav.remove();
-//   todoDiv.remove();
-//   loadDashboard();
-// });
-
-// addTodoForm.addEventListener('submit', (e) => {
-//   e.preventDefault();
-//   addTodosToLocalStorage();
-//   addTodosToListPage();
-//   addTodoInput.value = '';
-// });
-
-// todoDiv.addEventListener('click', (e) => {
-//   if (e.target.classList.contains('remove-todo')) {
-//     removeTodo(e);
-//   }
-//   if (e.target.classList.contains('todo-edit-btn')) {
-//     editTodoItem(e.target.parentElement.parentElement.parentElement);
-//   }
-// });
-
-// accountSettings.addEventListener('click', (e) => {
-//   e.preventDefault();
-//   loadAccountSettings();
-// });
-
-
-
-// signOut.addEventListener('click', (e) => {
-//   dashboardHeaderBar.remove();
-//   dashboardNav.remove();
-//   todoNav.remove();
-//   dashboardList.remove();
-//   todoDiv.remove();
-//   accountSettingsDiv.remove();
-//   loadIntroHeader();
-//   loadIntroButtons();
-// });
-
+  if (e.target.classList.contains('signout-btn')) {
+    while(mainSection.firstChild) {
+      mainSection.removeChild(mainSection.firstChild);
+    }
+    mainSection.appendChild(introHeaderTemp());
+    mainSection.appendChild(introButtonsTemp());
+  }
+});
