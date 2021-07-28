@@ -793,18 +793,19 @@ signupConfirmationDiv.addEventListener('click', (e) => {
 // add list items
 addListForm.addEventListener('submit', (e) => {
   e.preventDefault();
+  let formInput = e.target.children[1].value.trim();
   // remove existing DOM element
   listContainer.remove();
   // update local storage
-  addListToLocalStorage(e.target.children[1].value.trim());
+  addListToLocalStorage(formInput);
   // go into list item
-  // add new DOM element with updated list item
-  mainSection.appendChild(listContainerTemp());
+  mainSection.replaceChild(secondaryNavTemp(), primaryNavTemp());
+  mainSection.replaceChild(todoHeaderTemp(formInput), addListFormTemp());
+  mainSection.appendChild(addTodoFormTemp());
+  mainSection.appendChild(todoContainerTemp(formInput));
   // clear form of input value
   e.target.children[1].value = '';
 });
-
-
 
 // list item interaction
 listContainer.addEventListener('click', (e) => {
