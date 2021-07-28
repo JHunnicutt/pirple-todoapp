@@ -3,94 +3,6 @@
 const appBody = document.body;
 const mainSection = document.getElementById('main-section');
 
-// header
-// const introHeaderBar = document.createElement('header');
-// const appTitle = document.createElement('h1');
-// const appTagline = document.createElement('h5');
-
-// intro buttons
-// const introBtnDiv = document.createElement('div');
-// const introBtnLogin = document.createElement('button');
-// const introBtnSignup = document.createElement('button');
-
-// signin form
-// const signinDiv = document.createElement('div');
-// const signinHeader = document.createElement('h2');
-// const signinForm = document.createElement('form');
-// const signinFormEmail = document.createElement('input');
-// const signinFormPassword = document.createElement('input');
-// const signinFormSubmit = document.createElement('button');
-// const signinErrorDiv = document.createElement('div');
-
-// signup form
-// const signupDiv = document.createElement('div');
-const signupHeader = document.createElement('h2');
-// const signupForm = document.createElement('form');
-const signupFormFName = document.createElement('input');
-const signupFormLName = document.createElement('input');
-const signupFormEmail = document.createElement('input');
-const signupFormPassword = document.createElement('input');
-const signupFormTerms = document.createElement('input');
-const signupFormTermsLabel = document.createElement('label');
-const signupFormSubmit = document.createElement('button');
-const termsDiv = document.createElement('div');
-let signupErrorDiv = document.createElement('div');
-
-// signup confirmation
-const confirmationDiv = document.createElement('div');
-const confirmationHeader = document.createElement('h2');
-const confTableDiv = document.createElement('div');
-const confLabelDiv = document.createElement('div');
-const confLabelFName = document.createElement('p');
-const confLabelLName = document.createElement('p');
-const confLabelEmail = document.createElement('p');
-const confInfoDiv = document.createElement('div');
-const confInfoFName = document.createElement('p');
-const confInfoLName = document.createElement('p');
-const confInfoEmail = document.createElement('p');
-const confSubmitButton = document.createElement('button');
-let sessionUser;
-
-// dashboard
-const dashboardHeaderBar = document.createElement('header');
-// const dashboardNav = document.createElement('nav');
-// const accountSettings = document.createElement('button');
-const signOut = document.createElement('button');
-const dashboardTitle = document.createElement('h1');
-const dashboardList = document.createElement('div');
-// const addListForm = document.createElement('form');
-const addListBtn = document.createElement('button');
-const addListInput = document.createElement('input');
-const noListMsg = document.createElement('div');
-const materialDesignUpArrow = document.createElement('span');
-const noListMsgText = document.createElement('p');
-// const listContainer = document.createElement('div');
-const listUL = document.createElement('ul');
-
-// list items page
-// const todoNav = document.createElement('nav');
-const todoBackButton = document.createElement('button');
-const todoDiv = document.createElement('div');
-// const todoHeaderDiv = document.createElement('div');
-const todoHeader = document.createElement('h3');
-// const addTodoForm = document.createElement('form');
-const addTodoBtn = document.createElement('button');
-const addTodoInput = document.createElement('input');
-const todoList = document.createElement('ul');
-// let todoListItem = document.createElement('li');
-
-// account settings page
-// const accountSettingsDiv = document.createElement('div');
-const accountHeaderDiv = document.createElement('div');
-const accountHeader = document.createElement('h3');
-const userInfo = document.createElement('form');
-const userFirstName = document.createElement('input');
-const userLastName = document.createElement('input');
-const userEmail = document.createElement('input');
-const userPassword = document.createElement('input');
-const userSubmit = document.createElement('input');
-
-
 // new user constructor
 let userName;
 let User = function (firstName, lastName, email, password, agreedToTerms) {
@@ -221,19 +133,6 @@ function dashboardHeaderTemp() {
   return dashboardHeader;
 }
 
-// dashboard navigation bar
-const primaryNav = document.createElement('nav');
-
-function primaryNavTemp() {
-  primaryNav.classList.add('primary-nav');
-
-  primaryNav.innerHTML = `
-    <button id='account-settings-btn' class='account-settings-btn btn-teal'>Account Settings</button>
-    <button id='signout-btn' class='signout-btn btn-white'>Sign Out</button>`
-  
-  return primaryNav;
-}
-
 // add new list form and button
 const addListForm = document.createElement('form');
 
@@ -267,7 +166,6 @@ function listContainerTemp() {
         ${userData.lists.map((list) => `${listItemTemp(list.name)}`).join('')}
       </ul>`;
   }
-
   return listContainer;
 }
 
@@ -312,19 +210,6 @@ function listItemEditTemp(name) {
       <input class='list-edit-input' type=text value='${name}' required>
     </form>
   </li>`;
-}
-
-// todo page or secondary nav
-const secondaryNav = document.createElement('nav');
-
-function secondaryNavTemp() {
-  secondaryNav.classList.add('secondary-nav');
-  secondaryNav.innerHTML = `
-    <button class='secondary-back-btn btn-teal'>Back to Dashboard</button>
-    <button class='account-settings-btn btn-teal'>Account Settings</button>
-    <button class='signout-btn btn-white'>Sign Out</button>`;
-
-  return secondaryNav;
 }
 
 // todo item header
@@ -414,18 +299,6 @@ function updatedTodoItemTemp(name, check) {
   return updatedTodoItem;
 }
 
-// tertiary nav
-const tertiaryNav = document.createElement('nav');
-
-function tertiaryNavTemp() {
-  tertiaryNav.classList.add('tertiary-nav')
-  tertiaryNav.innerHTML = `
-    <button class='secondary-back-btn btn-teal'>Back to Dashboard</button>
-    <button id='signout-btn' class='signout-btn btn-white'>Sign Out</button>`;
-
-  return tertiaryNav;
-}
-
 // account settings page
 const accountSettingsHeader = document.createElement('div');
 
@@ -510,15 +383,43 @@ function editTodoItemFormTemp(formValue) {
   return editTodoForm;
 }
 
+// dashboard navigation bar
+const primaryNav = document.createElement('nav');
 
+function primaryNavTemp() {
+  primaryNav.classList.add('primary-nav');
 
+  primaryNav.innerHTML = `
+    <button id='account-settings-btn' class='account-settings-btn btn-teal'>Account Settings</button>
+    <button id='signout-btn' class='signout-btn btn-white'>Sign Out</button>`
+  
+  return primaryNav;
+}
 
+// todo page or secondary nav
+const secondaryNav = document.createElement('nav');
 
+function secondaryNavTemp() {
+  secondaryNav.classList.add('secondary-nav');
+  secondaryNav.innerHTML = `
+    <button class='secondary-back-btn btn-teal'>Back to Dashboard</button>
+    <button class='account-settings-btn btn-teal'>Account Settings</button>
+    <button class='signout-btn btn-white'>Sign Out</button>`;
 
+  return secondaryNav;
+}
 
+// tertiary nav
+const tertiaryNav = document.createElement('nav');
 
+function tertiaryNavTemp() {
+  tertiaryNav.classList.add('tertiary-nav')
+  tertiaryNav.innerHTML = `
+    <button class='secondary-back-btn btn-teal'>Back to Dashboard</button>
+    <button id='signout-btn' class='signout-btn btn-white'>Sign Out</button>`;
 
-
+  return tertiaryNav;
+}
 
 // FUNCTIONS 
 
@@ -830,8 +731,6 @@ listContainer.addEventListener('click', (e) => {
     listParent.replaceChild(editlistItemTemp(listName), listItem);
   }
 });
-
-
 
 // add todo items
 addTodoForm.addEventListener('submit', (e) => {
